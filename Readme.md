@@ -1,7 +1,7 @@
 # Личный проект «Что посмотреть»
 
 * Студент: [Roman Perevala](https://up.htmlacademy.ru/react/8/user/8212).
-* Наставник: `Неизвестно`.
+* Наставник: [Алексей Пудников](https://htmlacademy.ru/profile/id71418).
 
 ---
 
