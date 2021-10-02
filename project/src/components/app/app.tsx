@@ -1,8 +1,15 @@
 import MainScreen from '../main-screen/main-screen';
 
-function App(): JSX.Element {
+type AppScreenProps = {
+  title: string,
+  genre: string,
+  year: number
+};
+
+function App(props: AppScreenProps): JSX.Element {
+  const {title, genre, year} = props;
   return (
-    <MainScreen title="The Grand Budapest Hotel" genre="Drama" year={2014} />
+    <MainScreen title={title} genre={genre} year={year} />
   );
 }
 
