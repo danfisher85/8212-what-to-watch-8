@@ -1,7 +1,13 @@
 import FilmCard from '../film-card/film-card';
 
-function MainScreen(): JSX.Element {
-  const amountOfFilms = 20;
+type MainScreenProps = {
+  title: string,
+  genre: string,
+  year: number
+};
+
+function MainScreen(props: MainScreenProps): JSX.Element {
+  const {title, genre, year} = props;
 
   return (
     <>
@@ -36,18 +42,18 @@ function MainScreen(): JSX.Element {
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="{title} poster" width="218" height="327" />
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">The Grand Budapest Hotel</h2>
+              <h2 className="film-card__title">{title}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">Drama</span>
-                <span className="film-card__year">2014</span>
+                <span className="film-card__genre">{genre}</span>
+                <span className="film-card__year">{year}</span>
               </p>
 
               <div className="film-card__buttons">
-              <button className="btn btn--play film-card__button" type="button">
+                <button className="btn btn--play film-card__button" type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use href="#play-s"></use>
                   </svg>
@@ -103,13 +109,26 @@ function MainScreen(): JSX.Element {
           </ul>
 
           <div className="catalog__films-list">
-            {
-              Array.from({length: amountOfFilms})
-                .map((_, index) => (
-                  <FilmCard key={index} />
-                )
-              )
-            }
+            <FilmCard />
+            <FilmCard />
+            <FilmCard />
+            <FilmCard />
+            <FilmCard />
+            <FilmCard />
+            <FilmCard />
+            <FilmCard />
+            <FilmCard />
+            <FilmCard />
+            <FilmCard />
+            <FilmCard />
+            <FilmCard />
+            <FilmCard />
+            <FilmCard />
+            <FilmCard />
+            <FilmCard />
+            <FilmCard />
+            <FilmCard />
+            <FilmCard />
           </div>
 
           <div className="catalog__more">
@@ -132,7 +151,7 @@ function MainScreen(): JSX.Element {
         </footer>
       </div>
     </>
-  )
+  );
 }
 
 export default MainScreen;

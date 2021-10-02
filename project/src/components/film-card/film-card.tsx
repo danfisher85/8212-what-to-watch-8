@@ -8,7 +8,7 @@ function FilmCard(): JSX.Element {
         <a className="small-film-card__link" href="film-page.html">Fantastic Beasts: The Crimes of Grindelwald</a>
       </h3>
     </article>
-  )
+  );
 }
 
 export default FilmCard;
