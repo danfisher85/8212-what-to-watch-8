@@ -1,6 +1,8 @@
 import FilmCard from '../film-card/film-card';
 
 function MainScreen(): JSX.Element {
+  const amountOfFilms = 20;
+
   return (
     <>
       <section className="film-card">
@@ -101,7 +103,13 @@ function MainScreen(): JSX.Element {
           </ul>
 
           <div className="catalog__films-list">
-            <FilmCard />
+            {
+              Array.from({length: amountOfFilms})
+                .map((_, index) => (
+                  <FilmCard key={index} />
+                )
+              )
+            }
           </div>
 
           <div className="catalog__more">
