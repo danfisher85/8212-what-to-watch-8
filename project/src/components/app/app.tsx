@@ -1,10 +1,10 @@
 import MainScreen from '../main-screen/main-screen';
 
-type AppScreenProps = {
+interface AppScreenProps {
   title: string,
   genre: string,
   year: number
-};
+}
 
 function App(props: AppScreenProps): JSX.Element {
   const {title, genre, year} = props;
