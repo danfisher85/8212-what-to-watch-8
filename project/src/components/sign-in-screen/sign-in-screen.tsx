@@ -1,4 +1,4 @@
-import Logo from '../logo/logo';
+import Logo from 'components/logo/logo';
 
 function SignInScreen(): JSX.Element {
   return (

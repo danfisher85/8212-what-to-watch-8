@@ -1,5 +1,5 @@
-import Logo from '../logo/logo';
-import FilmCard from '../film-card/film-card';
+import Logo from 'components/logo/logo';
+import FilmCard from 'components/film-card/film-card';
 
 type MainScreenProps = {
   title: string,

@@ -1,13 +1,13 @@
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
-import {AppRoute, AuthorizationStatus} from '../../const';
-import PrivateRoute from '../private-route/private-route';
-import MainScreen from '../main-screen/main-screen';
-import SignInScreen from '../sign-in-screen/sign-in-screen';
-import MyListScreen from '../my-list-screen/my-list-screen';
-import PlayerScreen from '../player-screen/player-screen';
-import FilmScreen from '../film-screen/film-screen';
-import AddReviewScreen from '../add-review-screen/add-review-screen';
-import NotFoundScreen from '../not-found-screen/not-found-screen';
+import {AppRoute, AuthorizationStatus} from 'const';
+import PrivateRoute from 'components/private-route/private-route';
+import MainScreen from 'components/main-screen/main-screen';
+import SignInScreen from 'components/sign-in-screen/sign-in-screen';
+import MyListScreen from 'components/my-list-screen/my-list-screen';
+import PlayerScreen from 'components/player-screen/player-screen';
+import FilmScreen from 'components/film-screen/film-screen';
+import AddReviewScreen from 'components/add-review-screen/add-review-screen';
+import NotFoundScreen from 'components/not-found-screen/not-found-screen';
 
 interface AppScreenProps {
   title: string,
