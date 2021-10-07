@@ -1,4 +1,6 @@
 import Logo from '../logo/logo';
+import {AppRoute} from '../../const';
+import {Link} from 'react-router-dom';
 
 function NotFoundScreen(): JSX.Element {
   return (
@@ -11,7 +13,7 @@ function NotFoundScreen(): JSX.Element {
 
       <div className="sign-in user-page__content">
         <h1>OOOOPS! Page not Found</h1>
-        <p>The page you are looking for has been moved or doesn’t exist anymore, if you like you can return to our <a href="/">homepage</a>.</p>
+        <p>The page you are looking for has been moved or doesn’t exist anymore, if you like you can return to our <Link to={AppRoute.Root}>homepage</Link>.</p>
       </div>
 
       <footer className="page-footer">
