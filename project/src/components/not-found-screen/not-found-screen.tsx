@@ -12,7 +12,7 @@ function NotFoundScreen(): JSX.Element {
       </header>
 
       <div className="sign-in user-page__content">
-        <h1>OOOOPS! Page not Found</h1>
+        <h2>OOOOPS! Page not Found</h2>
         <p>The page you are looking for has been moved or doesn’t exist anymore, if you like you can return to our <Link to={AppRoute.Root}>homepage</Link>.</p>
       </div>
 
