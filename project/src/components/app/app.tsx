@@ -24,9 +24,7 @@ function App(props: AppScreenProps): JSX.Element {
         <Route exact path={AppRoute.Root}>
           <MainScreen title={title} genre={genre} year={year} />
         </Route>
-        <Route exact path={AppRoute.SignIn}>
-          <SignInScreen />
-        </Route>
+        <Route exact path={AppRoute.SignIn} component={SignInScreen} />
         <PrivateRoute
           exact
           path={AppRoute.MyList}
@@ -34,18 +32,10 @@ function App(props: AppScreenProps): JSX.Element {
           authorizationStatus={AuthorizationStatus.NoAuth}
         >
         </PrivateRoute>
-        <Route exact path={AppRoute.Player}>
-          <PlayerScreen />
-        </Route>
-        <Route exact path={AppRoute.Film}>
-          <FilmScreen />
-        </Route>
-        <Route exact path={AppRoute.AddReview}>
-          <AddReviewScreen />
-        </Route>
-        <Route>
-          <NotFoundScreen />
-        </Route>
+        <Route exact path={AppRoute.Player} component={PlayerScreen} />
+        <Route exact path={AppRoute.Film} component={FilmScreen} />
+        <Route exact path={AppRoute.AddReview} component={AddReviewScreen} />
+        <Route component={NotFoundScreen} />
       </Switch>
     </BrowserRouter>
   );
