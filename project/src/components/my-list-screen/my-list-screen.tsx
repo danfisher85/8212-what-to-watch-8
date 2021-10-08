@@ -4,7 +4,7 @@ function MyListScreen(): JSX.Element {
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
-        <Logo light={false} />
+        <Logo />
 
         <h1 className="page-title user-page__title">My list</h1>
 
@@ -110,7 +110,7 @@ function MyListScreen(): JSX.Element {
       </section>
 
       <footer className="page-footer">
-        <Logo light />
+        <Logo isInFooter />
 
         <div className="copyright">
           <p>© 2019 What to watch Ltd.</p>

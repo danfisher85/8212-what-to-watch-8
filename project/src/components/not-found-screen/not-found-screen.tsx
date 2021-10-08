@@ -6,7 +6,7 @@ function NotFoundScreen(): JSX.Element {
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
-        <Logo light={false} />
+        <Logo />
 
         <h1 className="page-title user-page__title">404</h1>
       </header>
@@ -17,7 +17,7 @@ function NotFoundScreen(): JSX.Element {
       </div>
 
       <footer className="page-footer">
-        <Logo light />
+        <Logo isInFooter />
 
         <div className="copyright">
           <p>© 2019 What to watch Ltd.</p>

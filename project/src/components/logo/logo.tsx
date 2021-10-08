@@ -3,15 +3,15 @@ import clsx from 'clsx';
 import {AppRoute} from 'configs/routes';
 
 type LogoProps = {
-  light: boolean;
+  isInFooter?: boolean;
 };
 
 function Logo(props: LogoProps): JSX.Element {
-  const {light} = props;
+  const {isInFooter} = props;
 
   return (
     <div className="logo">
-      <Link to={AppRoute.Root} className={clsx('logo__link', light && 'logo__link--light')}>
+      <Link to={AppRoute.Root} className={clsx('logo__link', isInFooter && 'logo__link--light')}>
         <span className="logo__letter logo__letter--1">W</span>
         <span className="logo__letter logo__letter--2">T</span>
         <span className="logo__letter logo__letter--3">W</span>

@@ -20,7 +20,7 @@ function MainScreen(props: MainScreenProps): JSX.Element {
         <h1 className="visually-hidden">WTW</h1>
 
         <header className="page-header film-card__head">
-          <Logo light={false} />
+          <Logo />
 
           <ul className="user-block">
             <li className="user-block__item">
@@ -132,7 +132,7 @@ function MainScreen(props: MainScreenProps): JSX.Element {
         </section>
 
         <footer className="page-footer">
-          <Logo light />
+          <Logo isInFooter />
 
           <div className="copyright">
             <p>© 2019 What to watch Ltd.</p>
