@@ -1,5 +1,6 @@
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
-import {AppRoute, AuthorizationStatus} from 'const';
+import {AppRoute} from 'configs/routes';
+import {AuthorizationStatus} from 'configs/auth-status';
 import PrivateRoute from 'components/private-route/private-route';
 import MainScreen from 'components/main-screen/main-screen';
 import SignInScreen from 'components/sign-in-screen/sign-in-screen';

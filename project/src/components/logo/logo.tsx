@@ -1,6 +1,6 @@
 import {Link} from 'react-router-dom';
 import clsx from 'clsx';
-import {AppRoute} from 'const';
+import {AppRoute} from 'configs/routes';
 
 type LogoProps = {
   light: boolean;
