@@ -15,9 +15,12 @@ function PrivateRoute(props: PrivateRouteProps): JSX.Element {
     <Route
       exact={exact}
       path={path}
-      render={() => (
-        authorizationStatus === AuthorizationStatus.Auth ? render() : <Redirect to={AppRoute.SignIn} />
-      )}
+      render={() => {
+        if (authorizationStatus === AuthorizationStatus.Auth) {
+          return render();
+        }
+        return <Redirect to={AppRoute.SignIn} />;
+      }}
     />
   );
 }
