@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/app/app';
+import App from 'components/app/app';
 
 const PromoFilm = {
   title: 'The Grand Budapest Hotel',
