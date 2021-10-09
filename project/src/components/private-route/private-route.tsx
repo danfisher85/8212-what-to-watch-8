@@ -4,20 +4,24 @@ import {AppRoute} from 'configs/routes';
 import {AuthorizationStatus} from 'configs/auth-status';
 
 type PrivateRouteProps = RouteProps & {
+  render: () => JSX.Element;
   authorizationStatus: AuthorizationStatus;
 }
 
 function PrivateRoute(props: PrivateRouteProps): JSX.Element {
-  const {exact, path, children, authorizationStatus} = props;
+  const {exact, path, render, authorizationStatus} = props;
 
   return (
-    <Route exact={exact} path={path}>
-      {authorizationStatus === AuthorizationStatus.Auth ? (
-        children
-      ) : (
-        <Redirect to={AppRoute.SignIn} />
-      )}
-    </Route>
+    <Route
+      exact={exact}
+      path={path}
+      render={() => {
+        if (authorizationStatus === AuthorizationStatus.Auth) {
+          return render();
+        }
+        return <Redirect to={AppRoute.SignIn} />;
+      }}
+    />
   );
 }
 

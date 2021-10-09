@@ -25,8 +25,12 @@ function App(props: AppScreenProps): JSX.Element {
           <MainScreen title={title} genre={genre} year={year} />
         </Route>
         <Route exact path={AppRoute.SignIn} component={SignInScreen} />
-        <PrivateRoute exact path={AppRoute.MyList} authorizationStatus={AuthorizationStatus.NoAuth}>
-          <MyListScreen />
+        <PrivateRoute
+          exact
+          path={AppRoute.MyList}
+          render={() => <MyListScreen />}
+          authorizationStatus={AuthorizationStatus.NoAuth}
+        >
         </PrivateRoute>
         <Route exact path={AppRoute.Player} component={PlayerScreen} />
         <Route exact path={AppRoute.Film} component={FilmScreen} />
