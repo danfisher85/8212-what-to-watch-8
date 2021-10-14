@@ -10,7 +10,7 @@ function FilmCard(props: FilmCardProps): JSX.Element {
   const {id, previewImage, name} = props;
 
   return (
-    <article className="small-film-card catalog__films-card">
+    <article className="small-film-card catalog__films-card" data-id={id}>
       <div className="small-film-card__image">
         <img src={previewImage} alt={name} width="280" height="175" />
       </div>

@@ -19,12 +19,12 @@ interface AppScreenProps {
 }
 
 function App(props: AppScreenProps): JSX.Element {
-  const {title, genre, year} = props;
+  const {title, genre, year, films} = props;
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.Root}>
-          <MainScreen title={title} genre={genre} year={year} />
+          <MainScreen title={title} genre={genre} year={year} films={films} />
         </Route>
         <Route exact path={AppRoute.SignIn} component={SignInScreen} />
         <PrivateRoute

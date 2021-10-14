@@ -1,14 +1,16 @@
 import Logo from 'components/logo/logo';
-import FilmCard from 'components/film-card/film-card';
+import FilmsList from 'components/films-list/films-list';
+import {Films} from 'types/film';
 
 type MainScreenProps = {
   title: string,
   genre: string,
-  year: number
+  year: number,
+  films: Films
 };
 
 function MainScreen(props: MainScreenProps): JSX.Element {
-  const {title, genre, year} = props;
+  const {title, genre, year, films} = props;
 
   return (
     <>
@@ -103,28 +105,7 @@ function MainScreen(props: MainScreenProps): JSX.Element {
             </li>
           </ul>
 
-          <div className="catalog__films-list">
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-          </div>
+          <FilmsList films={films} />
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
