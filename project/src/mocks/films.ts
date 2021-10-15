@@ -1,7 +1,7 @@
-import {Films} from 'types/film';
+import {Film} from 'types/film';
 import {nanoid} from 'nanoid';
 
-export const films: Films = [
+export const films: Film[] = [
   {
     id: nanoid(),
     name: 'Fantastic Beasts: The Crimes of Grindelwald',

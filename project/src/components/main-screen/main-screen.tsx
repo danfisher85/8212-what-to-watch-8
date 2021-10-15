@@ -1,12 +1,12 @@
 import Logo from 'components/logo/logo';
 import FilmsList from 'components/films-list/films-list';
-import {Films} from 'types/film';
+import {Film} from 'types/film';
 
 type MainScreenProps = {
   title: string,
   genre: string,
   year: number,
-  films: Films
+  films: Film[]
 };
 
 function MainScreen(props: MainScreenProps): JSX.Element {

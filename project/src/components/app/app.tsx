@@ -9,13 +9,13 @@ import PlayerScreen from 'components/player-screen/player-screen';
 import FilmScreen from 'components/film-screen/film-screen';
 import AddReviewScreen from 'components/add-review-screen/add-review-screen';
 import NotFoundScreen from 'components/not-found-screen/not-found-screen';
-import {Films} from 'types/film';
+import {Film} from 'types/film';
 
 interface AppScreenProps {
   title: string,
   genre: string,
   year: number,
-  films: Films,
+  films: Film[],
 }
 
 function App(props: AppScreenProps): JSX.Element {
