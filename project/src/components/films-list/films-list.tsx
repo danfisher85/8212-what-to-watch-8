@@ -1,20 +1,24 @@
 import {useState} from 'react';
-import {Films} from 'types/film';
+import {Film} from 'types/film';
 import FilmCard from 'components/film-card/film-card';
 
 type FilmsListProps = {
-  films: Films;
+  films: Film[];
 };
 
 function FilmsList(props: FilmsListProps): JSX.Element {
   const {films} = props;
 
-  const [activeFilm, setActiveFilm] = useState(0);
+  const [, setActiveFilm] = useState<Film | null>(null);
+
+  const changeActiveFilm = (film: Film | null) => {
+    setActiveFilm(film);
+  };
 
   return (
-    <div className="catalog__films-list" data-active-film={activeFilm} onMouseEnter={() => setActiveFilm(1)} onMouseLeave={() => setActiveFilm(0)}>
+    <div className="catalog__films-list">
       {films.map((film) =>
-        <FilmCard key={film.id} id={film.id} previewImage={film.previewImage} name={film.name} />,
+        <FilmCard key={film.id} film={film} setActiveFilm={changeActiveFilm} />,
       )}
     </div>
   );
