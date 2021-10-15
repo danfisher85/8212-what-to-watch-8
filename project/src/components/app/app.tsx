@@ -23,20 +23,20 @@ function App(props: AppScreenProps): JSX.Element {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path={AppRoute.Root}>
+        <Route exact path={AppRoute.Root()}>
           <MainScreen title={title} genre={genre} year={year} films={films} />
         </Route>
-        <Route exact path={AppRoute.SignIn} component={SignInScreen} />
+        <Route exact path={AppRoute.SignIn()} component={SignInScreen} />
         <PrivateRoute
           exact
-          path={AppRoute.MyList}
+          path={AppRoute.MyList()}
           render={() => <MyListScreen />}
           authorizationStatus={AuthorizationStatus.NoAuth}
         >
         </PrivateRoute>
-        <Route exact path={AppRoute.Player} component={PlayerScreen} />
-        <Route exact path={AppRoute.Film} component={FilmScreen} />
-        <Route exact path={AppRoute.AddReview} component={AddReviewScreen} />
+        <Route exact path={AppRoute.Player()} component={PlayerScreen} />
+        <Route exact path={AppRoute.Film()} component={FilmScreen} />
+        <Route exact path={AppRoute.AddReview()} component={AddReviewScreen} />
         <Route component={NotFoundScreen} />
       </Switch>
     </BrowserRouter>
