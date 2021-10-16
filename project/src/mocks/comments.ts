@@ -1,7 +1,7 @@
 import {Comment} from 'types/comment';
 import {nanoid} from 'nanoid';
 
-export const Comments: Comment[] = [
+export const comments: Comment[] = [
   {
     id: nanoid(),
     user: {
