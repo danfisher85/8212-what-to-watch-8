@@ -9,16 +9,20 @@ type FilmsListProps = {
 function FilmsList(props: FilmsListProps): JSX.Element {
   const {films} = props;
 
-  const [, setActiveFilm] = useState<Film | null>(null);
+  const [activeFilm, setActiveFilm] = useState<Film | null>(null);
 
-  const changeActiveFilm = (film: Film | null) => {
+  const handleMouseEnter = (film: Film) => {
     setActiveFilm(film);
   };
 
+  const handleMouseLeave = () => {
+    setActiveFilm(null);
+  };
+
   return (
-    <div className="catalog__films-list">
+    <div className="catalog__films-list" data-film-id={activeFilm?.id}>
       {films.map((film) =>
-        <FilmCard key={film.id} film={film} setActiveFilm={changeActiveFilm} />,
+        <FilmCard key={film.id} film={film} handleMouseEnter={handleMouseEnter} handleMouseLeave={handleMouseLeave} />,
       )}
     </div>
   );

@@ -23,10 +23,10 @@ function App(props: AppScreenProps): JSX.Element {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path={AppRoute.Root()}>
+        <Route exact path={AppRoute.Root}>
           <MainScreen films={films} />
         </Route>
-        <Route exact path={AppRoute.SignIn()} component={SignInScreen} />
+        <Route exact path={AppRoute.SignIn} component={SignInScreen} />
         <PrivateRoute
           exact
           path={AppRoute.MyList()}
@@ -37,9 +37,7 @@ function App(props: AppScreenProps): JSX.Element {
         <Route exact path={AppRoute.Player()}>
           <PlayerScreen film={currentFilm}/>
         </Route>
-        <Route exact path={AppRoute.Film()}>
-          <FilmScreen film={currentFilm} films={films}/>
-        </Route>
+        <Route exact path="/films/:id" component={() => <FilmScreen film={currentFilm} films={films} />}/>
         <Route exact path={AppRoute.AddReview()}>
           <AddReviewScreen film={currentFilm}/>
         </Route>
