@@ -62,4 +62,4 @@ export const comments: Comment[] = [
     comment: 'Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director\'s funniest and most exquisitely designed films in years.',
     date: 'December 24, 2016',
   },
-]
+];
