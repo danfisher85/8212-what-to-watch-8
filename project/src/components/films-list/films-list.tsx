@@ -4,7 +4,7 @@ import FilmCard from 'components/film-card/film-card';
 
 interface FilmsListProps {
   films: Film[];
-};
+}
 
 function FilmsList(props: FilmsListProps): JSX.Element {
   const {films} = props;

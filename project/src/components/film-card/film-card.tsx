@@ -5,7 +5,7 @@ interface FilmCardProps {
   film: Film,
   handleMouseEnter: (film: Film) => void,
   handleMouseLeave: () => void,
-};
+}
 
 function FilmCard(props: FilmCardProps): JSX.Element {
   const {film, handleMouseEnter, handleMouseLeave} = props;

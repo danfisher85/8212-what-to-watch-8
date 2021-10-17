@@ -6,7 +6,7 @@ import {Film} from 'types/film';
 
 interface PromoFilmCardProps {
   film: Film;
-};
+}
 
 function PromoFilmCard(props: PromoFilmCardProps): JSX.Element {
   const {film} = props;
