@@ -4,7 +4,7 @@ import UserBlock from 'components/user-block/user-block';
 import {AppRoute} from 'configs/routes';
 import {Film} from 'types/film';
 
-type PromoFilmCardProps = {
+interface PromoFilmCardProps {
   film: Film;
 };
 

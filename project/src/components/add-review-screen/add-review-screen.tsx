@@ -4,7 +4,7 @@ import UserBlock from 'components/user-block/user-block';
 import AddReviewForm from 'components/add-review-form/add-review-form';
 import {Film} from 'types/film';
 
-type AddReviewScreenProps = {
+interface AddReviewScreenProps {
   film: Film;
 }
 

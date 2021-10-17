@@ -6,7 +6,7 @@ import {RELATED_FILMS} from 'configs/misc';
 import {AppRoute} from 'configs/routes';
 import {Film} from 'types/film';
 
-type FilmScreenProps = {
+interface FilmScreenProps {
   film: Film;
   films: Film[];
 }

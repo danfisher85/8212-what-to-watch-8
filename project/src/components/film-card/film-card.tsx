@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom';
 import {Film} from 'types/film';
 
-type FilmCardProps = {
+interface FilmCardProps {
   film: Film,
   handleMouseEnter: (film: Film) => void,
   handleMouseLeave: () => void,

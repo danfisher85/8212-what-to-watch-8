@@ -2,7 +2,7 @@ import {useState} from 'react';
 import {Film} from 'types/film';
 import FilmCard from 'components/film-card/film-card';
 
-type FilmsListProps = {
+interface FilmsListProps {
   films: Film[];
 };
 
