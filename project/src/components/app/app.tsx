@@ -1,6 +1,6 @@
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import {AppRoute} from 'configs/routes';
-import {AuthorizationStatus, CURRENT_FILM} from 'configs/misc';
+import {AuthorizationStatus} from 'configs/misc';
 import PrivateRoute from 'components/private-route/private-route';
 import MainScreen from 'components/main-screen/main-screen';
 import SignInScreen from 'components/sign-in-screen/sign-in-screen';
@@ -18,7 +18,15 @@ interface AppScreenProps {
 function App(props: AppScreenProps): JSX.Element {
   const {films} = props;
 
-  const currentFilm = films[CURRENT_FILM];
+  const getFilmById = (id: number) => {
+    const foundFilm = films.find((film) => film.id === Number(id));
+
+    if (!foundFilm) {
+      throw new Error(`There is no such film with id=${id}`);
+    }
+
+    return foundFilm;
+  };
 
   return (
     <BrowserRouter>
@@ -34,23 +42,27 @@ function App(props: AppScreenProps): JSX.Element {
           authorizationStatus={AuthorizationStatus.NoAuth}
         >
         </PrivateRoute>
-        <Route exact path={AppRoute.Player}>
-          <PlayerScreen film={currentFilm}/>
-        </Route>
-        <Route exact path={AppRoute.Film} component={(params: any) => {
-          const {match} = params;
-
-          // eslint-disable-next-line no-console
-          console.log(match.params?.id);
-
+        <Route exact path={AppRoute.Player} component={(params: any) => {
+          const film = getFilmById(params.match.params.id);
           return (
-            <FilmScreen film={currentFilm} films={films} />
+            <PlayerScreen film={film}/>
           );
         }}
         />
-        <Route exact path={AppRoute.AddReview}>
-          <AddReviewScreen film={currentFilm}/>
-        </Route>
+        <Route exact path={AppRoute.Film} component={(params: any) => {
+          const film = getFilmById(params.match.params.id);
+          return (
+            <FilmScreen film={film} films={films}/>
+          );
+        }}
+        />
+        <Route exact path={AppRoute.AddReview} component={(params: any) => {
+          const film = getFilmById(params.match.params.id);
+          return (
+            <AddReviewScreen film={film}/>
+          );
+        }}
+        />
         <Route component={NotFoundScreen} />
       </Switch>
     </BrowserRouter>

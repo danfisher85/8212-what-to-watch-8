@@ -1,5 +1,5 @@
 export type Film = {
-  id: string;
+  id: number;
   name: string;
   posterImage: string;
   previewImage: string;

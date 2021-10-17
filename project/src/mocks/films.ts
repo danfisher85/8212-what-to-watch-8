@@ -1,9 +1,8 @@
 import {Film} from 'types/film';
-import {nanoid} from 'nanoid';
 
 export const films: Film[] = [
   {
-    id: nanoid(),
+    id: 1,
     name: 'Fantastic Beasts: The Crimes of Grindelwald',
     posterImage: 'img/fantastic-beasts-the-crimes-of-grindelwald.jpg',
     previewImage: 'img/fantastic-beasts-the-crimes-of-grindelwald.jpg',
@@ -22,7 +21,7 @@ export const films: Film[] = [
     isFavorite: false,
   },
   {
-    id: nanoid(),
+    id: 2,
     name: 'Bohemian Rhapsody',
     posterImage: 'img/bohemian-rhapsody.jpg',
     previewImage: 'img/bohemian-rhapsody.jpg',
@@ -41,7 +40,7 @@ export const films: Film[] = [
     isFavorite: false,
   },
   {
-    id: nanoid(),
+    id: 3,
     name: 'Macbeth',
     posterImage: 'img/macbeth.jpg',
     previewImage: 'img/macbeth.jpg',
@@ -60,7 +59,7 @@ export const films: Film[] = [
     isFavorite: false,
   },
   {
-    id: nanoid(),
+    id: 4,
     name: 'Aviator',
     posterImage: 'img/aviator.jpg',
     previewImage: 'img/aviator.jpg',
@@ -79,7 +78,7 @@ export const films: Film[] = [
     isFavorite: false,
   },
   {
-    id: nanoid(),
+    id: 5,
     name: 'We need to talk about Kevin',
     posterImage: 'img/we-need-to-talk-about-kevin.jpg',
     previewImage: 'img/we-need-to-talk-about-kevin.jpg',
@@ -98,7 +97,7 @@ export const films: Film[] = [
     isFavorite: false,
   },
   {
-    id: nanoid(),
+    id: 6,
     name: 'What We Do in the Shadows',
     posterImage: 'img/what-we-do-in-the-shadows.jpg',
     previewImage: 'img/what-we-do-in-the-shadows.jpg',
@@ -117,7 +116,7 @@ export const films: Film[] = [
     isFavorite: false,
   },
   {
-    id: nanoid(),
+    id: 7,
     name: 'The Revenant',
     posterImage: 'img/revenant.jpg',
     previewImage: 'img/revenant.jpg',
@@ -136,7 +135,7 @@ export const films: Film[] = [
     isFavorite: false,
   },
   {
-    id: nanoid(),
+    id: 8,
     name: 'Snatch',
     posterImage: 'img/snatch.jpg',
     previewImage: 'img/snatch.jpg',

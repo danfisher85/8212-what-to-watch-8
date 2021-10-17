@@ -1,11 +1,10 @@
 import {Comment} from 'types/comment';
-import {nanoid} from 'nanoid';
 
 export const comments: Comment[] = [
   {
-    id: nanoid(),
+    id: 1,
     user: {
-      id: nanoid(),
+      id: 1,
       name: 'Paula Fleri-Soler',
     },
     rating: 8.0,
@@ -13,9 +12,9 @@ export const comments: Comment[] = [
     date: 'December 20, 2016',
   },
   {
-    id: nanoid(),
+    id: 2,
     user: {
-      id: nanoid(),
+      id: 1,
       name: 'Paula Fleri-Soler',
     },
     rating: 7.6,
@@ -23,9 +22,9 @@ export const comments: Comment[] = [
     date: 'December 20, 2016',
   },
   {
-    id: nanoid(),
+    id: 3,
     user: {
-      id: nanoid(),
+      id: 2,
       name: 'Matthew Lickona',
     },
     rating: 7.2,
@@ -33,9 +32,9 @@ export const comments: Comment[] = [
     date: 'December 20, 2016',
   },
   {
-    id: nanoid(),
+    id: 4,
     user: {
-      id: nanoid(),
+      id: 3,
       name: 'Amanda Greever',
     },
     rating: 8.0,
@@ -43,9 +42,9 @@ export const comments: Comment[] = [
     date: 'November 18, 2015',
   },
   {
-    id: nanoid(),
+    id: 5,
     user: {
-      id: nanoid(),
+      id: 4,
       name: 'Bill Goodykoontz',
     },
     rating: 8.0,
@@ -53,9 +52,9 @@ export const comments: Comment[] = [
     date: 'November 18, 2015',
   },
   {
-    id: nanoid(),
+    id: 6,
     user: {
-      id: nanoid(),
+      id: 4,
       name: 'Bill Goodykoontz',
     },
     rating: 8.9,

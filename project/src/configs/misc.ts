@@ -1,4 +1,3 @@
-export const CURRENT_FILM = 0;
 export const RELATED_FILMS = 4;
 
 export enum AuthorizationStatus {
