@@ -13,11 +13,11 @@ function PromoFilmCard(props: PromoFilmCardProps): JSX.Element {
   const history = useHistory();
 
   const handlePlayButtonClick = () => {
-    history.push(AppRoute.Player(film.id));
+    history.push(AppRoute.Player);
   };
 
   const handleMyListButtonClick = () => {
-    history.push(AppRoute.MyList());
+    history.push(AppRoute.MyList);
   };
 
   return (

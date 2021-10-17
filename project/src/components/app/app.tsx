@@ -29,16 +29,26 @@ function App(props: AppScreenProps): JSX.Element {
         <Route exact path={AppRoute.SignIn} component={SignInScreen} />
         <PrivateRoute
           exact
-          path={AppRoute.MyList()}
+          path={AppRoute.MyList}
           render={() => <MyListScreen films={films} />}
           authorizationStatus={AuthorizationStatus.NoAuth}
         >
         </PrivateRoute>
-        <Route exact path={AppRoute.Player()}>
+        <Route exact path={AppRoute.Player}>
           <PlayerScreen film={currentFilm}/>
         </Route>
-        <Route exact path="/films/:id" component={() => <FilmScreen film={currentFilm} films={films} />}/>
-        <Route exact path={AppRoute.AddReview()}>
+        <Route exact path={AppRoute.Film} component={(params: any) => {
+          const {match} = params;
+
+          // eslint-disable-next-line no-console
+          console.log(match.params?.id);
+
+          return (
+            <FilmScreen film={currentFilm} films={films} />
+          );
+        }}
+        />
+        <Route exact path={AppRoute.AddReview}>
           <AddReviewScreen film={currentFilm}/>
         </Route>
         <Route component={NotFoundScreen} />
