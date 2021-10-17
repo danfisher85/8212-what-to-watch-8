@@ -2,9 +2,10 @@ import {Link, useHistory} from 'react-router-dom';
 import Logo from 'components/logo/logo';
 import UserBlock from 'components/user-block/user-block';
 import FilmsList from 'components/films-list/films-list';
-import {RELATED_FILMS} from 'configs/misc';
 import {AppRoute} from 'configs/routes';
 import {Film} from 'types/film';
+
+const RELATED_FILMS = 4;
 
 interface FilmScreenProps {
   film: Film;
