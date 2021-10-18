@@ -11,19 +11,19 @@ const Ratings = [
 function AddReviewForm(): JSX.Element {
 
   const [comment, setComment] = useState(COMMENT_DEFAULT);
-  const [rating, setRating] = useState(RATING_DEFAULT);
+  const [currentRating, setCurrentRating] = useState(RATING_DEFAULT);
 
   const handleCommentChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
     setComment(evt.target.value);
   };
 
   const handleRatingChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    setRating(Number(evt.target.value));
+    setCurrentRating(Number(evt.target.value));
   };
 
   const handleSubmitChange = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    setRating(RATING_DEFAULT);
+    setCurrentRating(RATING_DEFAULT);
     setComment(COMMENT_DEFAULT);
   };
 
@@ -34,14 +34,14 @@ function AddReviewForm(): JSX.Element {
         <div className="rating">
           <div className="rating__stars">
             {
-              Ratings.map((value) => {
-                const inputID = `star-${value}`;
-                const checked = value === rating;
+              Ratings.map((rating) => {
+                const inputID = `star-${rating}`;
+                const checked = rating === currentRating;
 
                 return (
                   <Fragment key={inputID}>
-                    <input className="rating__input" id={inputID} type="radio" name="rating" value={value} checked={checked} onChange={handleRatingChange}/>
-                    <label className="rating__label" htmlFor={inputID}>Rating {value}</label>
+                    <input className="rating__input" id={inputID} type="radio" name="rating" value={rating} checked={checked} onChange={handleRatingChange}/>
+                    <label className="rating__label" htmlFor={inputID}>Rating {rating}</label>
                   </Fragment>
                 );
               })
