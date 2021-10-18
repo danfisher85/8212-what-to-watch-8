@@ -12,11 +12,12 @@ import NotFoundScreen from 'components/not-found-screen/not-found-screen';
 import {Film} from 'types/film';
 
 interface AppScreenProps {
+  promoFilm: Film,
   films: Film[],
 }
 
 function App(props: AppScreenProps): JSX.Element {
-  const {films} = props;
+  const {promoFilm, films} = props;
 
   const getFilmById = (id: number) => {
     const foundFilm = films.find((film) => film.id === Number(id));
@@ -32,7 +33,7 @@ function App(props: AppScreenProps): JSX.Element {
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.Root}>
-          <MainScreen films={films} />
+          <MainScreen promoFilm={promoFilm} films={films} />
         </Route>
         <Route exact path={AppRoute.SignIn} component={SignInScreen} />
         <PrivateRoute

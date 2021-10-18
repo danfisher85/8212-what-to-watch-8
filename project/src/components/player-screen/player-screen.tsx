@@ -1,9 +1,9 @@
 import {useHistory} from 'react-router-dom';
 import {Film} from 'types/film';
 
-type PlayerScreenProps = {
+interface PlayerScreenProps {
   film: Film;
-};
+}
 
 function PlayerScreen(props: PlayerScreenProps): JSX.Element {
   const {film} = props;

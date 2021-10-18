@@ -4,17 +4,16 @@ import FilmsList from 'components/films-list/films-list';
 import {Film} from 'types/film';
 
 type MainScreenProps = {
+  promoFilm: Film,
   films: Film[]
 };
 
-const PROMO_FILM = 2;
-
 function MainScreen(props: MainScreenProps): JSX.Element {
-  const {films} = props;
+  const {promoFilm, films} = props;
 
   return (
     <>
-      <PromoFilmCard film={films[PROMO_FILM]}/>
+      <PromoFilmCard promoFilm={promoFilm}/>
 
       <div className="page-content">
         <section className="catalog">
