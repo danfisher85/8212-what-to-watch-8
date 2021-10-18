@@ -1,4 +1,4 @@
-import {Film} from 'types/film';
+import {Film, Films} from 'types/film';
 
 export const promo: Film = {
   id: 8,
@@ -20,7 +20,7 @@ export const promo: Film = {
   isFavorite: false,
 };
 
-export const films: Film[] = [
+export const films: Films = [
   {
     id: 1,
     name: 'Fantastic Beasts: The Crimes of Grindelwald',

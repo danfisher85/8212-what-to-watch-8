@@ -3,13 +3,13 @@ import Logo from 'components/logo/logo';
 import UserBlock from 'components/user-block/user-block';
 import FilmsList from 'components/films-list/films-list';
 import {AppRoute} from 'configs/routes';
-import {Film} from 'types/film';
+import {Film, Films} from 'types/film';
 
 const RELATED_FILMS = 4;
 
 interface FilmScreenProps {
   film: Film;
-  films: Film[];
+  films: Films;
 }
 
 function FilmScreen(props: FilmScreenProps): JSX.Element {

@@ -1,10 +1,10 @@
-import {Film} from 'types/film';
+import {Films} from 'types/film';
 import Logo from 'components/logo/logo';
 import UserBlock from 'components/user-block/user-block';
 import FilmsList from 'components/films-list/films-list';
 
 type MyListScreenProps = {
-  films: Film[]
+  films: Films
 };
 
 function MyListScreen(props: MyListScreenProps): JSX.Element {

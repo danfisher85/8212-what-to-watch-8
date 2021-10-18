@@ -27,3 +27,5 @@ export interface Film {
   released: number;
   isFavorite: boolean;
 }
+
+export type Films = Film[];

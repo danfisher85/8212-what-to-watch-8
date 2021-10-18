@@ -1,11 +1,11 @@
 import Logo from 'components/logo/logo';
 import PromoFilmCard from 'components/promo-film-card/promo-film-card';
 import FilmsList from 'components/films-list/films-list';
-import {Film} from 'types/film';
+import {Film, Films} from 'types/film';
 
 type MainScreenProps = {
   promoFilm: Film,
-  films: Film[]
+  films: Films
 };
 
 function MainScreen(props: MainScreenProps): JSX.Element {

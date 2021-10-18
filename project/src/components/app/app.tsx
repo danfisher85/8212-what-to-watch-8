@@ -9,11 +9,11 @@ import PlayerScreen from 'components/player-screen/player-screen';
 import FilmScreen from 'components/film-screen/film-screen';
 import AddReviewScreen from 'components/add-review-screen/add-review-screen';
 import NotFoundScreen from 'components/not-found-screen/not-found-screen';
-import {Film} from 'types/film';
+import {Film, Films} from 'types/film';
 
 interface AppScreenProps {
   promoFilm: Film,
-  films: Film[],
+  films: Films,
 }
 
 function App(props: AppScreenProps): JSX.Element {
