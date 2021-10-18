@@ -40,7 +40,7 @@ function AddReviewForm(props: AddReviewFormProps): JSX.Element {
         <div className="rating">
           <div className="rating__stars">
             {
-              Ratings.map((rating) => {
+              Ratings?.map((rating) => {
                 const inputID = `star-${rating}`;
                 const checked = rating === currentRating;
 
