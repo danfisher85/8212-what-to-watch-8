@@ -1,22 +1,22 @@
 import {useState, ChangeEvent, FormEvent, Fragment} from 'react';
 
-const COMMENT_DEFAULT = '';
 const COMMENT_PLACEHOLDER = 'Enter Your Review...';
-const RATING_DEFAULT = 0;
 
 const Ratings = [
   10, 9, 8, 7, 6, 5, 4, 3, 2, 1,
 ];
 
 interface AddReviewFormProps {
+  initialRating: number,
+  initialComment: string,
   handleSubmit: (comment: string, currentRating: number) => void
 }
 
 function AddReviewForm(props: AddReviewFormProps): JSX.Element {
-  const {handleSubmit} = props;
+  const {initialRating, initialComment, handleSubmit} = props;
 
-  const [comment, setComment] = useState(COMMENT_DEFAULT);
-  const [currentRating, setCurrentRating] = useState(RATING_DEFAULT);
+  const [currentRating, setCurrentRating] = useState(initialRating);
+  const [comment, setComment] = useState(initialComment);
 
   const handleCommentChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
     setComment(evt.target.value);
@@ -29,8 +29,8 @@ function AddReviewForm(props: AddReviewFormProps): JSX.Element {
   const handleSubmitChange = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     handleSubmit(comment, currentRating);
-    setCurrentRating(RATING_DEFAULT);
-    setComment(COMMENT_DEFAULT);
+    setCurrentRating(initialRating);
+    setComment(initialComment);
   };
 
 

@@ -4,6 +4,9 @@ import UserBlock from 'components/user-block/user-block';
 import AddReviewForm from 'components/add-review-form/add-review-form';
 import {Film} from 'types/film';
 
+const INITIAL_RATING = 0;
+const INITIAL_COMMENT = '';
+
 interface AddReviewScreenProps {
   film: Film;
 }
@@ -42,7 +45,7 @@ function AddReviewScreen(props: AddReviewScreenProps): JSX.Element {
         </div>
       </div>
 
-      <AddReviewForm handleSubmit={() => {
+      <AddReviewForm initialRating={INITIAL_RATING} initialComment={INITIAL_COMMENT} handleSubmit={() => {
         throw new Error('Function \'handleSubmit\' isn\'t implemented.');
       }}
       />
