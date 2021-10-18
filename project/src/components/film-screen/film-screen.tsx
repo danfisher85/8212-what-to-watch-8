@@ -5,15 +5,13 @@ import FilmsList from 'components/films-list/films-list';
 import {AppRoute} from 'configs/routes';
 import {Film, Films} from 'types/film';
 
-const RELATED_FILMS = 4;
-
 interface FilmScreenProps {
   film: Film;
-  films: Films;
+  similarFilms: Films,
 }
 
 function FilmScreen(props: FilmScreenProps): JSX.Element {
-  const {film, films} = props;
+  const {film, similarFilms} = props;
   const history = useHistory();
 
   return (
@@ -103,7 +101,7 @@ function FilmScreen(props: FilmScreenProps): JSX.Element {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <FilmsList films={films.slice(RELATED_FILMS)} />
+          <FilmsList films={similarFilms} />
         </section>
 
         <footer className="page-footer">

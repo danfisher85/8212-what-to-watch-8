@@ -13,11 +13,12 @@ import {Film, Films} from 'types/film';
 
 interface AppScreenProps {
   promoFilm: Film,
+  similarFilms: Films,
   films: Films,
 }
 
 function App(props: AppScreenProps): JSX.Element {
-  const {promoFilm, films} = props;
+  const {promoFilm, similarFilms, films} = props;
 
   const getFilmById = (id: number) => {
     const foundFilm = films.find((film) => film.id === Number(id));
@@ -53,7 +54,7 @@ function App(props: AppScreenProps): JSX.Element {
         <Route exact path={AppRoute.Film} component={(params: any) => {
           const film = getFilmById(params.match.params.id);
           return (
-            <FilmScreen film={film} films={films}/>
+            <FilmScreen film={film} similarFilms={similarFilms}/>
           );
         }}
         />
