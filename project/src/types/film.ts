@@ -1,4 +1,14 @@
-export type Film = {
+enum Genre {
+  'Comedy',
+  'Crime',
+  'Adventure',
+  'Mystery',
+  'History',
+  'Drama',
+  'Fantasy',
+}
+
+export interface Film {
   id: number;
   name: string;
   posterImage: string;
@@ -13,7 +23,7 @@ export type Film = {
   director: string;
   starring: string[];
   runTime: number;
-  genre: string;
+  genre: keyof typeof Genre;
   released: number;
   isFavorite: boolean;
-};
+}
