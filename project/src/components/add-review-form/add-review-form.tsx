@@ -14,11 +14,11 @@ function AddReviewForm(): JSX.Element {
   const [rating, setRating] = useState(RATING_DEFAULT);
 
   const handleCommentChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
-    setComment(evt.currentTarget.value);
+    setComment(evt.target.value);
   };
 
   const handleRatingChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    setRating(Number(evt.currentTarget.value));
+    setRating(Number(evt.target.value));
   };
 
   const handleSubmitChange = (evt: FormEvent<HTMLFormElement>) => {
