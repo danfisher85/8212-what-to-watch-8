@@ -8,7 +8,12 @@ const Ratings = [
   10, 9, 8, 7, 6, 5, 4, 3, 2, 1,
 ];
 
-function AddReviewForm(): JSX.Element {
+interface AddReviewFormProps {
+  handleSubmit: (comment: string, currentRating: number) => void
+}
+
+function AddReviewForm(props: AddReviewFormProps): JSX.Element {
+  const {handleSubmit} = props;
 
   const [comment, setComment] = useState(COMMENT_DEFAULT);
   const [currentRating, setCurrentRating] = useState(RATING_DEFAULT);
@@ -23,6 +28,7 @@ function AddReviewForm(): JSX.Element {
 
   const handleSubmitChange = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
+    handleSubmit(comment, currentRating);
     setCurrentRating(RATING_DEFAULT);
     setComment(COMMENT_DEFAULT);
   };

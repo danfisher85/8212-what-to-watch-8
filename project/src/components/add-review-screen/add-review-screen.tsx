@@ -42,7 +42,10 @@ function AddReviewScreen(props: AddReviewScreenProps): JSX.Element {
         </div>
       </div>
 
-      <AddReviewForm />
+      <AddReviewForm handleSubmit={() => {
+        throw new Error('Function \'handleSubmit\' isn\'t implemented.');
+      }}
+      />
 
     </section>
   );
