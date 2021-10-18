@@ -21,7 +21,7 @@ function App(props: AppScreenProps): JSX.Element {
   const {promoFilm, similarFilms, films} = props;
 
   const getFilmById = (id: number) => {
-    const foundFilm = films.find((film) => film.id === Number(id));
+    const foundFilm = films.find((film) => film.id === +id);
 
     if (!foundFilm) {
       throw new Error(`There is no such film with id=${id}`);

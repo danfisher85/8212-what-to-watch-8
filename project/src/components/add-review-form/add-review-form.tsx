@@ -18,7 +18,7 @@ function AddReviewForm(): JSX.Element {
   };
 
   const handleRatingChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    setCurrentRating(Number(evt.target.value));
+    setCurrentRating(+evt.target.value);
   };
 
   const handleSubmitChange = (evt: FormEvent<HTMLFormElement>) => {
