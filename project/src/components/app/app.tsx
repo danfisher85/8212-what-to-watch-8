@@ -1,4 +1,4 @@
-import {Switch, Route, BrowserRouter, RouteComponentProps} from 'react-router-dom';
+import {Switch, Route, BrowserRouter, Redirect, RouteComponentProps} from 'react-router-dom';
 import {AppRoute} from 'configs/routes';
 import {AuthorizationStatus} from 'configs/auth-status';
 import PrivateRoute from 'components/private-route/private-route';
@@ -24,13 +24,8 @@ interface RouteInfo {
 function App(props: AppScreenProps): JSX.Element {
   const {promoFilm, similarFilms, films} = props;
 
-  const getFilmById = (filmId: string) => {
-    const foundFilm = films.find((film) => film.id === +filmId);
-
-    if (!foundFilm) {
-      throw new Error(`There is no such film with id=${filmId}`);
-    }
-
+  const getFilmById = (filmId: string | number) => {
+    const foundFilm = films.find((film) => film.id === filmId);
     return foundFilm;
   };
 
@@ -49,24 +44,33 @@ function App(props: AppScreenProps): JSX.Element {
         >
         </PrivateRoute>
         <Route exact path={AppRoute.Player} component={({match}: RouteComponentProps<RouteInfo>) => {
-          const film = getFilmById(match.params.id);
-          return (
-            <PlayerScreen film={film}/>
-          );
+          const film = getFilmById(+match.params.id);
+          if (film) {
+            return (
+              <PlayerScreen film={film}/>
+            );
+          }
+          return <Redirect to={AppRoute.Root} />;
         }}
         />
         <Route exact path={AppRoute.Film} component={({match}: RouteComponentProps<RouteInfo>) => {
-          const film = getFilmById(match.params.id);
-          return (
-            <FilmScreen film={film} similarFilms={similarFilms}/>
-          );
+          const film = getFilmById(+match.params.id);
+          if (film) {
+            return (
+              <FilmScreen film={film} similarFilms={similarFilms}/>
+            );
+          }
+          return <Redirect to={AppRoute.Root} />;
         }}
         />
         <Route exact path={AppRoute.AddReview} component={({match}: RouteComponentProps<RouteInfo>) => {
-          const film = getFilmById(match.params.id);
-          return (
-            <AddReviewScreen film={film}/>
-          );
+          const film = getFilmById(+match.params.id);
+          if (film) {
+            return (
+              <AddReviewScreen film={film}/>
+            );
+          }
+          return <Redirect to={AppRoute.Root} />;
         }}
         />
         <Route component={NotFoundScreen} />
