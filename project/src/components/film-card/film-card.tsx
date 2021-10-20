@@ -1,11 +1,26 @@
-function FilmCard(): JSX.Element {
+import {Link, generatePath} from 'react-router-dom';
+import {AppRoute} from 'configs/routes';
+import {Film} from 'types/film';
+
+interface FilmCardProps {
+  film: Film,
+  handleMouseEnter: (film: Film) => void,
+  handleMouseLeave: () => void,
+}
+
+function FilmCard(props: FilmCardProps): JSX.Element {
+  const {film, handleMouseEnter, handleMouseLeave} = props;
+  const pathToFilm = generatePath(AppRoute.Film, {
+    id: film.id,
+  });
+
   return (
-    <article className="small-film-card catalog__films-card">
+    <article className="small-film-card catalog__films-card" data-id={film.id} onMouseEnter={() => handleMouseEnter(film)} onMouseLeave={() => handleMouseLeave()}>
       <div className="small-film-card__image">
-        <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175" />
+        <img src={film.previewImage} alt={film.name} width="280" height="175" />
       </div>
       <h3 className="small-film-card__title">
-        <a className="small-film-card__link" href="film-page.html">Fantastic Beasts: The Crimes of Grindelwald</a>
+        <Link to={pathToFilm} className="small-film-card__link">{film.name}</Link>
       </h3>
     </article>
   );
