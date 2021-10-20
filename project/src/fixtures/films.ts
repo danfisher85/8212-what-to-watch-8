@@ -1,6 +1,6 @@
 import {Film, Films} from 'types/film';
 
-export const promo: Film = {
+export const promoFilm: Film = {
   id: 8,
   name: 'The Grand Budapest Hotel',
   posterImage: 'img/the-grand-budapest-hotel-poster.jpg',

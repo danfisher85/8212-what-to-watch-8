@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from 'components/app/app';
-import {promo, similarFilms, films} from 'fixtures/films';
+import {promoFilm, similarFilms, films} from 'fixtures/films';
 
 ReactDOM.render(
   <React.StrictMode>
     <App
-      promoFilm={promo}
+      promoFilm={promoFilm}
       similarFilms={similarFilms}
       films={films}
     />
