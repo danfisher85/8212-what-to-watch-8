@@ -4,8 +4,8 @@ import FilmsList from 'components/films-list/films-list';
 import {Film, Films} from 'types/film';
 
 type MainScreenProps = {
-  promoFilm: Film,
-  films: Films
+  promoFilm: Film;
+  films: Films;
 };
 
 function MainScreen(props: MainScreenProps): JSX.Element {
@@ -13,7 +13,7 @@ function MainScreen(props: MainScreenProps): JSX.Element {
 
   return (
     <>
-      <PromoFilmCard promoFilm={promoFilm}/>
+      <PromoFilmCard promoFilm={promoFilm} />
 
       <div className="page-content">
         <section className="catalog">
@@ -21,41 +21,63 @@ function MainScreen(props: MainScreenProps): JSX.Element {
 
           <ul className="catalog__genres-list">
             <li className="catalog__genres-item catalog__genres-item--active">
-              <a href="temp-link-placeholder.html" className="catalog__genres-link">All genres</a>
+              <a href="temp-link-placeholder.html" className="catalog__genres-link">
+                All genres
+              </a>
             </li>
             <li className="catalog__genres-item">
-              <a href="temp-link-placeholder.html" className="catalog__genres-link">Comedies</a>
+              <a href="temp-link-placeholder.html" className="catalog__genres-link">
+                Comedies
+              </a>
             </li>
             <li className="catalog__genres-item">
-              <a href="temp-link-placeholder.html" className="catalog__genres-link">Crime</a>
+              <a href="temp-link-placeholder.html" className="catalog__genres-link">
+                Crime
+              </a>
             </li>
             <li className="catalog__genres-item">
-              <a href="temp-link-placeholder.html" className="catalog__genres-link">Documentary</a>
+              <a href="temp-link-placeholder.html" className="catalog__genres-link">
+                Documentary
+              </a>
             </li>
             <li className="catalog__genres-item">
-              <a href="temp-link-placeholder.html" className="catalog__genres-link">Dramas</a>
+              <a href="temp-link-placeholder.html" className="catalog__genres-link">
+                Dramas
+              </a>
             </li>
             <li className="catalog__genres-item">
-              <a href="temp-link-placeholder.html" className="catalog__genres-link">Horror</a>
+              <a href="temp-link-placeholder.html" className="catalog__genres-link">
+                Horror
+              </a>
             </li>
             <li className="catalog__genres-item">
-              <a href="temp-link-placeholder.html" className="catalog__genres-link">Kids & Family</a>
+              <a href="temp-link-placeholder.html" className="catalog__genres-link">
+                Kids & Family
+              </a>
             </li>
             <li className="catalog__genres-item">
-              <a href="temp-link-placeholder.html" className="catalog__genres-link">Romance</a>
+              <a href="temp-link-placeholder.html" className="catalog__genres-link">
+                Romance
+              </a>
             </li>
             <li className="catalog__genres-item">
-              <a href="temp-link-placeholder.html" className="catalog__genres-link">Sci-Fi</a>
+              <a href="temp-link-placeholder.html" className="catalog__genres-link">
+                Sci-Fi
+              </a>
             </li>
             <li className="catalog__genres-item">
-              <a href="temp-link-placeholder.html" className="catalog__genres-link">Thrillers</a>
+              <a href="temp-link-placeholder.html" className="catalog__genres-link">
+                Thrillers
+              </a>
             </li>
           </ul>
 
           <FilmsList films={films} />
 
           <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
+            <button className="catalog__button" type="button">
+              Show more
+            </button>
           </div>
         </section>
 

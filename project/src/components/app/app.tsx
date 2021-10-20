@@ -13,9 +13,9 @@ import {getFilmById} from 'utils/film';
 import {Film, Films} from 'types/film';
 
 interface AppScreenProps {
-  promoFilm: Film,
-  similarFilms: Films,
-  films: Films,
+  promoFilm: Film;
+  similarFilms: Films;
+  films: Films;
 }
 
 interface RouteInfo {
@@ -37,46 +37,42 @@ function App(props: AppScreenProps): JSX.Element {
           path={AppRoute.MyList}
           render={() => <MyListScreen films={films} />}
           authorizationStatus={AuthorizationStatus.NoAuth}
-        >
-        </PrivateRoute>
-        <Route exact path={AppRoute.Player} component={({match}: RouteComponentProps<RouteInfo>) => {
-          const film = getFilmById(+match.params.id, films);
-
-          if (film) {
-            return (
-              <PlayerScreen film={film}/>
-            );
-          }
-          return (
-            <Redirect to={AppRoute.Root} />
-          );
-        }}
         />
-        <Route exact path={AppRoute.Film} component={({match}: RouteComponentProps<RouteInfo>) => {
-          const film = getFilmById(+match.params.id, films);
+        <Route
+          exact
+          path={AppRoute.Player}
+          component={({match}: RouteComponentProps<RouteInfo>) => {
+            const film = getFilmById(+match.params.id, films);
 
-          if (film) {
-            return (
-              <FilmScreen film={film} similarFilms={similarFilms}/>
-            );
-          }
-          return (
-            <Redirect to={AppRoute.Root} />
-          );
-        }}
+            if (film) {
+              return <PlayerScreen film={film} />;
+            }
+            return <Redirect to={AppRoute.Root} />;
+          }}
         />
-        <Route exact path={AppRoute.AddReview} component={({match}: RouteComponentProps<RouteInfo>) => {
-          const film = getFilmById(+match.params.id, films);
+        <Route
+          exact
+          path={AppRoute.Film}
+          component={({match}: RouteComponentProps<RouteInfo>) => {
+            const film = getFilmById(+match.params.id, films);
 
-          if (film) {
-            return (
-              <AddReviewScreen film={film}/>
-            );
-          }
-          return (
-            <Redirect to={AppRoute.Root} />
-          );
-        }}
+            if (film) {
+              return <FilmScreen film={film} similarFilms={similarFilms} />;
+            }
+            return <Redirect to={AppRoute.Root} />;
+          }}
+        />
+        <Route
+          exact
+          path={AppRoute.AddReview}
+          component={({match}: RouteComponentProps<RouteInfo>) => {
+            const film = getFilmById(+match.params.id, films);
+
+            if (film) {
+              return <AddReviewScreen film={film} />;
+            }
+            return <Redirect to={AppRoute.Root} />;
+          }}
         />
         <Route component={NotFoundScreen} />
       </Switch>

@@ -4,7 +4,7 @@ import UserBlock from 'components/user-block/user-block';
 import FilmsList from 'components/films-list/films-list';
 
 type MyListScreenProps = {
-  films: Films
+  films: Films;
 };
 
 function MyListScreen(props: MyListScreenProps): JSX.Element {
@@ -24,7 +24,6 @@ function MyListScreen(props: MyListScreenProps): JSX.Element {
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         <FilmsList films={films} />
-
       </section>
 
       <footer className="page-footer">

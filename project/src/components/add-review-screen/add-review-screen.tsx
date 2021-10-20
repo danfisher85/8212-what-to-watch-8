@@ -31,10 +31,14 @@ function AddReviewScreen(props: AddReviewScreenProps): JSX.Element {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <Link to={`/films/${film.id}`} className="breadcrumbs__link">{film.name}</Link>
+                <Link to={`/films/${film.id}`} className="breadcrumbs__link">
+                  {film.name}
+                </Link>
               </li>
               <li className="breadcrumbs__item">
-                <a href="temp-link.html" className="breadcrumbs__link">Add review</a>
+                <a href="temp-link.html" className="breadcrumbs__link">
+                  Add review
+                </a>
               </li>
             </ul>
           </nav>
@@ -47,11 +51,12 @@ function AddReviewScreen(props: AddReviewScreenProps): JSX.Element {
         </div>
       </div>
 
-      <AddReviewForm initial={{ rating: InitialValue.Rating, comment: INITIAL_COMMENT}} handleSubmit={() => {
-        throw new Error('Function \'handleSubmit\' isn\'t implemented.');
-      }}
+      <AddReviewForm
+        initial={{rating: InitialValue.Rating, comment: INITIAL_COMMENT}}
+        handleSubmit={() => {
+          throw new Error('Function "handleSubmit" is not implemented.');
+        }}
       />
-
     </section>
   );
 }

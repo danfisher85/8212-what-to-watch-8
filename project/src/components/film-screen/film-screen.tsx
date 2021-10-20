@@ -7,7 +7,7 @@ import {Film, Films} from 'types/film';
 
 interface FilmScreenProps {
   film: Film;
-  similarFilms: Films,
+  similarFilms: Films;
 }
 
 function FilmScreen(props: FilmScreenProps): JSX.Element {
@@ -38,19 +38,29 @@ function FilmScreen(props: FilmScreenProps): JSX.Element {
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button" onClick={() => history.push(`/player/${film.id}`)}>
+                <button
+                  className="btn btn--play film-card__button"
+                  type="button"
+                  onClick={() => history.push(`/player/${film.id}`)}
+                >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use href="#play-s"></use>
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list film-card__button" type="button" onClick={() => history.push(AppRoute.MyList)}>
+                <button
+                  className="btn btn--list film-card__button"
+                  type="button"
+                  onClick={() => history.push(AppRoute.MyList)}
+                >
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use href="#add"></use>
                   </svg>
                   <span>My list</span>
                 </button>
-                <Link to={`/films/${film.id}/review`} className="btn film-card__button">Add review</Link>
+                <Link to={`/films/${film.id}/review`} className="btn film-card__button">
+                  Add review
+                </Link>
               </div>
             </div>
           </div>
@@ -66,13 +76,19 @@ function FilmScreen(props: FilmScreenProps): JSX.Element {
               <nav className="film-nav film-card__nav">
                 <ul className="film-nav__list">
                   <li className="film-nav__item film-nav__item--active">
-                    <a href="temp-link-placeholder.html" className="film-nav__link">Overview</a>
+                    <a href="temp-link-placeholder.html" className="film-nav__link">
+                      Overview
+                    </a>
                   </li>
                   <li className="film-nav__item">
-                    <a href="temp-link-placeholder.html" className="film-nav__link">Details</a>
+                    <a href="temp-link-placeholder.html" className="film-nav__link">
+                      Details
+                    </a>
                   </li>
                   <li className="film-nav__item">
-                    <a href="temp-link-placeholder.html" className="film-nav__link">Reviews</a>
+                    <a href="temp-link-placeholder.html" className="film-nav__link">
+                      Reviews
+                    </a>
                   </li>
                 </ul>
               </nav>
@@ -81,16 +97,24 @@ function FilmScreen(props: FilmScreenProps): JSX.Element {
                 <div className="film-rating__score">{film.rating}</div>
                 <p className="film-rating__meta">
                   <span className="film-rating__level">Very good</span>
-                  <span className="film-rating__count">{film.scoresCount ? `${film.scoresCount} ratings` : 'No ratings'}</span>
+                  <span className="film-rating__count">
+                    {film.scoresCount ? `${film.scoresCount} ratings` : 'No ratings'}
+                  </span>
                 </p>
               </div>
 
               <div className="film-card__text">
                 <p>{film.description}</p>
 
-                <p className="film-card__director"><strong>Director: {film.director}</strong></p>
+                <p className="film-card__director">
+                  <strong>Director: {film.director}</strong>
+                </p>
 
-                <p className="film-card__starring"><strong>Starring: {film.starring.length ? `${film.starring.join(', ')} and other` : 'No actors'}</strong></p>
+                <p className="film-card__starring">
+                  <strong>
+                    Starring: {film.starring.length ? `${film.starring.join(', ')} and other` : 'No actors'}
+                  </strong>
+                </p>
               </div>
             </div>
           </div>
