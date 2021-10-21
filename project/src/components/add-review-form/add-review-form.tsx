@@ -1,4 +1,4 @@
-import {useState, ChangeEvent, FormEvent, Fragment} from 'react';
+import {useState, ChangeEvent, FormEvent, Fragment, useCallback} from 'react';
 
 const COMMENT_PLACEHOLDER = 'Enter Your Review...';
 
@@ -15,20 +15,23 @@ function AddReviewForm(props: AddReviewFormProps): JSX.Element {
   const [currentRating, setCurrentRating] = useState(initial.rating);
   const [comment, setComment] = useState(initial.comment);
 
-  const handleCommentChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
+  const handleCommentChange = useCallback((evt: ChangeEvent<HTMLTextAreaElement>) => {
     setComment(evt.target.value);
-  };
+  }, []);
 
   const handleRatingChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setCurrentRating(+evt.target.value);
   };
 
-  const handleSubmitChange = (evt: FormEvent<HTMLFormElement>) => {
-    evt.preventDefault();
-    handleSubmit(comment, currentRating);
-    setCurrentRating(initial.rating);
-    setComment(initial.comment);
-  };
+  const handleSubmitChange = useCallback(
+    (evt: FormEvent<HTMLFormElement>) => {
+      evt.preventDefault();
+      handleSubmit(comment, currentRating);
+      setCurrentRating(initial.rating);
+      setComment(initial.comment);
+    },
+    [handleSubmit, comment, currentRating, initial.rating, initial.comment],
+  );
 
   return (
     <div className="add-review">

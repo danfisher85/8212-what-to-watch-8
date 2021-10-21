@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useCallback, useState} from 'react';
 import {Film, Films} from 'types/film';
 import FilmCard from 'components/film-card/film-card';
 
@@ -11,13 +11,13 @@ function FilmsList(props: FilmsListProps): JSX.Element {
 
   const [activeFilm, setActiveFilm] = useState<Film | null>(null);
 
-  const handleMouseEnter = (film: Film) => {
+  const handleMouseEnter = useCallback((film: Film) => {
     setActiveFilm(film);
-  };
+  }, []);
 
-  const handleMouseLeave = () => {
+  const handleMouseLeave = useCallback(() => {
     setActiveFilm(null);
-  };
+  }, []);
 
   if (films.length) {
     return (
