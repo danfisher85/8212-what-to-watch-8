@@ -1,4 +1,5 @@
 import {Link, generatePath} from 'react-router-dom';
+import VideoPlayer from 'components/video-player/video-player';
 import {AppRoute} from 'configs/routes';
 import {Film} from 'types/film';
 
@@ -14,6 +15,8 @@ function FilmCard(props: FilmCardProps): JSX.Element {
     id: film.id,
   });
 
+  const isPlaying = false;
+
   return (
     <article
       className="small-film-card catalog__films-card"
@@ -22,7 +25,7 @@ function FilmCard(props: FilmCardProps): JSX.Element {
       onMouseLeave={() => handleMouseLeave()}
     >
       <div className="small-film-card__image">
-        <img src={film.previewImage} alt={film.name} width="280" height="175" />
+        <VideoPlayer poster={film.posterImage} src={film.previewVideoLink} isPlaying={isPlaying} />
       </div>
       <h3 className="small-film-card__title">
         <Link to={pathToFilm} className="small-film-card__link">
