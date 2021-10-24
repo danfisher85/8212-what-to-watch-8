@@ -19,17 +19,17 @@ function FilmsList(props: FilmsListProps): JSX.Element {
     setActiveFilm(null);
   }, []);
 
-  if (films.length) {
-    return (
-      <div className="catalog__films-list" data-film-id={activeFilm?.id}>
-        {films.map((film) => (
-          <FilmCard key={film.id} film={film} handleMouseEnter={handleMouseEnter} handleMouseLeave={handleMouseLeave} />
-        ))}
-      </div>
-    );
+  if (films.length === 0) {
+    return <h2>Ooops! There are no films :(</h2>;
   }
 
-  return <h2>Ooops! There are no films :(</h2>;
+  return (
+    <div className="catalog__films-list" data-film-id={activeFilm?.id}>
+      {films.map((film) => (
+        <FilmCard key={film.id} film={film} handleMouseEnter={handleMouseEnter} handleMouseLeave={handleMouseLeave} />
+      ))}
+    </div>
+  );
 }
 
 export default FilmsList;

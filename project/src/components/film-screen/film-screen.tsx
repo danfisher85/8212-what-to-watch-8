@@ -111,9 +111,7 @@ function FilmScreen(props: FilmScreenProps): JSX.Element {
                 </p>
 
                 <p className="film-card__starring">
-                  <strong>
-                    Starring: {film.starring.length ? `${film.starring.join(', ')} and other` : 'No actors'}
-                  </strong>
+                  <strong>{film.starring?.length && `Starring: ${film.starring.join(', ')} and other`}</strong>
                 </p>
               </div>
             </div>

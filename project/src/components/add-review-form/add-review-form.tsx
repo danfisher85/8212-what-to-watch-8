@@ -1,36 +1,36 @@
 import {useState, ChangeEvent, FormEvent, Fragment, useCallback} from 'react';
 
 const COMMENT_PLACEHOLDER = 'Enter Your Review...';
-
 const ratings = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
 
 interface AddReviewFormProps {
   initial: {rating: number; comment: string};
   handleSubmit: (comment: string, currentRating: number) => void;
+  placeholder?: string;
 }
 
 function AddReviewForm(props: AddReviewFormProps): JSX.Element {
-  const {initial, handleSubmit} = props;
+  const {initial, handleSubmit, placeholder = COMMENT_PLACEHOLDER} = props;
 
-  const [currentRating, setCurrentRating] = useState(initial.rating);
-  const [comment, setComment] = useState(initial.comment);
+  const [currentRating, setCurrentRating] = useState<number>(initial.rating);
+  const [comment, setComment] = useState<string>(initial.comment);
 
   const handleCommentChange = useCallback((evt: ChangeEvent<HTMLTextAreaElement>) => {
     setComment(evt.target.value);
   }, []);
 
-  const handleRatingChange = (evt: ChangeEvent<HTMLInputElement>) => {
+  const handleRatingChange = useCallback((evt: ChangeEvent<HTMLInputElement>) => {
     setCurrentRating(+evt.target.value);
-  };
+  }, []);
 
   const handleSubmitChange = useCallback(
     (evt: FormEvent<HTMLFormElement>) => {
       evt.preventDefault();
       handleSubmit(comment, currentRating);
-      setCurrentRating(initial.rating);
-      setComment(initial.comment);
+      setCurrentRating(0);
+      setComment('');
     },
-    [handleSubmit, comment, currentRating, initial.rating, initial.comment],
+    [handleSubmit, comment, currentRating],
   );
 
   return (
@@ -67,7 +67,7 @@ function AddReviewForm(props: AddReviewFormProps): JSX.Element {
             className="add-review__textarea"
             name="review-text"
             id="review-text"
-            placeholder={COMMENT_PLACEHOLDER}
+            placeholder={placeholder}
             value={comment}
             onChange={handleCommentChange}
           />

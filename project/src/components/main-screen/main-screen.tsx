@@ -13,7 +13,7 @@ function MainScreen(props: MainScreenProps): JSX.Element {
 
   return (
     <>
-      <PromoFilmCard promoFilm={promoFilm} />
+      {promoFilm && <PromoFilmCard promoFilm={promoFilm} />}
 
       <div className="page-content">
         <section className="catalog">
