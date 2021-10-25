@@ -4,7 +4,7 @@ const COMMENT_PLACEHOLDER = 'Enter Your Review...';
 const ratings = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
 
 interface AddReviewFormProps {
-  initial: {rating: number; comment: string};
+  initial?: {rating: number; comment: string};
   handleSubmit: (comment: string, currentRating: number) => void;
   placeholder?: string;
 }
@@ -12,8 +12,10 @@ interface AddReviewFormProps {
 function AddReviewForm(props: AddReviewFormProps): JSX.Element {
   const {initial, handleSubmit, placeholder = COMMENT_PLACEHOLDER} = props;
 
-  const [currentRating, setCurrentRating] = useState<number>(initial.rating);
-  const [comment, setComment] = useState<string>(initial.comment);
+  const initialRating = initial?.rating ? initial.rating : 0;
+  const initialComment = initial?.comment ? initial.comment : '';
+  const [currentRating, setCurrentRating] = useState<number>(initialRating);
+  const [comment, setComment] = useState<string>(initialComment);
 
   const handleCommentChange = useCallback((evt: ChangeEvent<HTMLTextAreaElement>) => {
     setComment(evt.target.value);

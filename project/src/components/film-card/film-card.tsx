@@ -10,9 +10,17 @@ interface FilmCardProps {
   handleMouseLeave: () => void;
 }
 
+const getFilmByState = (isActive: boolean, film: Film) => {
+  if (isActive) {
+    return <VideoPlayer poster={film.posterImage} src={film.previewVideoLink} isActive={isActive} />;
+  }
+
+  return <img src={film.previewImage} alt={`${film.name} poster`} width="280" height="175" />;
+};
+
 function FilmCard(props: FilmCardProps): JSX.Element {
   const {film, handleMouseEnter, handleMouseLeave} = props;
-  const [isActive, setIsActive] = useState(false);
+  const [isActive, setIsActive] = useState<boolean>(false);
 
   const pathToFilm = generatePath(AppRoute.Film, {
     id: film.id,
@@ -31,9 +39,7 @@ function FilmCard(props: FilmCardProps): JSX.Element {
         setIsActive(false);
       }}
     >
-      <div className="small-film-card__image">
-        <VideoPlayer poster={film.posterImage} src={film.previewVideoLink} isActive={isActive} />
-      </div>
+      <div className="small-film-card__image">{getFilmByState(isActive, film)}</div>
       <h3 className="small-film-card__title">
         <Link to={pathToFilm} className="small-film-card__link">
           {film.name}
