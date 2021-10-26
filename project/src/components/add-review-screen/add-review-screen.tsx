@@ -4,7 +4,9 @@ import UserBlock from 'components/user-block/user-block';
 import AddReviewForm from 'components/add-review-form/add-review-form';
 import {Film} from 'types/film';
 
-const INITIAL_RATING = 0;
+enum InitialValue {
+  Rating = 0,
+}
 const INITIAL_COMMENT = '';
 
 interface AddReviewScreenProps {
@@ -29,10 +31,14 @@ function AddReviewScreen(props: AddReviewScreenProps): JSX.Element {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <Link to={`/films/${film.id}`} className="breadcrumbs__link">{film.name}</Link>
+                <Link to={`/films/${film.id}`} className="breadcrumbs__link">
+                  {film.name}
+                </Link>
               </li>
               <li className="breadcrumbs__item">
-                <a href="temp-link.html" className="breadcrumbs__link">Add review</a>
+                <a href="temp-link.html" className="breadcrumbs__link">
+                  Add review
+                </a>
               </li>
             </ul>
           </nav>
@@ -45,11 +51,12 @@ function AddReviewScreen(props: AddReviewScreenProps): JSX.Element {
         </div>
       </div>
 
-      <AddReviewForm initialRating={INITIAL_RATING} initialComment={INITIAL_COMMENT} handleSubmit={() => {
-        throw new Error('Function \'handleSubmit\' isn\'t implemented.');
-      }}
+      <AddReviewForm
+        initial={{rating: InitialValue.Rating, comment: INITIAL_COMMENT}}
+        handleSubmit={() => {
+          throw new Error('Function "handleSubmit" is not implemented.');
+        }}
       />
-
     </section>
   );
 }

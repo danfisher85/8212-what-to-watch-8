@@ -7,6 +7,7 @@ enum Genre {
   'Drama',
   'Fantasy',
 }
+type GenreName = keyof typeof Genre;
 
 export interface Film {
   id: number;
@@ -23,9 +24,8 @@ export interface Film {
   director: string;
   starring: string[];
   runTime: number;
-  genre: keyof typeof Genre;
+  genre: GenreName;
   released: number;
   isFavorite: boolean;
 }
-
 export type Films = Film[];

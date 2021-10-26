@@ -1,6 +1,6 @@
-import {Comment} from 'types/comment';
+import {Comments} from 'types/comment';
 
-export const comments: Comment[] = [
+export const comments: Comments = [
   {
     id: 1,
     user: {

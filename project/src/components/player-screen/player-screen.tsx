@@ -17,13 +17,17 @@ function PlayerScreen(props: PlayerScreenProps): JSX.Element {
     <div className="player">
       <video src={film.videoLink} className="player__video" poster={film.posterImage}></video>
 
-      <button type="button" className="player__exit" onClick={handlePlayerExitButtonClick}>Exit</button>
+      <button type="button" className="player__exit" onClick={handlePlayerExitButtonClick}>
+        Exit
+      </button>
 
       <div className="player__controls">
         <div className="player__controls-row">
           <div className="player__time">
             <progress className="player__progress" value="30" max="100"></progress>
-            <div className="player__toggler" style={{left: '30%'}}>Toggler</div>
+            <div className="player__toggler" style={{left: '30%'}}>
+              Toggler
+            </div>
           </div>
           <div className="player__time-value">{film.runTime}</div>
         </div>

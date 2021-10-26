@@ -6,7 +6,7 @@ import {AuthorizationStatus} from 'configs/auth-status';
 type PrivateRouteProps = RouteProps & {
   render: () => JSX.Element;
   authorizationStatus: AuthorizationStatus;
-}
+};
 
 function PrivateRoute(props: PrivateRouteProps): JSX.Element {
   const {exact, path, render, authorizationStatus} = props;

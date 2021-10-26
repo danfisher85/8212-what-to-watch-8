@@ -8,3 +8,5 @@ export type Comment = {
   comment: string;
   date: string;
 }
+
+export type Comments = Comment[];
