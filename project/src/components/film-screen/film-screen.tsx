@@ -98,7 +98,7 @@ function FilmScreen(props: FilmScreenProps): JSX.Element {
                 <p className="film-rating__meta">
                   <span className="film-rating__level">Very good</span>
                   <span className="film-rating__count">
-                    {film.scoresCount ? `${film.scoresCount} ratings` : 'No ratings'}
+                    {film.scoresCount >= 1 ? `${film.scoresCount} ratings` : 'No ratings'}
                   </span>
                 </p>
               </div>
