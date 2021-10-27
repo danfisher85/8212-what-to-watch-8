@@ -1,4 +1,4 @@
-import {Link, useHistory} from 'react-router-dom';
+import {Link, generatePath} from 'react-router-dom';
 import Logo from 'components/logo/logo';
 import UserBlock from 'components/user-block/user-block';
 import FilmsList from 'components/films-list/films-list';
@@ -12,7 +12,14 @@ interface FilmScreenProps {
 
 function FilmScreen(props: FilmScreenProps): JSX.Element {
   const {film, similarFilms} = props;
-  const history = useHistory();
+
+  const pathToFilmPlayer = generatePath(AppRoute.Player, {
+    id: film.id,
+  });
+
+  const pathToAddReview = generatePath(AppRoute.AddReview, {
+    id: film.id,
+  });
 
   return (
     <>
@@ -38,27 +45,19 @@ function FilmScreen(props: FilmScreenProps): JSX.Element {
               </p>
 
               <div className="film-card__buttons">
-                <button
-                  className="btn btn--play film-card__button"
-                  type="button"
-                  onClick={() => history.push(`/player/${film.id}`)}
-                >
+                <Link to={pathToFilmPlayer} className="btn btn--play film-card__button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use href="#play-s"></use>
                   </svg>
                   <span>Play</span>
-                </button>
-                <button
-                  className="btn btn--list film-card__button"
-                  type="button"
-                  onClick={() => history.push(AppRoute.MyList)}
-                >
+                </Link>
+                <Link to={AppRoute.MyList} className="btn btn--list film-card__button">
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use href="#add"></use>
                   </svg>
                   <span>My list</span>
-                </button>
-                <Link to={`/films/${film.id}/review`} className="btn film-card__button">
+                </Link>
+                <Link to={pathToAddReview} className="btn film-card__button">
                   Add review
                 </Link>
               </div>
@@ -98,7 +97,7 @@ function FilmScreen(props: FilmScreenProps): JSX.Element {
                 <p className="film-rating__meta">
                   <span className="film-rating__level">Very good</span>
                   <span className="film-rating__count">
-                    {film.scoresCount ? `${film.scoresCount} ratings` : 'No ratings'}
+                    {film.scoresCount >= 1 ? `${film.scoresCount} ratings` : 'No ratings'}
                   </span>
                 </p>
               </div>
@@ -111,9 +110,7 @@ function FilmScreen(props: FilmScreenProps): JSX.Element {
                 </p>
 
                 <p className="film-card__starring">
-                  <strong>
-                    Starring: {film.starring.length ? `${film.starring.join(', ')} and other` : 'No actors'}
-                  </strong>
+                  <strong>{film.starring?.length && `Starring: ${film.starring.join(', ')} and other`}</strong>
                 </p>
               </div>
             </div>

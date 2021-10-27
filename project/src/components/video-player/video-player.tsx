@@ -20,9 +20,10 @@ function VideoPlayer({src, poster, isActive}: VideoPlayerProps): JSX.Element {
 
     if (isActive) {
       timeout = setTimeout(() => videoRef.current?.play(), VIDEO_DELAY);
-    } else {
-      videoRef.current?.load();
+      return;
     }
+
+    videoRef.current?.load();
 
     return () => {
       if (timeout) {
