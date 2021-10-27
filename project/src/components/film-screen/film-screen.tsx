@@ -97,7 +97,7 @@ function FilmScreen(props: FilmScreenProps): JSX.Element {
                 <p className="film-rating__meta">
                   <span className="film-rating__level">Very good</span>
                   <span className="film-rating__count">
-                    {film.scoresCount >= 1 ? `${film.scoresCount} ratings` : 'No ratings'}
+                    {film.scoresCount > 0 ? `${film.scoresCount} ratings` : 'No ratings'}
                   </span>
                 </p>
               </div>
@@ -110,7 +110,7 @@ function FilmScreen(props: FilmScreenProps): JSX.Element {
                 </p>
 
                 <p className="film-card__starring">
-                  <strong>{film.starring?.length && `Starring: ${film.starring.join(', ')} and other`}</strong>
+                  <strong>{film.starring?.length > 0 && `Starring: ${film.starring.join(', ')} and other`}</strong>
                 </p>
               </div>
             </div>
