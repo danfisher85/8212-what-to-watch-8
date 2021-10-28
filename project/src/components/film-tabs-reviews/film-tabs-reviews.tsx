@@ -1,6 +1,10 @@
-function FilmTabsReviews(): JSX.Element {
+interface FilmTabsReviewsProps {
+  title: string;
+}
+
+function FilmTabsReviews({title}: FilmTabsReviewsProps): JSX.Element {
   return (
-    <div className="film-card__reviews film-card__row">
+    <div className="film-card__reviews film-card__row" data-title={title}>
       <div className="film-card__reviews-col">
         <div className="review">
           <blockquote className="review__quote">

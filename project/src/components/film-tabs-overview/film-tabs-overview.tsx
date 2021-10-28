@@ -1,4 +1,8 @@
-function FilmTabsOverview(): JSX.Element {
+interface FilmTabsOverviewProps {
+  title: string;
+}
+
+function FilmTabsOverview({title}: FilmTabsOverviewProps): JSX.Element {
   return (
     <>
       <div className="film-rating">
@@ -9,7 +13,7 @@ function FilmTabsOverview(): JSX.Element {
         </p>
       </div>
 
-      <div className="film-card__text">
+      <div className="film-card__text" data-title={title}>
         <p>
           In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H.
           (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave`s friend and protege.

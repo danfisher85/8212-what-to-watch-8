@@ -1,27 +1,29 @@
-import {Tabs} from 'types/tab';
+import {useState} from 'react';
+import TabTitle from 'components/film-tab-title/film-tab-title';
 
-interface FilmTabsProps {
-  tabs: Tabs;
-  children: JSX.Element;
-  handleOnClick: (activeTab: string) => void;
+interface FilmTabsTabsProps {
+  children: JSX.Element[];
 }
 
-function FilmTabs({tabs, children, handleOnClick}: FilmTabsProps): JSX.Element {
+function FilmTabs({children}: FilmTabsTabsProps): JSX.Element {
+  const [selectedTab, setSelectedTab] = useState(0);
+
   return (
     <div className="film-card__desc">
       <nav className="film-nav film-card__nav">
         <ul className="film-nav__list">
-          {tabs.map((tab) => (
-            <li key={tab.id} className="film-nav__item">
-              <a href={`#${tab.id}`} data-id={tab.id} className="film-nav__link" onClick={() => handleOnClick(tab.id)}>
-                {tab.label}
-              </a>
-            </li>
+          {children.map((tab, tabIndex) => (
+            <TabTitle
+              key={tab.props.title}
+              title={tab.props.title}
+              tabIndex={tabIndex}
+              selectedTab={selectedTab}
+              setSelectedTab={setSelectedTab}
+            />
           ))}
         </ul>
       </nav>
-
-      {children}
+      {children[selectedTab]}
     </div>
   );
 }

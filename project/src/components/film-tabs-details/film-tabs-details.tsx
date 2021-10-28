@@ -1,6 +1,10 @@
-function FilmTabsDetails(): JSX.Element {
+interface FilmTabsDetailsProps {
+  title: string;
+}
+
+function FilmTabsDetails({title}: FilmTabsDetailsProps): JSX.Element {
   return (
-    <div className="film-card__text film-card__row">
+    <div className="film-card__text film-card__row" data-title={title}>
       <div className="film-card__text-col">
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Director</strong>

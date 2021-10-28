@@ -1,49 +1,18 @@
-import {useState, MouseEvent} from 'react';
 import {Link, generatePath} from 'react-router-dom';
 import Logo from 'components/logo/logo';
 import UserBlock from 'components/user-block/user-block';
 import FilmsList from 'components/films-list/films-list';
 import FilmTabs from 'components/film-tabs/film-tabs';
 import FilmTabsOverview from 'components/film-tabs-overview/film-tabs-overview';
-import FilmTabsReviews from 'components/film-tabs-reviews/film-tabs-reviews';
 import FilmTabsDetails from 'components/film-tabs-details/film-tabs-details';
+import FilmTabsReviews from 'components/film-tabs-reviews/film-tabs-reviews';
 import {AppRoute} from 'configs/routes';
 import {Film, Films} from 'types/film';
-import {Tabs} from 'types/tab';
 
 interface FilmScreenProps {
   film: Film;
   similarFilms: Films;
 }
-
-const tabs: Tabs = [
-  {
-    id: 'overview',
-    label: 'Overview',
-    isActive: true,
-  },
-  {
-    id: 'details',
-    label: 'Details',
-  },
-  {
-    id: 'reviews',
-    label: 'Reviews',
-  },
-];
-
-const getActiveFilmTab = (tab: string) => {
-  switch (tab) {
-    case 'overview':
-      return <FilmTabsOverview />;
-    case 'details':
-      return <FilmTabsDetails />;
-    case 'reviews':
-      return <FilmTabsReviews />;
-    default:
-      return <FilmTabsOverview />;
-  }
-};
 
 function FilmScreen(props: FilmScreenProps): JSX.Element {
   const {film, similarFilms} = props;
@@ -55,13 +24,6 @@ function FilmScreen(props: FilmScreenProps): JSX.Element {
   const pathToAddReview = generatePath(AppRoute.AddReview, {
     id: film.id,
   });
-
-  const [activeTab, setActiveTab] = useState<string>('overview');
-
-  const handleOnClick = (evt: MouseEvent<HTMLAnchorElement>) => {
-    evt.preventDefault();
-    setActiveTab(evt.currentTarget.href);
-  };
 
   return (
     <>
@@ -113,8 +75,10 @@ function FilmScreen(props: FilmScreenProps): JSX.Element {
               <img src={film.posterImage} alt={`${film.name} poster`} width="218" height="327" />
             </div>
 
-            <FilmTabs tabs={tabs} handleOnClick={handleOnClick}>
-              {getActiveFilmTab(activeTab)}
+            <FilmTabs>
+              <FilmTabsOverview title="Overview" />
+              <FilmTabsDetails title="Details" />
+              <FilmTabsReviews title="Reviews" />
             </FilmTabs>
           </div>
         </div>
