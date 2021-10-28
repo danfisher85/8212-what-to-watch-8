@@ -12,7 +12,7 @@ function FilmTabs({children}: FilmTabsTabsProps): JSX.Element {
     <div className="film-card__desc">
       <nav className="film-nav film-card__nav">
         <ul className="film-nav__list">
-          {children.map((tab, tabIndex) => (
+          {children?.map((tab, tabIndex) => (
             <TabTitle
               key={tab.props.title}
               title={tab.props.title}

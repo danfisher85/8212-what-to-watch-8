@@ -8,14 +8,16 @@ import FilmTabsDetails from 'components/film-tabs-details/film-tabs-details';
 import FilmTabsReviews from 'components/film-tabs-reviews/film-tabs-reviews';
 import {AppRoute} from 'configs/routes';
 import {Film, Films} from 'types/film';
+import {Comments} from 'types/comment';
 
 interface FilmScreenProps {
   film: Film;
   similarFilms: Films;
+  comments: Comments;
 }
 
 function FilmScreen(props: FilmScreenProps): JSX.Element {
-  const {film, similarFilms} = props;
+  const {film, similarFilms, comments} = props;
 
   const pathToFilmPlayer = generatePath(AppRoute.Player, {
     id: film.id,
@@ -76,9 +78,9 @@ function FilmScreen(props: FilmScreenProps): JSX.Element {
             </div>
 
             <FilmTabs>
-              <FilmTabsOverview title="Overview" />
-              <FilmTabsDetails title="Details" />
-              <FilmTabsReviews title="Reviews" />
+              <FilmTabsOverview title="Overview" film={film} />
+              <FilmTabsDetails title="Details" film={film} />
+              <FilmTabsReviews title="Reviews" comments={comments} />
             </FilmTabs>
           </div>
         </div>
