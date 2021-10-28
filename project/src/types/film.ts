@@ -7,7 +7,7 @@ enum Genre {
   'Drama',
   'Fantasy',
 }
-type GenreName = keyof typeof Genre;
+export type GenreName = keyof typeof Genre;
 
 export interface Film {
   id: number;

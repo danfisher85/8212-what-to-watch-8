@@ -15,7 +15,6 @@ import {Comments} from 'types/comment';
 
 interface AppScreenProps {
   promoFilm: Film;
-  similarFilms: Films;
   films: Films;
   comments: Comments;
 }
@@ -25,7 +24,7 @@ interface RouteInfo {
 }
 
 function App(props: AppScreenProps): JSX.Element {
-  const {promoFilm, similarFilms, films, comments} = props;
+  const {promoFilm, films, comments} = props;
 
   return (
     <BrowserRouter>
@@ -59,7 +58,7 @@ function App(props: AppScreenProps): JSX.Element {
             const film = getFilmById(+match.params.id, films);
 
             if (film) {
-              return <FilmScreen film={film} similarFilms={similarFilms} comments={comments} />;
+              return <FilmScreen films={films} film={film} comments={comments} />;
             }
             return <Redirect to={AppRoute.Root} />;
           }}

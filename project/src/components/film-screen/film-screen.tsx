@@ -6,18 +6,21 @@ import FilmTabs from 'components/film-tabs/film-tabs';
 import FilmTabsOverview from 'components/film-tabs-overview/film-tabs-overview';
 import FilmTabsDetails from 'components/film-tabs-details/film-tabs-details';
 import FilmTabsReviews from 'components/film-tabs-reviews/film-tabs-reviews';
+import {filterFilmsByGenre} from 'utils/film';
 import {AppRoute} from 'configs/routes';
 import {Film, Films} from 'types/film';
 import {Comments} from 'types/comment';
 
+const SIMILAR_FILMS_COUNT = 4;
+
 interface FilmScreenProps {
   film: Film;
-  similarFilms: Films;
+  films: Films;
   comments: Comments;
 }
 
 function FilmScreen(props: FilmScreenProps): JSX.Element {
-  const {film, similarFilms, comments} = props;
+  const {film, films, comments} = props;
 
   const pathToFilmPlayer = generatePath(AppRoute.Player, {
     id: film.id,
@@ -26,6 +29,8 @@ function FilmScreen(props: FilmScreenProps): JSX.Element {
   const pathToAddReview = generatePath(AppRoute.AddReview, {
     id: film.id,
   });
+
+  const similarFilms = filterFilmsByGenre(films, film.genre).slice(0, SIMILAR_FILMS_COUNT);
 
   return (
     <>
