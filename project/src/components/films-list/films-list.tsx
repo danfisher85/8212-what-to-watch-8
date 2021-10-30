@@ -7,12 +7,12 @@ interface FilmsListProps {
   films: Films;
 }
 
-const getFilmByState = (activeFilm: Film | null, film: Film) => {
-  if (activeFilm?.id === film.id) {
-    return <VideoPlayer poster={film.posterImage} src={film.previewVideoLink} isActive={activeFilm && true} />;
+const getFilmByState = (activeFilm: Film | null, currentFilmId: number) => {
+  if (activeFilm?.id === currentFilmId) {
+    return <VideoPlayer poster={activeFilm.posterImage} src={activeFilm.previewVideoLink} isActive />;
   }
 
-  return <img src={film.previewImage} alt={`${film.name} poster`} width="280" height="175" />;
+  return null;
 };
 
 function FilmsList(props: FilmsListProps): JSX.Element {
@@ -34,9 +34,9 @@ function FilmsList(props: FilmsListProps): JSX.Element {
 
   return (
     <div className="catalog__films-list" data-film-id={activeFilm?.id}>
-      {films.map((film) => (
+      {films?.map((film) => (
         <FilmCard key={film.id} film={film} handleMouseEnter={handleMouseEnter} handleMouseLeave={handleMouseLeave}>
-          {getFilmByState(activeFilm, film)}
+          {getFilmByState(activeFilm, film.id)}
         </FilmCard>
       ))}
     </div>

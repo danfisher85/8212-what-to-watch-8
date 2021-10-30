@@ -6,7 +6,7 @@ interface FilmCardProps {
   film: Film;
   handleMouseEnter: (film: Film) => void;
   handleMouseLeave: () => void;
-  children: JSX.Element;
+  children: JSX.Element | null;
 }
 
 function FilmCard(props: FilmCardProps): JSX.Element {
@@ -27,7 +27,9 @@ function FilmCard(props: FilmCardProps): JSX.Element {
         handleMouseLeave();
       }}
     >
-      <div className="small-film-card__image">{children}</div>
+      <div className="small-film-card__image">
+        {children || <img src={film.previewImage} alt={`${film.name} poster`} width="280" height="175" />}
+      </div>
       <h3 className="small-film-card__title">
         <Link to={pathToFilm} className="small-film-card__link">
           {film.name}

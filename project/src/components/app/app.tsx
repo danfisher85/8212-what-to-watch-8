@@ -11,11 +11,12 @@ import AddReviewScreen from 'components/add-review-screen/add-review-screen';
 import NotFoundScreen from 'components/not-found-screen/not-found-screen';
 import {getFilmById} from 'utils/film';
 import {Film, Films} from 'types/film';
+import {Comments} from 'types/comment';
 
 interface AppScreenProps {
   promoFilm: Film;
-  similarFilms: Films;
   films: Films;
+  comments: Comments;
 }
 
 interface RouteInfo {
@@ -23,7 +24,7 @@ interface RouteInfo {
 }
 
 function App(props: AppScreenProps): JSX.Element {
-  const {promoFilm, similarFilms, films} = props;
+  const {promoFilm, films, comments} = props;
 
   return (
     <BrowserRouter>
@@ -57,7 +58,7 @@ function App(props: AppScreenProps): JSX.Element {
             const film = getFilmById(+match.params.id, films);
 
             if (film) {
-              return <FilmScreen film={film} similarFilms={similarFilms} />;
+              return <FilmScreen films={films} film={film} comments={comments} />;
             }
             return <Redirect to={AppRoute.Root} />;
           }}

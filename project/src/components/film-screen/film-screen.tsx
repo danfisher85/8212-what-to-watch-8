@@ -2,16 +2,25 @@ import {Link, generatePath} from 'react-router-dom';
 import Logo from 'components/logo/logo';
 import UserBlock from 'components/user-block/user-block';
 import FilmsList from 'components/films-list/films-list';
+import FilmTabs from 'components/film-tabs/film-tabs';
+import FilmTabsOverview from 'components/film-tabs-overview/film-tabs-overview';
+import FilmTabsDetails from 'components/film-tabs-details/film-tabs-details';
+import FilmTabsReviews from 'components/film-tabs-reviews/film-tabs-reviews';
+import {filterFilmsByGenre} from 'utils/film';
 import {AppRoute} from 'configs/routes';
 import {Film, Films} from 'types/film';
+import {Comments} from 'types/comment';
+
+const SIMILAR_FILMS_COUNT = 4;
 
 interface FilmScreenProps {
   film: Film;
-  similarFilms: Films;
+  films: Films;
+  comments: Comments;
 }
 
 function FilmScreen(props: FilmScreenProps): JSX.Element {
-  const {film, similarFilms} = props;
+  const {film, films, comments} = props;
 
   const pathToFilmPlayer = generatePath(AppRoute.Player, {
     id: film.id,
@@ -20,6 +29,8 @@ function FilmScreen(props: FilmScreenProps): JSX.Element {
   const pathToAddReview = generatePath(AppRoute.AddReview, {
     id: film.id,
   });
+
+  const similarFilms = filterFilmsByGenre(films, film.genre).slice(0, SIMILAR_FILMS_COUNT);
 
   return (
     <>
@@ -71,49 +82,11 @@ function FilmScreen(props: FilmScreenProps): JSX.Element {
               <img src={film.posterImage} alt={`${film.name} poster`} width="218" height="327" />
             </div>
 
-            <div className="film-card__desc">
-              <nav className="film-nav film-card__nav">
-                <ul className="film-nav__list">
-                  <li className="film-nav__item film-nav__item--active">
-                    <a href="temp-link-placeholder.html" className="film-nav__link">
-                      Overview
-                    </a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="temp-link-placeholder.html" className="film-nav__link">
-                      Details
-                    </a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="temp-link-placeholder.html" className="film-nav__link">
-                      Reviews
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-
-              <div className="film-rating">
-                <div className="film-rating__score">{film.rating}</div>
-                <p className="film-rating__meta">
-                  <span className="film-rating__level">Very good</span>
-                  <span className="film-rating__count">
-                    {film.scoresCount >= 1 ? `${film.scoresCount} ratings` : 'No ratings'}
-                  </span>
-                </p>
-              </div>
-
-              <div className="film-card__text">
-                <p>{film.description}</p>
-
-                <p className="film-card__director">
-                  <strong>Director: {film.director}</strong>
-                </p>
-
-                <p className="film-card__starring">
-                  <strong>{film.starring?.length && `Starring: ${film.starring.join(', ')} and other`}</strong>
-                </p>
-              </div>
-            </div>
+            <FilmTabs>
+              <FilmTabsOverview title="Overview" film={film} />
+              <FilmTabsDetails title="Details" film={film} />
+              <FilmTabsReviews title="Reviews" comments={comments} />
+            </FilmTabs>
           </div>
         </div>
       </section>

@@ -6,7 +6,7 @@ export type Comment = {
   },
   rating: number;
   comment: string;
-  date: string;
+  date: Date;
 }
 
 export type Comments = Comment[];
