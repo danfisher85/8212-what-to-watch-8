@@ -13,7 +13,7 @@ function FilmTabsOverview({title, film}: FilmTabsOverviewProps): JSX.Element {
         <p className="film-rating__meta">
           <span className="film-rating__level">Very good</span>
           <span className="film-rating__count">
-            {film.scoresCount >= 1 ? `${film.scoresCount} ratings` : 'No ratings'}
+            {film.scoresCount > 0 ? `${film.scoresCount} ratings` : 'No ratings'}
           </span>
         </p>
       </div>

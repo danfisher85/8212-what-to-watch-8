@@ -13,8 +13,8 @@ function FilmComment({comment}: FilmCommentProps): JSX.Element {
 
         <footer className="review__details">
           <cite className="review__author">{comment.user.name}</cite>
-          <time className="review__date" dateTime={getFormattedDateTime(comment.date)}>
-            {getHumanizedDate(comment.date)}
+          <time className="review__date" dateTime={getFormattedDateTime(new Date(comment.date))}>
+            {getHumanizedDate(new Date(comment.date))}
           </time>
         </footer>
       </blockquote>

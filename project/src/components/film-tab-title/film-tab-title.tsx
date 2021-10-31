@@ -15,10 +15,10 @@ function FilmTabTitle({title, tabIndex, selectedTab, setSelectedTab}: FilmTabTit
 
   return (
     <li
+      onClick={onClick}
       className={clsx(['film-nav__item', {'film-nav__item--active': selectedTab === tabIndex}])}
-      style={{cursor: 'pointer'}}
     >
-      <span onClick={onClick} className="film-nav__link">
+      <span className="film-nav__link">
         {title}
       </span>
     </li>

@@ -18,15 +18,12 @@ function FilmTabsDetails({title, film}: FilmTabsDetailsProps): JSX.Element {
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Starring</strong>
           <span className="film-card__details-value">
-            {film.starring?.map((actor, index) => {
-              const key = index;
-
-              return (
-                <Fragment key={key}>
-                  {actor} <br />
-                </Fragment>
-              );
-            })}
+            {film.starring?.map((actor) => (
+              <Fragment key={actor}>
+                {actor}
+                <br />
+              </Fragment>
+            ))}
           </span>
         </p>
       </div>
