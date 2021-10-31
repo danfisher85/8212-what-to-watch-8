@@ -1,5 +1,5 @@
 enum Genre {
-  'All Genres',
+  'All genres',
   'Comedy',
   'Crime',
   'Adventure',

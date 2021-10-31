@@ -1,7 +1,7 @@
-import {ActionType} from 'types/action';
+import {ActionType, ChangeGenreAction} from 'types/action';
 import {GenreName} from 'types/film';
 
-export const ChangeGenreAction = (genre: GenreName) => ({
+export const changeGenre = (genre: GenreName): ChangeGenreAction => ({
   type: ActionType.ChangeGenre,
   payload: genre,
 });

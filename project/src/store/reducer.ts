@@ -2,9 +2,10 @@ import {GenreName} from 'types/film';
 import {films} from 'fixtures/films';
 import {Actions, ActionType} from 'types/action';
 import {State} from 'types/state';
+import {ALL_GENRES_ITEM} from 'configs/film-filter';
 
 const initialState = {
-  genre: 'All Genres' as GenreName,
+  genre: ALL_GENRES_ITEM as GenreName,
   films: films,
 };
 
