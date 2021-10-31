@@ -15,6 +15,6 @@ const reducer = (state: State = initialState, action: Actions): State => {
     default:
       return {...state};
   }
-}
+};
 
 export {reducer};
