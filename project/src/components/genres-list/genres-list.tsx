@@ -1,15 +1,26 @@
 // import {Genres} from 'types/film';
+import clsx from 'clsx';
 
 interface GenresListProps {
   genres: string[];
+  currentGenre: string;
+  handleGenreClick: (genre: string) => void;
 }
 
-function GenresList({genres}: GenresListProps): JSX.Element {
+function GenresList({genres, currentGenre, handleGenreClick}: GenresListProps): JSX.Element {
   return (
     <ul className="catalog__genres-list">
       {genres.map((genre) => (
-        <li key={genre} className="catalog__genres-item">
-          <a href="temp-link-placeholder.html" className="catalog__genres-link">
+        <li
+          key={genre}
+          className={clsx(['catalog__genres-item', {'catalog__genres-item--active': genre === currentGenre}])}
+        >
+          <a
+            className="catalog__genres-link"
+            onClick={() => {
+              handleGenreClick(genre);
+            }}
+          >
             {genre}
           </a>
         </li>

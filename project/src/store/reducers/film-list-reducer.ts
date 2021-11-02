@@ -1,4 +1,3 @@
-// import {GenreName} from 'types/film';
 import {films} from 'fixtures/films';
 import {Actions, ActionType} from 'types/action';
 import {State} from 'types/state';
@@ -14,9 +13,7 @@ const initialState = {
 const filmListReducer = (state: State = initialState, action: Actions): State => {
   switch (action.type) {
     case ActionType.ChangeGenre:
-      return {...state, currentGenre: state.currentGenre};
-    case ActionType.GetFilmsByGenre:
-      return {...state, films: state.films};
+      return {...state, currentGenre: action.payload};
     default:
       return state;
   }

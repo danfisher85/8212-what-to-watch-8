@@ -4,6 +4,9 @@ import FilmsList from 'components/films-list/films-list';
 import GenresList from 'components/genres-list/genres-list';
 import {Film} from 'types/film';
 import {useTypedSelector} from 'hooks/useTypedSelector';
+import {useDispatch} from 'react-redux';
+import {changeGenre} from 'store/action';
+import {filterFilmsByGenre} from 'utils/film';
 
 type MainScreenProps = {
   promoFilm: Film;
@@ -13,12 +16,11 @@ function MainScreen(props: MainScreenProps): JSX.Element {
   const {promoFilm} = props;
 
   const {genres, films, currentGenre} = useTypedSelector((state) => state.filmList);
+  const dispatch = useDispatch();
 
-  // eslint-disable-next-line no-console
-  console.log(currentGenre);
-
-  // eslint-disable-next-line no-console
-  console.log(genres);
+  const handleGenreClick = (genre: string) => {
+    dispatch(changeGenre(genre));
+  };
 
   return (
     <>
@@ -28,8 +30,8 @@ function MainScreen(props: MainScreenProps): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <GenresList genres={genres} />
-          <FilmsList films={films} />
+          <GenresList genres={genres} currentGenre={currentGenre} handleGenreClick={handleGenreClick} />
+          <FilmsList films={filterFilmsByGenre(films, currentGenre)} />
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">
