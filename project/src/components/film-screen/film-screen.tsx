@@ -1,5 +1,6 @@
 import {Link, generatePath} from 'react-router-dom';
 import Logo from 'components/logo/logo';
+import Footer from 'components/footer/footer';
 import UserBlock from 'components/user-block/user-block';
 import FilmsList from 'components/films-list/films-list';
 import FilmTabs from 'components/film-tabs/film-tabs';
@@ -98,13 +99,7 @@ function FilmScreen(props: FilmScreenProps): JSX.Element {
           <FilmsList films={similarFilms} />
         </section>
 
-        <footer className="page-footer">
-          <Logo isInFooter />
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </>
   );
