@@ -22,6 +22,7 @@ interface FilmScreenProps {
 
 function FilmScreen(props: FilmScreenProps): JSX.Element {
   const {film, films, comments} = props;
+  const {director, rating, scoresCount, description, starring, runTime, genre, released} = film;
 
   const pathToFilmPlayer = generatePath(AppRoute.Player, {
     id: film.id,
@@ -84,8 +85,22 @@ function FilmScreen(props: FilmScreenProps): JSX.Element {
             </div>
 
             <FilmTabs>
-              <FilmTabsOverview title="Overview" film={film} />
-              <FilmTabsDetails title="Details" film={film} />
+              <FilmTabsOverview
+                title="Overview"
+                rating={rating}
+                scoresCount={scoresCount}
+                description={description}
+                director={director}
+                starring={starring}
+              />
+              <FilmTabsDetails
+                title="Details"
+                director={director}
+                starring={starring}
+                runTime={runTime}
+                genre={genre}
+                released={released}
+              />
               <FilmTabsReviews title="Reviews" comments={comments} />
             </FilmTabs>
           </div>

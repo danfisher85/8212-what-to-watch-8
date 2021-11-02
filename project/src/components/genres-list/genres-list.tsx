@@ -14,15 +14,11 @@ function GenresList({genres, currentGenre, handleGenreClick}: GenresListProps): 
         <li
           key={genre}
           className={clsx(['catalog__genres-item', {'catalog__genres-item--active': genre === currentGenre}])}
+          onClick={() => {
+            handleGenreClick(genre);
+          }}
         >
-          <a
-            className="catalog__genres-link"
-            onClick={() => {
-              handleGenreClick(genre);
-            }}
-          >
-            {genre}
-          </a>
+          <span className="catalog__genres-link">{genre}</span>
         </li>
       ))}
     </ul>

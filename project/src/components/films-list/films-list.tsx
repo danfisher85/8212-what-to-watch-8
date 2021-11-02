@@ -7,14 +7,6 @@ interface FilmsListProps {
   films: Films;
 }
 
-const getFilmByState = (activeFilm: Film | null, currentFilmId: number) => {
-  if (activeFilm?.id === currentFilmId) {
-    return <VideoPlayer poster={activeFilm.posterImage} src={activeFilm.previewVideoLink} isActive />;
-  }
-
-  return null;
-};
-
 function FilmsList(props: FilmsListProps): JSX.Element {
   const {films} = props;
 
@@ -36,7 +28,7 @@ function FilmsList(props: FilmsListProps): JSX.Element {
     <div className="catalog__films-list" data-film-id={activeFilm?.id}>
       {films?.map((film) => (
         <FilmCard key={film.id} film={film} handleMouseEnter={handleMouseEnter} handleMouseLeave={handleMouseLeave}>
-          {getFilmByState(activeFilm, film.id)}
+          {activeFilm?.id === film.id ? <VideoPlayer poster={activeFilm.posterImage} src={activeFilm.previewVideoLink} isActive /> : null}
         </FilmCard>
       ))}
     </div>

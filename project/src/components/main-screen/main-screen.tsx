@@ -1,10 +1,10 @@
+import {useDispatch} from 'react-redux';
 import Footer from 'components/footer/footer';
 import PromoFilmCard from 'components/promo-film-card/promo-film-card';
 import FilmsList from 'components/films-list/films-list';
 import GenresList from 'components/genres-list/genres-list';
 import {Film} from 'types/film';
 import {useTypedSelector} from 'hooks/useTypedSelector';
-import {useDispatch} from 'react-redux';
 import {changeGenre} from 'store/action';
 import {filterFilmsByGenre} from 'utils/film';
 
