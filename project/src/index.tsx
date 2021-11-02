@@ -6,9 +6,9 @@ import {composeWithDevTools} from 'redux-devtools-extension';
 import App from 'components/app/app';
 import {promoFilm, films} from 'fixtures/films';
 import {comments} from 'fixtures/comments';
-import {reducer} from 'store/reducer';
+import {rootReducer} from 'store/reducers/root-reducer';
 
-const store = createStore(reducer, composeWithDevTools());
+const store = createStore(rootReducer, composeWithDevTools());
 
 ReactDOM.render(
   <React.StrictMode>

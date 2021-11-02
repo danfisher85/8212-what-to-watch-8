@@ -7,5 +7,15 @@ export const getFilmById = (filmId: string | number, films: Films): Film | undef
 );
 
 export const filterFilmsByGenre = (films: Films, genre: GenreName): Films => (
-  films.filter((film: Film) => genre === ALL_GENRES_ITEM ? true : film.genre === genre)
+  films.filter((film: Film) => ALL_GENRES_ITEM === genre ? true : film.genre === genre)
 );
+
+export const getGenresList = (films: Films): string[] => {
+  const uniqueGenres = new Set<string>();
+
+  films.forEach((film) => {
+    uniqueGenres.add(film.genre);
+  });
+
+  return [ALL_GENRES_ITEM, ...Array.from(uniqueGenres)];
+};

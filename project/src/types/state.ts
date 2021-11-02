@@ -1,7 +1,7 @@
-import {GenreName} from 'types/film';
 import {Films} from 'types/film';
 
 export type State = {
-  genre: GenreName;
+  currentGenre: string;
+  genres: string[];
   films: Films;
 }
