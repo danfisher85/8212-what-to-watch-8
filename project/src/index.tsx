@@ -6,7 +6,7 @@ import {composeWithDevTools} from 'redux-devtools-extension';
 import App from 'components/app/app';
 import {promoFilm, films} from 'fixtures/films';
 import {comments} from 'fixtures/comments';
-import {rootReducer} from 'store/reducers/root-reducer';
+import {rootReducer} from 'store/root-reducer';
 
 const store = createStore(rootReducer, composeWithDevTools());
 
