@@ -1,6 +1,6 @@
-.film-nav__item {
+.film-nav__item:hover {
   cursor: pointer;
 }
-.catalog__genres-link {
+.catalog__genres-link:hover {
   cursor: pointer;
 }

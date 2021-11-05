@@ -86,20 +86,24 @@ function FilmScreen(props: FilmScreenProps): JSX.Element {
 
             <FilmTabs>
               <FilmTabsOverview
-                title="Overview"
-                rating={rating}
-                scoresCount={scoresCount}
-                description={description}
-                director={director}
-                starring={starring}
+                {...{
+                  title: 'Overview',
+                  rating,
+                  scoresCount,
+                  description,
+                  director,
+                  starring,
+                }}
               />
               <FilmTabsDetails
-                title="Details"
-                director={director}
-                starring={starring}
-                runTime={runTime}
-                genre={genre}
-                released={released}
+                {...{
+                  title: 'Details',
+                  director,
+                  starring,
+                  runTime,
+                  genre,
+                  released,
+                }}
               />
               <FilmTabsReviews title="Reviews" comments={comments} />
             </FilmTabs>
