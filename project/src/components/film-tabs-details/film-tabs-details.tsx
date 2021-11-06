@@ -1,4 +1,3 @@
-import {Fragment} from 'react';
 import {getFormattedRunTime} from 'utils/date';
 import {Film} from 'types/film';
 
@@ -19,10 +18,7 @@ function FilmTabsDetails({title, director, starring, runTime, genre, released}: 
           <strong className="film-card__details-name">Starring</strong>
           <span className="film-card__details-value">
             {starring?.map((actor) => (
-              <Fragment key={actor}>
-                {actor}
-                <br />
-              </Fragment>
+              <p key={actor}>{actor}</p>
             ))}
           </span>
         </p>

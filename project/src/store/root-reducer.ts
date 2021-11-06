@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux';
-import {filmListReducer} from 'store/film-list-reducer';
+import {filmCatalogReducer} from 'store/film-catalog-reducer';
 
 export const rootReducer = combineReducers({
-  filmList: filmListReducer,
+  filmCatalog: filmCatalogReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

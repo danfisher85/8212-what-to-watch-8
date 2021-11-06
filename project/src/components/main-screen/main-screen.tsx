@@ -6,7 +6,6 @@ import GenresList from 'components/genres-list/genres-list';
 import {Film} from 'types/film';
 import {useTypedSelector} from 'hooks/useTypedSelector';
 import {changeGenre, getFilmsByGenre} from 'store/action';
-// import {filterFilmsByGenre} from 'utils/film';
 
 type MainScreenProps = {
   promoFilm: Film;
@@ -15,12 +14,12 @@ type MainScreenProps = {
 function MainScreen(props: MainScreenProps): JSX.Element {
   const {promoFilm} = props;
 
-  const {genres, films, currentGenre} = useTypedSelector((state) => state.filmList);
+  const {genres, films, filteredFilms, currentGenre} = useTypedSelector((state) => state.filmCatalog);
   const dispatch = useDispatch();
 
   const handleGenreClick = (genre: string) => {
     dispatch(changeGenre(genre));
-    dispatch(getFilmsByGenre(films));
+    dispatch(getFilmsByGenre(films, genre));
   };
 
   return (
@@ -32,7 +31,7 @@ function MainScreen(props: MainScreenProps): JSX.Element {
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
           <GenresList genres={genres} currentGenre={currentGenre} handleGenreClick={handleGenreClick} />
-          <FilmsList films={films} />
+          <FilmsList films={filteredFilms} />
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">

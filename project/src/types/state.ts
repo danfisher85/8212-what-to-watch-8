@@ -4,4 +4,5 @@ export type State = {
   currentGenre: string;
   genres: string[];
   films: Films;
+  filteredFilms: Films;
 }

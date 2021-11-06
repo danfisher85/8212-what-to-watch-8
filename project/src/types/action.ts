@@ -1,8 +1,8 @@
 import {Films} from 'types/film';
 
 export enum ActionType {
-  ChangeGenre = 'film/changeGenre',
-  GetFilmsByGenre = 'film/getFilmsByGenre',
+  ChangeGenre = 'catalog/changeGenre',
+  GetFilmsByGenre = 'catalog/getFilmsByGenre',
 }
 
 export type ChangeGenreAction = {
