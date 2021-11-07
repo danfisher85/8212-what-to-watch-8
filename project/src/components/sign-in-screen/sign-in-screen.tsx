@@ -1,4 +1,5 @@
 import Logo from 'components/logo/logo';
+import Footer from 'components/footer/footer';
 
 function SignInScreen(): JSX.Element {
   return (
@@ -45,13 +46,7 @@ function SignInScreen(): JSX.Element {
         </form>
       </div>
 
-      <footer className="page-footer">
-        <Logo isInFooter />
-
-        <div className="copyright">
-          <p>© 2019 What to watch Ltd.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

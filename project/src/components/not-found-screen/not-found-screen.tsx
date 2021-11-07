@@ -1,6 +1,7 @@
 import {Link} from 'react-router-dom';
 import {AppRoute} from 'configs/routes';
 import Logo from 'components/logo/logo';
+import Footer from 'components/footer/footer';
 
 function NotFoundScreen(): JSX.Element {
   return (
@@ -19,13 +20,7 @@ function NotFoundScreen(): JSX.Element {
         </p>
       </div>
 
-      <footer className="page-footer">
-        <Logo isInFooter />
-
-        <div className="copyright">
-          <p>© 2019 What to watch Ltd.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

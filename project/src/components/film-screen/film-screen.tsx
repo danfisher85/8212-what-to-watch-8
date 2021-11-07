@@ -1,5 +1,6 @@
 import {Link, generatePath} from 'react-router-dom';
 import Logo from 'components/logo/logo';
+import Footer from 'components/footer/footer';
 import UserBlock from 'components/user-block/user-block';
 import FilmsList from 'components/films-list/films-list';
 import FilmTabs from 'components/film-tabs/film-tabs';
@@ -21,6 +22,7 @@ interface FilmScreenProps {
 
 function FilmScreen(props: FilmScreenProps): JSX.Element {
   const {film, films, comments} = props;
+  const {director, rating, scoresCount, description, starring, runTime, genre, released} = film;
 
   const pathToFilmPlayer = generatePath(AppRoute.Player, {
     id: film.id,
@@ -83,8 +85,26 @@ function FilmScreen(props: FilmScreenProps): JSX.Element {
             </div>
 
             <FilmTabs>
-              <FilmTabsOverview title="Overview" film={film} />
-              <FilmTabsDetails title="Details" film={film} />
+              <FilmTabsOverview
+                {...{
+                  title: 'Overview',
+                  rating,
+                  scoresCount,
+                  description,
+                  director,
+                  starring,
+                }}
+              />
+              <FilmTabsDetails
+                {...{
+                  title: 'Details',
+                  director,
+                  starring,
+                  runTime,
+                  genre,
+                  released,
+                }}
+              />
               <FilmTabsReviews title="Reviews" comments={comments} />
             </FilmTabs>
           </div>
@@ -98,13 +118,7 @@ function FilmScreen(props: FilmScreenProps): JSX.Element {
           <FilmsList films={similarFilms} />
         </section>
 
-        <footer className="page-footer">
-          <Logo isInFooter />
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </>
   );

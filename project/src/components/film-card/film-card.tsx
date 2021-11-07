@@ -1,3 +1,4 @@
+import {PropsWithChildren} from 'react';
 import {Link, generatePath} from 'react-router-dom';
 import {AppRoute} from 'configs/routes';
 import {Film} from 'types/film';
@@ -6,10 +7,9 @@ interface FilmCardProps {
   film: Film;
   handleMouseEnter: (film: Film) => void;
   handleMouseLeave: () => void;
-  children: JSX.Element | null;
 }
 
-function FilmCard(props: FilmCardProps): JSX.Element {
+function FilmCard(props: PropsWithChildren<FilmCardProps>): JSX.Element {
   const {film, handleMouseEnter, handleMouseLeave, children} = props;
 
   const pathToFilm = generatePath(AppRoute.Film, {

@@ -1,5 +1,6 @@
 import {Films} from 'types/film';
 import Logo from 'components/logo/logo';
+import Footer from 'components/footer/footer';
 import UserBlock from 'components/user-block/user-block';
 import FilmsList from 'components/films-list/films-list';
 
@@ -26,13 +27,7 @@ function MyListScreen(props: MyListScreenProps): JSX.Element {
         <FilmsList films={films} />
       </section>
 
-      <footer className="page-footer">
-        <Logo isInFooter />
-
-        <div className="copyright">
-          <p>© 2019 What to watch Ltd.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

@@ -30,7 +30,7 @@ function App(props: AppScreenProps): JSX.Element {
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.Root}>
-          <MainScreen promoFilm={promoFilm} films={films} />
+          <MainScreen promoFilm={promoFilm} />
         </Route>
         <Route exact path={AppRoute.SignIn} component={SignInScreen} />
         <PrivateRoute
