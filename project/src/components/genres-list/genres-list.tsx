@@ -1,10 +1,10 @@
-// import {Genres} from 'types/film';
 import clsx from 'clsx';
+import {GenreName} from 'types/film';
 
 interface GenresListProps {
-  genres: string[];
-  currentGenre: string;
-  handleGenreClick: (genre: string) => void;
+  genres: Array<GenreName>;
+  currentGenre: GenreName;
+  handleGenreClick: (genre: GenreName) => void;
 }
 
 function GenresList({genres, currentGenre, handleGenreClick}: GenresListProps): JSX.Element {

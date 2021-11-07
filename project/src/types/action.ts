@@ -1,4 +1,4 @@
-import {Films} from 'types/film';
+import {Films, GenreName} from 'types/film';
 
 export enum ActionType {
   ChangeGenre = 'catalog/changeGenre',
@@ -7,7 +7,7 @@ export enum ActionType {
 
 export type ChangeGenreAction = {
   type: ActionType.ChangeGenre;
-  payload: string;
+  payload: GenreName;
 }
 
 export type GetFilmsByGenreAction = {

@@ -3,7 +3,7 @@ import Footer from 'components/footer/footer';
 import PromoFilmCard from 'components/promo-film-card/promo-film-card';
 import FilmsList from 'components/films-list/films-list';
 import GenresList from 'components/genres-list/genres-list';
-import {Film} from 'types/film';
+import {Film, GenreName} from 'types/film';
 import {useTypedSelector} from 'hooks/useTypedSelector';
 import {changeGenre, getFilmsByGenre} from 'store/action';
 
@@ -17,7 +17,7 @@ function MainScreen(props: MainScreenProps): JSX.Element {
   const {genres, films, filteredFilms, currentGenre} = useTypedSelector((state) => state.filmCatalog);
   const dispatch = useDispatch();
 
-  const handleGenreClick = (genre: string) => {
+  const handleGenreClick = (genre: GenreName) => {
     dispatch(changeGenre(genre));
     dispatch(getFilmsByGenre(films, genre));
   };
