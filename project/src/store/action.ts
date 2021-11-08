@@ -10,7 +10,7 @@ export const changeGenre = (genre: GenreName): ChangeGenreAction => ({
 
 export const getFilmsByGenre = (films: Films, genre: GenreName, currentPage: number): GetFilmsByGenreAction => ({
   type: ActionType.GetFilmsByGenre,
-  payload: filterFilmsByGenre(films.slice(0, currentPage * FILM_PER_PAGE), genre),
+  payload: filterFilmsByGenre(films, genre).slice(0, currentPage * FILM_PER_PAGE),
 });
 
 export const setLoadMoreFilms = (currentPage: number): SetLoadMoreFilmsActions => ({
