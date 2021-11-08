@@ -3,9 +3,10 @@ import Footer from 'components/footer/footer';
 import PromoFilmCard from 'components/promo-film-card/promo-film-card';
 import FilmsList from 'components/films-list/films-list';
 import GenresList from 'components/genres-list/genres-list';
+import FilmMoreButton from 'components/film-more-button/film-more-button';
 import {Film, GenreName} from 'types/film';
 import {useTypedSelector} from 'hooks/useTypedSelector';
-import {changeGenre, getFilmsByGenre} from 'store/action';
+import {changeGenre, getFilmsByGenre, setLoadMoreFilms} from 'store/action';
 
 type MainScreenProps = {
   promoFilm: Film;
@@ -14,12 +15,20 @@ type MainScreenProps = {
 function MainScreen(props: MainScreenProps): JSX.Element {
   const {promoFilm} = props;
 
-  const {genres, films, filteredFilms, currentGenre} = useTypedSelector((state) => state.filmCatalog);
+  const {genres, films, filteredFilms, currentGenre, currentPage} = useTypedSelector((state) => state.filmCatalog);
   const dispatch = useDispatch();
 
+  const isMoreButtonVisible = films.length > filteredFilms.length;
+
   const handleGenreClick = (genre: GenreName) => {
+    dispatch(setLoadMoreFilms(0));
     dispatch(changeGenre(genre));
-    dispatch(getFilmsByGenre(films, genre));
+    dispatch(getFilmsByGenre(films, genre, currentPage));
+  };
+
+  const handleMoreButtonClick = () => {
+    dispatch(setLoadMoreFilms(currentPage));
+    dispatch(getFilmsByGenre(films, currentGenre, currentPage));
   };
 
   return (
@@ -32,12 +41,7 @@ function MainScreen(props: MainScreenProps): JSX.Element {
 
           <GenresList genres={genres} currentGenre={currentGenre} handleGenreClick={handleGenreClick} />
           <FilmsList films={filteredFilms} />
-
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">
-              Show more
-            </button>
-          </div>
+          {isMoreButtonVisible && <FilmMoreButton handleMoreButtonClick={handleMoreButtonClick} />}
         </section>
 
         <Footer />
