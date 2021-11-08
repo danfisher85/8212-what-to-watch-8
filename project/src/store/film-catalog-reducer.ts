@@ -21,6 +21,8 @@ const filmCatalogReducer = (state: State = initialState, action: Actions): State
       return {...state, filteredFilms: action.payload};
     case ActionType.SetLoadMoreFilms:
       return {...state, currentPage: action.payload};
+    case ActionType.ResetFilms:
+      return {...initialState};
     default:
       return state;
   }
