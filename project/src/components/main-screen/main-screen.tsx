@@ -7,6 +7,7 @@ import FilmMoreButton from 'components/film-more-button/film-more-button';
 import {Film, GenreName} from 'types/film';
 import {useTypedSelector} from 'hooks/useTypedSelector';
 import {changeGenre, getFilmsByGenre, setLoadMoreFilms} from 'store/action';
+import {filterFilmsByGenre} from 'utils/film';
 
 type MainScreenProps = {
   promoFilm: Film;
@@ -18,7 +19,8 @@ function MainScreen(props: MainScreenProps): JSX.Element {
   const {genres, films, filteredFilms, currentGenre, currentPage} = useTypedSelector((state) => state.filmCatalog);
   const dispatch = useDispatch();
 
-  const isMoreButtonVisible = films.length > filteredFilms.length;
+  const allFilteredFilms = filterFilmsByGenre(films, currentGenre); // most likely a temp solution, but it works 🤷‍♂️
+  const isMoreButtonVisible = allFilteredFilms.length > filteredFilms.length;
 
   const handleGenreClick = (genre: GenreName) => {
     dispatch(setLoadMoreFilms(0));
@@ -28,7 +30,7 @@ function MainScreen(props: MainScreenProps): JSX.Element {
 
   const handleMoreButtonClick = () => {
     dispatch(setLoadMoreFilms(currentPage));
-    dispatch(getFilmsByGenre(films, currentGenre, currentPage));
+    dispatch(getFilmsByGenre(films, currentGenre, currentPage + 1));
   };
 
   return (
