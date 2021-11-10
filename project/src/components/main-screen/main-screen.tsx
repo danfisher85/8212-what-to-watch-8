@@ -25,7 +25,7 @@ function MainScreen(props: MainScreenProps): JSX.Element {
   const handleGenreClick = (genre: GenreName) => {
     dispatch(setLoadMoreFilms(0));
     dispatch(changeGenre(genre));
-    dispatch(getFilmsByGenre(films, genre, currentPage));
+    dispatch(getFilmsByGenre(films, genre, 1));
   };
 
   const handleMoreButtonClick = () => {
