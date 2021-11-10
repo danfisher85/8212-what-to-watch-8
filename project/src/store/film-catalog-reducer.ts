@@ -1,4 +1,3 @@
-import {films} from 'fixtures/films';
 import {Actions, ActionType} from 'types/action';
 import {State} from 'types/state';
 import {ALL_GENRES_ITEM} from 'store/current-genre';
@@ -7,9 +6,9 @@ import {FILM_PER_PAGE} from 'store/film-per-page';
 
 const initialState = {
   currentGenre: ALL_GENRES_ITEM,
-  genres: getGenresList(films),
-  filteredFilms: films.slice(0, FILM_PER_PAGE),
-  films,
+  genres: getGenresList([]),
+  filteredFilms: [].slice(0, FILM_PER_PAGE),
+  films: [],
   currentPage: 1,
 };
 
@@ -24,6 +23,7 @@ const filmCatalogReducer = (state: State = initialState, action: Actions): State
     case ActionType.ResetFilms:
       return {...initialState};
     case ActionType.LoadFilms:
+      const {films} = action.payload;
       return {...state, films};
     default:
       return state;
