@@ -24,7 +24,5 @@ export const resetFilms = () => ({
 
 export const loadFilms = (films: Films) => ({
   type: ActionType.LoadFilms,
-  payload: {
-    films,
-  }
+  payload: films,
 } as const);
