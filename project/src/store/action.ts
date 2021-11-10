@@ -21,3 +21,10 @@ export const setLoadMoreFilms = (currentPage: number) => ({
 export const resetFilms = () => ({
   type: ActionType.ResetFilms,
 } as const);
+
+export const loadFilms = (films: Films) => ({
+  type: ActionType.LoadFilms,
+  payload: {
+    films,
+  }
+} as const);

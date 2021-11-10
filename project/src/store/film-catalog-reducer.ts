@@ -23,6 +23,8 @@ const filmCatalogReducer = (state: State = initialState, action: Actions): State
       return {...state, currentPage: action.payload};
     case ActionType.ResetFilms:
       return {...initialState};
+    case ActionType.LoadFilms:
+      return {...state, films};
     default:
       return state;
   }
