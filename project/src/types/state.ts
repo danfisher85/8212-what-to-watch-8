@@ -5,4 +5,5 @@ export type State = {
   genres: Array<GenreName>;
   films: Films;
   filteredFilms: Films;
+  currentPage: number;
 }
