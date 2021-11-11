@@ -8,7 +8,7 @@ import {composeWithDevTools} from 'redux-devtools-extension';
 import App from 'components/app/app';
 import {comments} from 'fixtures/comments';
 import {requireAuthorization} from 'store/action';
-import {fetchFilmsAction, fetchPromoFilmAction} from 'store/api-actions';
+import {checkAuthAction, fetchFilmsAction, fetchPromoFilmAction} from 'store/api-actions';
 import {rootReducer} from 'store/root-reducer';
 import {ThunkAppDispatch} from 'types/action';
 import {AuthorizationStatus} from 'configs/auth-status';
@@ -16,7 +16,7 @@ import {AuthorizationStatus} from 'configs/auth-status';
 const api = createAPI(() => store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth)));
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api))));
 
-(store.dispatch as ThunkAppDispatch)(requireAuthorization(AuthorizationStatus.NoAuth));
+(store.dispatch as ThunkAppDispatch)(checkAuthAction());
 (store.dispatch as ThunkAppDispatch)(fetchFilmsAction());
 (store.dispatch as ThunkAppDispatch)(fetchPromoFilmAction());
 

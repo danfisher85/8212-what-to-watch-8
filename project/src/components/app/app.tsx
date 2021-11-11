@@ -1,4 +1,3 @@
-import {connect, ConnectedProps} from 'react-redux';
 import {Switch, Route, BrowserRouter, Redirect, RouteComponentProps} from 'react-router-dom';
 import {AppRoute} from 'configs/routes';
 import {AuthorizationStatus} from 'configs/auth-status';
@@ -10,9 +9,11 @@ import PlayerScreen from 'components/player-screen/player-screen';
 import FilmScreen from 'components/film-screen/film-screen';
 import AddReviewScreen from 'components/add-review-screen/add-review-screen';
 import NotFoundScreen from 'components/not-found-screen/not-found-screen';
-import {State} from 'types/state';
+import LoadingScreen from 'components/loading-screen/loading-screen';
 import {getFilmById} from 'utils/film';
 import {Comments} from 'types/comment';
+import {isCheckedAuth} from 'utils/user';
+import {useTypedSelector} from 'hooks/useTypedSelector';
 
 import {films} from 'fixtures/films';
 
@@ -24,17 +25,13 @@ interface RouteInfo {
   id: string;
 }
 
-const mapStateToProps = ({isDataLoaded}: State) => ({
-  isDataLoaded,
-});
-
-const connector = connect(mapStateToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-type ConnectedAppProps = PropsFromRedux & AppScreenProps;
-
-function App(props: ConnectedAppProps): JSX.Element {
+function App(props: AppScreenProps): JSX.Element {
   const {comments} = props;
+  const {authorizationStatus, isDataLoaded} = useTypedSelector((state) => state.filmCatalog);
+
+  if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
+    return <LoadingScreen />;
+  }
 
   return (
     <BrowserRouter>
@@ -91,5 +88,4 @@ function App(props: ConnectedAppProps): JSX.Element {
   );
 }
 
-export {App};
-export default connector(App);
+export default App;
