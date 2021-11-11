@@ -1,3 +1,4 @@
+import {connect, ConnectedProps} from 'react-redux';
 import {Switch, Route, BrowserRouter, Redirect, RouteComponentProps} from 'react-router-dom';
 import {AppRoute} from 'configs/routes';
 import {AuthorizationStatus} from 'configs/auth-status';
@@ -9,13 +10,15 @@ import PlayerScreen from 'components/player-screen/player-screen';
 import FilmScreen from 'components/film-screen/film-screen';
 import AddReviewScreen from 'components/add-review-screen/add-review-screen';
 import NotFoundScreen from 'components/not-found-screen/not-found-screen';
+import {State} from 'types/state';
 import {getFilmById} from 'utils/film';
-import {Film, Films} from 'types/film';
+import {Film} from 'types/film';
 import {Comments} from 'types/comment';
+
+import {films} from 'fixtures/films';
 
 interface AppScreenProps {
   promoFilm: Film;
-  films: Films;
   comments: Comments;
 }
 
@@ -23,8 +26,17 @@ interface RouteInfo {
   id: string;
 }
 
-function App(props: AppScreenProps): JSX.Element {
-  const {promoFilm, films, comments} = props;
+const mapStateToProps = ({isDataLoaded}: State) => ({
+  isDataLoaded,
+});
+
+const connector = connect(mapStateToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type ConnectedAppProps = PropsFromRedux & AppScreenProps;
+
+function App(props: ConnectedAppProps): JSX.Element {
+  const {promoFilm, comments} = props;
 
   return (
     <BrowserRouter>
@@ -81,4 +93,5 @@ function App(props: AppScreenProps): JSX.Element {
   );
 }
 
-export default App;
+export {App};
+export default connector(App);
