@@ -7,11 +7,10 @@ interface FilmCardProps {
   film: Film;
   handleMouseEnter: (film: Film) => void;
   handleMouseLeave: () => void;
-  handleResetFilms: () => void;
 }
 
 function FilmCard(props: PropsWithChildren<FilmCardProps>): JSX.Element {
-  const {film, handleMouseEnter, handleMouseLeave, handleResetFilms, children} = props;
+  const {film, handleMouseEnter, handleMouseLeave, children} = props;
 
   const pathToFilm = generatePath(AppRoute.Film, {
     id: film.id,
@@ -32,7 +31,7 @@ function FilmCard(props: PropsWithChildren<FilmCardProps>): JSX.Element {
         {children || <img src={film.previewImage} alt={`${film.name} poster`} width="280" height="175" />}
       </div>
       <h3 className="small-film-card__title">
-        <Link to={pathToFilm} className="small-film-card__link" onClick={handleResetFilms}>
+        <Link to={pathToFilm} className="small-film-card__link">
           {film.name}
         </Link>
       </h3>
