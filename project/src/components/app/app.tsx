@@ -12,13 +12,11 @@ import AddReviewScreen from 'components/add-review-screen/add-review-screen';
 import NotFoundScreen from 'components/not-found-screen/not-found-screen';
 import {State} from 'types/state';
 import {getFilmById} from 'utils/film';
-import {Film} from 'types/film';
 import {Comments} from 'types/comment';
 
 import {films} from 'fixtures/films';
 
 interface AppScreenProps {
-  promoFilm: Film;
   comments: Comments;
 }
 
@@ -36,13 +34,13 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 type ConnectedAppProps = PropsFromRedux & AppScreenProps;
 
 function App(props: ConnectedAppProps): JSX.Element {
-  const {promoFilm, comments} = props;
+  const {comments} = props;
 
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.Root}>
-          <MainScreen promoFilm={promoFilm} />
+          <MainScreen />
         </Route>
         <Route exact path={AppRoute.SignIn} component={SignInScreen} />
         <PrivateRoute

@@ -1,6 +1,6 @@
 import {ActionType} from 'types/action';
 import {AuthorizationStatus} from 'configs/auth-status';
-import {Films, GenreName} from 'types/film';
+import {Film, Films, GenreName} from 'types/film';
 import {filterFilmsByGenre} from 'utils/film';
 import {FILM_PER_PAGE} from 'store/film-per-page';
 import {getGenresList} from 'utils/film';
@@ -36,4 +36,9 @@ export const loadFilms = (films: Films) => ({
 export const requireAuthorization = (authStatus: AuthorizationStatus) => ({
   type: ActionType.RequireAuthorization,
   payload: authStatus,
+} as const);
+
+export const loadPromoFilm = (film: Film) => ({
+  type: ActionType.LoadPromoFilm,
+  payload: film,
 } as const);

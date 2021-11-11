@@ -6,10 +6,9 @@ import {createAPI} from 'services/api';
 import {Provider} from 'react-redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import App from 'components/app/app';
-import {promoFilm} from 'fixtures/films';
 import {comments} from 'fixtures/comments';
 import {requireAuthorization} from 'store/action';
-import {fetchFilmsAction} from 'store/api-actions';
+import {fetchFilmsAction, fetchPromoFilmAction} from 'store/api-actions';
 import {rootReducer} from 'store/root-reducer';
 import {ThunkAppDispatch} from 'types/action';
 import {AuthorizationStatus} from 'configs/auth-status';
@@ -19,11 +18,12 @@ const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk
 
 (store.dispatch as ThunkAppDispatch)(requireAuthorization(AuthorizationStatus.NoAuth));
 (store.dispatch as ThunkAppDispatch)(fetchFilmsAction());
+(store.dispatch as ThunkAppDispatch)(fetchPromoFilmAction());
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App promoFilm={promoFilm} comments={comments} />
+      <App comments={comments} />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'),

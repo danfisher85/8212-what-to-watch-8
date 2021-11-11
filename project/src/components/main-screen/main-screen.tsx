@@ -4,19 +4,14 @@ import PromoFilmCard from 'components/promo-film-card/promo-film-card';
 import FilmsList from 'components/films-list/films-list';
 import GenresList from 'components/genres-list/genres-list';
 import FilmMoreButton from 'components/film-more-button/film-more-button';
-import {Film, GenreName} from 'types/film';
+import {GenreName} from 'types/film';
 import {useTypedSelector} from 'hooks/useTypedSelector';
 import {changeGenre, getFilmsByGenre, setLoadMoreFilms} from 'store/action';
 import {filterFilmsByGenre} from 'utils/film';
 
-type MainScreenProps = {
-  promoFilm: Film;
-};
-
-function MainScreen(props: MainScreenProps): JSX.Element {
-  const {promoFilm} = props;
-
+function MainScreen(): JSX.Element {
   const {genres, films, filteredFilms, currentGenre, currentPage} = useTypedSelector((state) => state.filmCatalog);
+  const {promoFilm} = useTypedSelector((state) => state.promoFilm);
   const dispatch = useDispatch();
 
   const allFilteredFilms = filterFilmsByGenre(films, currentGenre); // most likely a temp solution, but it works 🤷‍♂️

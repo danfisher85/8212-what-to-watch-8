@@ -1,4 +1,4 @@
-import {loadFilms} from 'store/action';
+import {loadFilms, loadPromoFilm} from 'store/action';
 import {APIRoute} from 'configs/routes';
 import {ThunkActionResult} from 'types/action';
 import {ServerFilm} from 'types/film';
@@ -9,4 +9,11 @@ export const fetchFilmsAction = (): ThunkActionResult =>
     const {data: serverFilms} = await api.get(APIRoute.Films);
     const filmsData = serverFilms.map((serverFilm: ServerFilm) => adaptFilmToClient(serverFilm));
     dispatch(loadFilms(filmsData));
+  };
+
+export const fetchPromoFilmAction = (): ThunkActionResult =>
+  async (dispatch, _getState, api): Promise<void> => {
+    const {data} = await api.get(APIRoute.Promo);
+    const promoFilmData = adaptFilmToClient(data);
+    dispatch(loadPromoFilm(promoFilmData));
   };
