@@ -1,14 +1,13 @@
 import {loadFilms, loadPromoFilm, requireAuthorization} from 'store/action';
 import {APIRoute} from 'configs/routes';
 import {ThunkActionResult} from 'types/action';
-import {ServerFilm} from 'types/film';
 import {adaptFilmToClient} from 'services/adapters';
 import {AuthorizationStatus} from 'configs/auth-status';
 
 export const fetchFilmsAction = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     const {data: serverFilms} = await api.get(APIRoute.Films);
-    const filmsData = serverFilms.map((serverFilm: ServerFilm) => adaptFilmToClient(serverFilm));
+    const filmsData = serverFilms.map(adaptFilmToClient);
     dispatch(loadFilms(filmsData));
   };
 
