@@ -9,13 +9,15 @@ import PlayerScreen from 'components/player-screen/player-screen';
 import FilmScreen from 'components/film-screen/film-screen';
 import AddReviewScreen from 'components/add-review-screen/add-review-screen';
 import NotFoundScreen from 'components/not-found-screen/not-found-screen';
+import LoadingScreen from 'components/loading-screen/loading-screen';
 import {getFilmById} from 'utils/film';
-import {Film, Films} from 'types/film';
 import {Comments} from 'types/comment';
+import {isCheckedAuth} from 'utils/user';
+import {useTypedSelector} from 'hooks/useTypedSelector';
+
+import {films} from 'fixtures/films';
 
 interface AppScreenProps {
-  promoFilm: Film;
-  films: Films;
   comments: Comments;
 }
 
@@ -24,13 +26,18 @@ interface RouteInfo {
 }
 
 function App(props: AppScreenProps): JSX.Element {
-  const {promoFilm, films, comments} = props;
+  const {comments} = props;
+  const {authorizationStatus, isDataLoaded} = useTypedSelector((state) => state.filmCatalog);
+
+  if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
+    return <LoadingScreen />;
+  }
 
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.Root}>
-          <MainScreen promoFilm={promoFilm} />
+          <MainScreen />
         </Route>
         <Route exact path={AppRoute.SignIn} component={SignInScreen} />
         <PrivateRoute

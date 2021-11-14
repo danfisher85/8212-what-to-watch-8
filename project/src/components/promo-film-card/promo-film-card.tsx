@@ -3,8 +3,6 @@ import Logo from 'components/logo/logo';
 import UserBlock from 'components/user-block/user-block';
 import {AppRoute} from 'configs/routes';
 import {Film} from 'types/film';
-import {useDispatch} from 'react-redux';
-import {resetFilms} from 'store/action';
 
 interface PromoFilmCardProps {
   promoFilm: Film;
@@ -16,11 +14,6 @@ function PromoFilmCard(props: PromoFilmCardProps): JSX.Element {
   const pathToFilmPlayer = generatePath(AppRoute.Player, {
     id: promoFilm.id,
   });
-
-  const dispatch = useDispatch();
-  const handleResetFilms = () => {
-    dispatch(resetFilms());
-  };
 
   return (
     <section className="film-card">
@@ -49,13 +42,13 @@ function PromoFilmCard(props: PromoFilmCardProps): JSX.Element {
             </p>
 
             <div className="film-card__buttons">
-              <Link to={pathToFilmPlayer} onClick={handleResetFilms} className="btn btn--play film-card__button">
+              <Link to={pathToFilmPlayer} className="btn btn--play film-card__button">
                 <svg viewBox="0 0 19 19" width="19" height="19">
                   <use href="#play-s"></use>
                 </svg>
                 <span>Play</span>
               </Link>
-              <Link to={AppRoute.MyList} onClick={handleResetFilms} className="btn btn--list film-card__button">
+              <Link to={AppRoute.MyList} className="btn btn--list film-card__button">
                 <svg viewBox="0 0 19 20" width="19" height="20">
                   <use href="#add"></use>
                 </svg>

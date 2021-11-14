@@ -1,23 +1,55 @@
-import {ActionType, ChangeGenreAction, GetFilmsByGenreAction, SetLoadMoreFilmsAction, ResetFilmsAction} from 'types/action';
-import {Films, GenreName} from 'types/film';
+import {ActionType} from 'types/action';
+import {AuthorizationStatus} from 'configs/auth-status';
+import {Film, Films, GenreName} from 'types/film';
 import {filterFilmsByGenre} from 'utils/film';
 import {FILM_PER_PAGE} from 'store/film-per-page';
+import {getGenresList} from 'utils/film';
 
-export const changeGenre = (genre: GenreName): ChangeGenreAction => ({
+export const setDataLoaded = (status: boolean) => ({
+  type: ActionType.SetDataLoaded,
+  payload: status,
+} as const);
+
+export const changeGenre = (genre: GenreName) => ({
   type: ActionType.ChangeGenre,
   payload: genre,
-});
+} as const);
 
-export const getFilmsByGenre = (films: Films, genre: GenreName, currentPage: number): GetFilmsByGenreAction => ({
+export const setGenres = (films: Films) => ({
+  type: ActionType.SetGenres,
+  payload: getGenresList(films),
+} as const);
+
+export const setFilmsByGenre = (films: Films) => ({
+  type: ActionType.SetFilmsByGenre,
+  payload: films.slice(0, FILM_PER_PAGE),
+} as const);
+
+export const getFilmsByGenre = (films: Films, genre: GenreName, currentPage: number) => ({
   type: ActionType.GetFilmsByGenre,
   payload: filterFilmsByGenre(films, genre).slice(0, currentPage * FILM_PER_PAGE),
-});
+} as const);
 
-export const setLoadMoreFilms = (currentPage: number): SetLoadMoreFilmsAction => ({
+export const setLoadMoreFilms = (currentPage: number) => ({
   type: ActionType.SetLoadMoreFilms,
   payload: currentPage + 1,
-});
+} as const);
 
-export const resetFilms = (): ResetFilmsAction => ({
+export const resetFilms = () => ({
   type: ActionType.ResetFilms,
-});
+} as const);
+
+export const setFilms = (films: Films) => ({
+  type: ActionType.SetFilms,
+  payload: films,
+} as const);
+
+export const requireAuthorization = (authStatus: AuthorizationStatus) => ({
+  type: ActionType.RequireAuthorization,
+  payload: authStatus,
+} as const);
+
+export const loadPromoFilm = (film: Film) => ({
+  type: ActionType.LoadPromoFilm,
+  payload: film,
+} as const);
