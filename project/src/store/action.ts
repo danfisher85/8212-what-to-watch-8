@@ -5,14 +5,14 @@ import {filterFilmsByGenre} from 'utils/film';
 import {FILM_PER_PAGE} from 'store/film-per-page';
 import {getGenresList} from 'utils/film';
 
-export const setDataLoaded = (status: boolean) => ({
+export const setDataLoaded = (payload: boolean) => ({
   type: ActionType.SetDataLoaded,
-  payload: status,
+  payload,
 } as const);
 
-export const changeGenre = (genre: GenreName) => ({
+export const changeGenre = (payload: GenreName) => ({
   type: ActionType.ChangeGenre,
-  payload: genre,
+  payload,
 } as const);
 
 export const setGenres = (films: Films) => ({
@@ -39,9 +39,9 @@ export const resetFilms = () => ({
   type: ActionType.ResetFilms,
 } as const);
 
-export const setFilms = (films: Films) => ({
+export const setFilms = (payload: Films) => ({
   type: ActionType.SetFilms,
-  payload: films,
+  payload,
 } as const);
 
 export const requireAuthorization = (authStatus: AuthorizationStatus) => ({

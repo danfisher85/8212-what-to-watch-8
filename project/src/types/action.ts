@@ -1,7 +1,18 @@
 import {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {AxiosInstance} from 'axios';
 import {State} from 'types/state';
-import {setDataLoaded, changeGenre, setGenres, setFilmsByGenre, getFilmsByGenre, setLoadMoreFilms, resetFilms, setFilms, loadPromoFilm, requireAuthorization} from 'store/action';
+import {
+  setDataLoaded,
+  changeGenre,
+  setGenres,
+  setFilmsByGenre,
+  getFilmsByGenre,
+  setLoadMoreFilms,
+  resetFilms,
+  setFilms,
+  loadPromoFilm,
+  requireAuthorization
+} from 'store/action';
 
 export enum ActionType {
   SetDataLoaded = 'data/setDataLoaded',
