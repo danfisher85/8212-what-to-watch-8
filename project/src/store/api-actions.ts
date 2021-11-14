@@ -1,4 +1,4 @@
-import {loadFilms, loadPromoFilm, requireAuthorization} from 'store/action';
+import {setDataLoaded, setFilms, setGenres, setFilmsByGenre, loadPromoFilm, requireAuthorization} from 'store/action';
 import {APIRoute} from 'configs/routes';
 import {ThunkActionResult} from 'types/action';
 import {adaptFilmToClient} from 'services/adapters';
@@ -8,7 +8,10 @@ export const fetchFilmsAction = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     const {data: serverFilms} = await api.get(APIRoute.Films);
     const filmsData = serverFilms.map(adaptFilmToClient);
-    dispatch(loadFilms(filmsData));
+    dispatch(setFilms(filmsData));
+    dispatch(setGenres(filmsData));
+    dispatch(setFilmsByGenre(filmsData));
+    dispatch(setDataLoaded(true));
   };
 
 export const fetchPromoFilmAction = (): ThunkActionResult =>
@@ -20,8 +23,6 @@ export const fetchPromoFilmAction = (): ThunkActionResult =>
 
 export const checkAuthAction = (): ThunkActionResult =>
   async (dispatch, _getState, api) => {
-    await api.get(APIRoute.Login)
-      .then(() => {
-        dispatch(requireAuthorization(AuthorizationStatus.Auth));
-      });
+    await api.get(APIRoute.Login);
+    dispatch(requireAuthorization(AuthorizationStatus.Auth));
   };
