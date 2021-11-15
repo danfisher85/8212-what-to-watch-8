@@ -5,7 +5,7 @@ import {
   setDataLoaded,
   changeGenre,
   setGenres,
-  setFilmsByGenre,
+  setFilmsByPage,
   getFilmsByGenre,
   setLoadMoreFilms,
   resetFilms,
@@ -18,7 +18,7 @@ export enum ActionType {
   SetDataLoaded = 'data/setDataLoaded',
   ChangeGenre = 'catalog/changeGenre',
   SetGenres = 'data/setGenres',
-  SetFilmsByGenre = 'data/setFilmsByGenre',
+  SetFilmsByPage = 'data/setFilmsByPage',
   GetFilmsByGenre = 'catalog/getFilmsByGenre',
   SetLoadMoreFilms = 'catalog/setLoadMoreFilms',
   ResetFilms = 'catalog/resetFilms',
@@ -31,7 +31,7 @@ export type Actions =
   | ReturnType<typeof setDataLoaded>
   | ReturnType<typeof changeGenre>
   | ReturnType<typeof setGenres>
-  | ReturnType<typeof setFilmsByGenre>
+  | ReturnType<typeof setFilmsByPage>
   | ReturnType<typeof getFilmsByGenre>
   | ReturnType<typeof setLoadMoreFilms>
   | ReturnType<typeof resetFilms>

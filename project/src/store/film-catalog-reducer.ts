@@ -21,7 +21,7 @@ const filmCatalogReducer = (state: State = initialState, action: Actions): State
       return {...state, currentGenre: action.payload};
     case ActionType.SetGenres:
       return {...state, genres: action.payload};
-    case ActionType.SetFilmsByGenre:
+    case ActionType.SetFilmsByPage:
       return {...state, filteredFilms: action.payload};
     case ActionType.GetFilmsByGenre:
       return {...state, filteredFilms: action.payload};

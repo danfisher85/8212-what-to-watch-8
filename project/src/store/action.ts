@@ -3,7 +3,6 @@ import {AuthorizationStatus} from 'configs/auth-status';
 import {Film, Films, GenreName} from 'types/film';
 import {filterFilmsByGenre} from 'utils/film';
 import {FILM_PER_PAGE} from 'store/film-per-page';
-import {getGenresList} from 'utils/film';
 
 export const setDataLoaded = (payload: boolean) => ({
   type: ActionType.SetDataLoaded,
@@ -15,14 +14,14 @@ export const changeGenre = (payload: GenreName) => ({
   payload,
 } as const);
 
-export const setGenres = (films: Films) => ({
+export const setGenres = (payload: Array<GenreName>) => ({
   type: ActionType.SetGenres,
-  payload: getGenresList(films),
+  payload,
 } as const);
 
-export const setFilmsByGenre = (films: Films) => ({
-  type: ActionType.SetFilmsByGenre,
-  payload: films.slice(0, FILM_PER_PAGE),
+export const setFilmsByPage = (payload: Films) => ({
+  type: ActionType.SetFilmsByPage,
+  payload,
 } as const);
 
 export const getFilmsByGenre = (films: Films, genre: GenreName, currentPage: number) => ({
