@@ -31,6 +31,8 @@ const filmCatalogReducer = (state: State = initialState, action: Actions): State
       return {...state, films: action.payload};
     case ActionType.RequireAuthorization:
       return {...state, authorizationStatus: action.payload};
+    case ActionType.RequireLogout:
+      return {...state, authorizationStatus: AuthorizationStatus.NoAuth};
     case ActionType.ResetFilms:
       return {...initialState};
     default:

@@ -43,9 +43,13 @@ export const setFilms = (payload: Films) => ({
   payload,
 } as const);
 
-export const requireAuthorization = (authStatus: AuthorizationStatus) => ({
+export const requireAuthorization = (payload: AuthorizationStatus) => ({
   type: ActionType.RequireAuthorization,
-  payload: authStatus,
+  payload,
+} as const);
+
+export const requireLogout = () => ({
+  type: ActionType.RequireLogout,
 } as const);
 
 export const loadPromoFilm = (film: Film) => ({
