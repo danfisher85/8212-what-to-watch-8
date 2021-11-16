@@ -1,4 +1,4 @@
-import {Switch, Route, BrowserRouter, Redirect, RouteComponentProps} from 'react-router-dom';
+import {Switch, Route, Router, Redirect, RouteComponentProps} from 'react-router-dom';
 import {AppRoute} from 'configs/routes';
 import PrivateRoute from 'components/private-route/private-route';
 import MainScreen from 'components/main-screen/main-screen';
@@ -13,6 +13,7 @@ import {getFilmById} from 'utils/film';
 import {Comments} from 'types/comment';
 import {isCheckedAuth} from 'utils/user';
 import {useTypedSelector} from 'hooks/useTypedSelector';
+import browserHistory from 'store/browser-history';
 
 import {films} from 'fixtures/films';
 
@@ -33,7 +34,7 @@ function App(props: AppScreenProps): JSX.Element {
   }
 
   return (
-    <BrowserRouter>
+    <Router history={browserHistory}>
       <Switch>
         <Route exact path={AppRoute.Root}>
           <MainScreen />
@@ -82,7 +83,7 @@ function App(props: AppScreenProps): JSX.Element {
         />
         <Route component={NotFoundScreen} />
       </Switch>
-    </BrowserRouter>
+    </Router>
   );
 }
 
