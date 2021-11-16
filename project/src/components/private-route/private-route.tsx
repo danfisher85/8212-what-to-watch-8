@@ -3,9 +3,14 @@ import {RouteProps} from 'react-router-dom';
 import {AppRoute} from 'configs/routes';
 import {AuthorizationStatus} from 'configs/auth-status';
 import {useTypedSelector} from 'hooks/useTypedSelector';
+import {History} from 'history';
+
+type RenderFuncProps = {
+  history: History<unknown>;
+};
 
 type PrivateRouteProps = RouteProps & {
-  render: () => JSX.Element;
+  render: (props: RenderFuncProps) => JSX.Element;
 };
 
 function PrivateRoute(props: PrivateRouteProps): JSX.Element {
@@ -16,9 +21,9 @@ function PrivateRoute(props: PrivateRouteProps): JSX.Element {
     <Route
       exact={exact}
       path={path}
-      render={() => {
+      render={(routeProps) => {
         if (authorizationStatus === AuthorizationStatus.Auth) {
-          return render();
+          return render(routeProps);
         }
         return <Redirect to={AppRoute.SignIn} />;
       }}
