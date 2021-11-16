@@ -38,11 +38,13 @@ export const fetchPromoFilmAction = (): ThunkActionResult =>
 
 export const checkAuthAction = (): ThunkActionResult =>
   async (dispatch, _getState, api) => {
-    await api.get(APIRoute.Login);
-    dispatch(requireAuthorization(AuthorizationStatus.Auth));
+    await api.get(APIRoute.Login)
+      .then(() => {
+        dispatch(requireAuthorization(AuthorizationStatus.Auth));
+      });
   };
 
-export const loginAction = ({login: email, password}: AuthData): ThunkActionResult =>
+export const loginAction = ({email, password}: AuthData): ThunkActionResult =>
   async (dispatch, _getState, api) => {
     const {data: {token}} = await api.post<{token: Token}>(APIRoute.Login, {email, password});
     saveToken(token);

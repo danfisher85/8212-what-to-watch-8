@@ -35,7 +35,7 @@ export const createAPI = (onUnauthorized: UnauthorizedCallback): AxiosInstance =
       const token = getToken();
 
       if (token) {
-        config.headers['x-token'] = token;
+        config.headers['X-Token'] = token;
       }
 
       return config;
