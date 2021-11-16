@@ -1,6 +1,5 @@
 import {Switch, Route, BrowserRouter, Redirect, RouteComponentProps} from 'react-router-dom';
 import {AppRoute} from 'configs/routes';
-import {AuthorizationStatus} from 'configs/auth-status';
 import PrivateRoute from 'components/private-route/private-route';
 import MainScreen from 'components/main-screen/main-screen';
 import SignInScreen from 'components/sign-in-screen/sign-in-screen';
@@ -44,7 +43,6 @@ function App(props: AppScreenProps): JSX.Element {
           exact
           path={AppRoute.MyList}
           render={() => <MyListScreen films={films} />}
-          authorizationStatus={AuthorizationStatus.NoAuth}
         />
         <Route
           exact
