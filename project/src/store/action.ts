@@ -55,6 +55,7 @@ export const requireLogout = () => ({
 
 export const redirectToRoute = (url: AppRoute) => ({
   type: ActionType.RedirectToRoute,
+  payload: url,
 } as const);
 
 export const loadPromoFilm = (film: Film) => ({
