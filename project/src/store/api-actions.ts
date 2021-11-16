@@ -5,9 +5,10 @@ import {
   setFilmsByPage,
   loadPromoFilm,
   requireAuthorization,
-  requireLogout
+  requireLogout,
+  redirectToRoute
 } from 'store/action';
-import {APIRoute} from 'configs/routes';
+import {APIRoute, AppRoute} from 'configs/routes';
 import {ThunkActionResult} from 'types/action';
 import {adaptFilmToClient} from 'services/adapters';
 import {AuthorizationStatus} from 'configs/auth-status';
@@ -49,6 +50,7 @@ export const loginAction = ({email, password}: AuthData): ThunkActionResult =>
     const {data: {token}} = await api.post<{token: Token}>(APIRoute.Login, {email, password});
     saveToken(token);
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
+    dispatch(redirectToRoute(AppRoute.Root));
   };
 
 export const logoutAction = (): ThunkActionResult =>

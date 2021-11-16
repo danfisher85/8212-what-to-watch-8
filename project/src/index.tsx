@@ -12,9 +12,13 @@ import {checkAuthAction, fetchFilmsAction, fetchPromoFilmAction} from 'store/api
 import {rootReducer} from 'store/root-reducer';
 import {ThunkAppDispatch} from 'types/action';
 import {AuthorizationStatus} from 'configs/auth-status';
+import {redirect} from 'store/middlewares/redirect';
 
 const api = createAPI(() => store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth)));
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api))));
+const store = createStore(rootReducer, composeWithDevTools(
+  applyMiddleware(thunk.withExtraArgument(api)),
+  applyMiddleware(redirect),
+));
 
 (store.dispatch as ThunkAppDispatch)(fetchPromoFilmAction());
 (store.dispatch as ThunkAppDispatch)(checkAuthAction());

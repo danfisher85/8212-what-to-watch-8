@@ -3,6 +3,7 @@ import {AuthorizationStatus} from 'configs/auth-status';
 import {Film, Films, GenreName} from 'types/film';
 import {filterFilmsByGenre} from 'utils/film';
 import {FILM_PER_PAGE} from 'store/film-per-page';
+import {AppRoute} from 'configs/routes';
 
 export const setDataLoaded = (payload: boolean) => ({
   type: ActionType.SetDataLoaded,
@@ -50,6 +51,10 @@ export const requireAuthorization = (payload: AuthorizationStatus) => ({
 
 export const requireLogout = () => ({
   type: ActionType.RequireLogout,
+} as const);
+
+export const redirectToRoute = (url: AppRoute) => ({
+  type: ActionType.RedirectToRoute,
 } as const);
 
 export const loadPromoFilm = (film: Film) => ({
