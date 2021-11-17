@@ -4,6 +4,7 @@ import {Film, Films, GenreName} from 'types/film';
 import {filterFilmsByGenre} from 'utils/film';
 import {FILM_PER_PAGE} from 'store/film-per-page';
 import {AppRoute} from 'configs/routes';
+import {UserInfo} from 'types/user-info';
 
 export const setDataLoaded = (payload: boolean) => ({
   type: ActionType.SetDataLoaded,
@@ -56,6 +57,11 @@ export const requireLogout = () => ({
 export const redirectToRoute = (url: AppRoute) => ({
   type: ActionType.RedirectToRoute,
   payload: url,
+} as const);
+
+export const loadUserInfo = (userInfo: UserInfo) => ({
+  type: ActionType.LoadUserInfo,
+  payload: userInfo,
 } as const);
 
 export const loadPromoFilm = (film: Film) => ({

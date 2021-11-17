@@ -13,7 +13,8 @@ import {
   loadPromoFilm,
   requireAuthorization,
   requireLogout,
-  redirectToRoute
+  redirectToRoute,
+  loadUserInfo
 } from 'store/action';
 
 export enum ActionType {
@@ -28,7 +29,8 @@ export enum ActionType {
   LoadPromoFilm = 'data/loadPromoFilm',
   RequireAuthorization = 'user/requireAuthorization',
   RequireLogout = 'user/requireLogout',
-  RedirectToRoute = 'catalog/redirectToRoute'
+  RedirectToRoute = 'catalog/redirectToRoute',
+  LoadUserInfo = 'user/loadUserInfo',
 }
 
 export type Actions =
@@ -43,7 +45,8 @@ export type Actions =
   | ReturnType<typeof loadPromoFilm>
   | ReturnType<typeof requireAuthorization>
   | ReturnType<typeof requireLogout>
-  | ReturnType<typeof redirectToRoute>;
+  | ReturnType<typeof redirectToRoute>
+  | ReturnType<typeof loadUserInfo>;
 
 export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>;
 export type ThunkAppDispatch = ThunkDispatch<State, AxiosInstance, Actions>;

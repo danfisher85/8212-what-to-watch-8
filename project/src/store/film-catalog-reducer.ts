@@ -11,6 +11,12 @@ const initialState = {
   currentPage: 1,
   authorizationStatus: AuthorizationStatus.Unknown,
   isDataLoaded: false,
+  userInfo: {
+    id: 0,
+    email: '',
+    name: '',
+    avatarUrl: '',
+  },
 };
 
 const filmCatalogReducer = (state: State = initialState, action: Actions): State => {
@@ -35,6 +41,8 @@ const filmCatalogReducer = (state: State = initialState, action: Actions): State
       return {...state, authorizationStatus: AuthorizationStatus.NoAuth};
     case ActionType.ResetFilms:
       return {...initialState};
+    case ActionType.LoadUserInfo:
+      return {...state, userInfo: action.payload};
     default:
       return state;
   }

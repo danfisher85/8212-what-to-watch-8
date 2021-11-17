@@ -13,6 +13,8 @@ import {rootReducer} from 'store/root-reducer';
 import {ThunkAppDispatch} from 'types/action';
 import {AuthorizationStatus} from 'configs/auth-status';
 import {redirect} from 'store/middlewares/redirect';
+import {ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const api = createAPI(() => store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth)));
 const store = createStore(rootReducer, composeWithDevTools(
@@ -27,6 +29,7 @@ const store = createStore(rootReducer, composeWithDevTools(
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
+      <ToastContainer />
       <App comments={comments} />
     </Provider>
   </React.StrictMode>,
