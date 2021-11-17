@@ -74,30 +74,28 @@ export const checkAuthAction = (): ThunkActionResult =>
 
 export const loginAction = ({email, password}: AuthData): ThunkActionResult =>
   async (dispatch, _getState, api) => {
-    await api
-      .post(APIRoute.Login, {email, password})
-      .then(({data: serverAuthInfo}) => {
-        const {
-          id: userId,
-          email: userEmail,
-          name: userName,
-          avatarUrl: userAvatarUrl,
-          token: userToken,
-        } = adaptAuthInfoToClient(serverAuthInfo);
+    await api.post(APIRoute.Login, {email, password}).then(({data: serverAuthInfo}) => {
+      const {
+        id: userId,
+        email: userEmail,
+        name: userName,
+        avatarUrl: userAvatarUrl,
+        token: userToken,
+      } = adaptAuthInfoToClient(serverAuthInfo);
 
-        const userInfo: UserInfo = {
-          id: userId,
-          email: userEmail,
-          name: userName,
-          avatarUrl: userAvatarUrl,
-        };
+      const userInfo: UserInfo = {
+        id: userId,
+        email: userEmail,
+        name: userName,
+        avatarUrl: userAvatarUrl,
+      };
 
-        saveToken(userToken);
+      saveToken(userToken);
 
-        dispatch(requireAuthorization(AuthorizationStatus.Auth));
-        dispatch(loadUserInfo(userInfo));
-        dispatch(redirectToRoute(AppRoute.Root));
-      });
+      dispatch(requireAuthorization(AuthorizationStatus.Auth));
+      dispatch(loadUserInfo(userInfo));
+      dispatch(redirectToRoute(AppRoute.Root));
+    });
   };
 
 export const logoutAction = (): ThunkActionResult =>
