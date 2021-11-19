@@ -1,6 +1,7 @@
 import {
   setDataLoaded,
   setFilms,
+  setFavoriteFilms,
   setGenres,
   setFilmsByPage,
   loadPromoFilm,
@@ -36,6 +37,19 @@ export const fetchFilmsAction = (): ThunkActionResult =>
     dispatch(setDataLoaded(true));
   };
 
+export const fetchFavoriteFilmsAction = (): ThunkActionResult =>
+  async (dispatch, _getState, api): Promise<void> => {
+    try {
+      const {data: favoriteFilms} = await api.get(APIRoute.Favorite);
+      const filmsData = favoriteFilms.map(adaptFilmToClient);
+
+      dispatch(setFavoriteFilms(filmsData));
+      dispatch(setDataLoaded(true));
+    } catch (error) {
+      // toast.info(AUTH_FAIL_MESSAGE);
+    }
+  };
+
 export const fetchPromoFilmAction = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     const {data} = await api.get(APIRoute.Promo);
@@ -56,7 +70,7 @@ export const checkAuthAction = (): ThunkActionResult =>
         dispatch(loadUserInfo(userInfo));
       });
     } catch (error) {
-      toast.info(AUTH_FAIL_MESSAGE);
+      toast.error(AUTH_FAIL_MESSAGE);
     }
   };
 

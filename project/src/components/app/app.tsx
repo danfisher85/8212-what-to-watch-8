@@ -28,6 +28,7 @@ interface RouteInfo {
 function App(props: AppScreenProps): JSX.Element {
   const {comments} = props;
   const {authorizationStatus, isDataLoaded} = useTypedSelector((state) => state.filmCatalog);
+  const {favoriteFilms} = useTypedSelector((state) => state.favoriteFilms);
 
   if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
     return <LoadingScreen />;
@@ -40,11 +41,7 @@ function App(props: AppScreenProps): JSX.Element {
           <MainScreen />
         </Route>
         <Route exact path={AppRoute.SignIn} component={SignInScreen} />
-        <PrivateRoute
-          exact
-          path={AppRoute.MyList}
-          render={() => <MyListScreen films={films} />}
-        />
+        <PrivateRoute exact path={AppRoute.MyList} render={() => <MyListScreen films={favoriteFilms} />} />
         <Route
           exact
           path={AppRoute.Player}

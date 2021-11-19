@@ -10,6 +10,7 @@ import {
   setLoadMoreFilms,
   resetFilms,
   setFilms,
+  setFavoriteFilms,
   loadPromoFilm,
   requireAuthorization,
   requireLogout,
@@ -26,6 +27,7 @@ export enum ActionType {
   SetLoadMoreFilms = 'catalog/setLoadMoreFilms',
   ResetFilms = 'catalog/resetFilms',
   SetFilms = 'data/setFilms',
+  SetFavoriteFilms = 'data/setFavoriteFilms',
   LoadPromoFilm = 'data/loadPromoFilm',
   RequireAuthorization = 'user/requireAuthorization',
   RequireLogout = 'user/requireLogout',
@@ -42,6 +44,7 @@ export type Actions =
   | ReturnType<typeof setLoadMoreFilms>
   | ReturnType<typeof resetFilms>
   | ReturnType<typeof setFilms>
+  | ReturnType<typeof setFavoriteFilms>
   | ReturnType<typeof loadPromoFilm>
   | ReturnType<typeof requireAuthorization>
   | ReturnType<typeof requireLogout>

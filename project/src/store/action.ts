@@ -45,6 +45,11 @@ export const setFilms = (payload: Films) => ({
   payload,
 } as const);
 
+export const setFavoriteFilms = (payload: Films) => ({
+  type: ActionType.SetFavoriteFilms,
+  payload,
+} as const);
+
 export const requireAuthorization = (payload: AuthorizationStatus) => ({
   type: ActionType.RequireAuthorization,
   payload,
