@@ -18,7 +18,7 @@ function UserBlock(): JSX.Element {
     dispatch(logoutAction());
   };
   const handleUserLogInClick = () => {
-    history.push(APIRoute.Login);
+    history.push(APIRoute.Login());
   };
 
   return (

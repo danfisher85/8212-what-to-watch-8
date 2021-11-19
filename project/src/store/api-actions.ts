@@ -30,7 +30,7 @@ const AUTH_FAIL_LOGIN_UNKNOWN = 'Please enter a valid email address';
 
 export const fetchFilmsAction = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
-    const {data: serverFilms} = await api.get(APIRoute.Films);
+    const {data: serverFilms} = await api.get(APIRoute.Films());
     const filmsData = serverFilms.map(adaptFilmToClient);
     const genresData = getGenresList(filmsData);
     const initialFilmsData = filmsData.slice(0, FILM_PER_PAGE);
@@ -44,7 +44,7 @@ export const fetchFilmsAction = (): ThunkActionResult =>
 export const fetchFavoriteFilmsAction = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     try {
-      const {data: favoriteFilms} = await api.get(APIRoute.Favorite);
+      const {data: favoriteFilms} = await api.get(APIRoute.Favorite());
       const filmsData = favoriteFilms.map(adaptFilmToClient);
 
       dispatch(setFavoriteFilms(filmsData));
@@ -56,7 +56,7 @@ export const fetchFavoriteFilmsAction = (): ThunkActionResult =>
 
 export const fetchPromoFilmAction = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
-    const {data} = await api.get(APIRoute.Promo);
+    const {data} = await api.get(APIRoute.Promo());
     const promoFilmData = adaptFilmToClient(data);
     dispatch(loadPromoFilm(promoFilmData));
   };
@@ -64,7 +64,7 @@ export const fetchPromoFilmAction = (): ThunkActionResult =>
 export const fetchCurrentFilmAction = (filmId: number): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     try {
-      const {data: serverCurrentFilm} = await api.get(`/films/${filmId}`);
+      const {data: serverCurrentFilm} = await api.get(APIRoute.Film(filmId));
       const filmData = adaptFilmToClient(serverCurrentFilm);
       dispatch(loadCurrentFilm(filmData));
     } catch (error) {
@@ -75,7 +75,7 @@ export const fetchCurrentFilmAction = (filmId: number): ThunkActionResult =>
 export const checkAuthAction = (): ThunkActionResult =>
   async (dispatch, _getState, api) => {
     try {
-      await api.get(APIRoute.Login).then(({data: serverAuthInfo}) => {
+      await api.get(APIRoute.Login()).then(({data: serverAuthInfo}) => {
         const {id, email, name, avatarUrl, token} = adaptAuthInfoToClient(serverAuthInfo);
         const userInfo: UserInfo = {id, email, name, avatarUrl};
 
@@ -92,7 +92,7 @@ export const checkAuthAction = (): ThunkActionResult =>
 export const loginAction = ({email, password}: AuthData): ThunkActionResult =>
   async (dispatch, _getState, api) => {
     try {
-      await api.post(APIRoute.Login, {email, password}).then(({data: serverAuthInfo}) => {
+      await api.post(APIRoute.Login(), {email, password}).then(({data: serverAuthInfo}) => {
         const {id, email: userEmail, name, avatarUrl, token} = adaptAuthInfoToClient(serverAuthInfo);
         const userInfo: UserInfo = {id, email: userEmail, name, avatarUrl};
 
@@ -113,7 +113,7 @@ export const loginAction = ({email, password}: AuthData): ThunkActionResult =>
 
 export const logoutAction = (): ThunkActionResult =>
   async (dispatch, _getState, api) => {
-    api.delete(APIRoute.Logout);
+    api.delete(APIRoute.Logout());
     dropToken();
     dispatch(requireLogout());
   };

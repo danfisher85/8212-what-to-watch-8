@@ -7,11 +7,11 @@ export enum AppRoute {
   Player = '/player/:id',
 }
 
-export enum APIRoute {
-  Films = '/films',
-  Favorite = '/favorite',
-  Promo = '/promo',
-  Film = '/films/:id',
-  Login = '/login',
-  Logout = '/logout',
-}
+export const APIRoute = {
+  Films: () => '/films',
+  Favorite: () => '/favorite',
+  Promo: () => '/promo',
+  Film: (id:string | number) => `/films/${id}`,
+  Login: () => '/login',
+  Logout: () => '/logout',
+} as const;
