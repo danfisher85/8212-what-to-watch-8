@@ -1,4 +1,4 @@
-import browserHistory from 'store/browser-history';
+import browserHistory from 'browser-history';
 import {Middleware} from 'redux';
 import {filmCatalogReducer} from 'store/reducers/film-catalog-reducer';
 import {ActionType} from 'types/action';

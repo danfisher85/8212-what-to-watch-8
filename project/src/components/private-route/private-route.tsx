@@ -10,20 +10,20 @@ type RenderFuncProps = {
 };
 
 type PrivateRouteProps = RouteProps & {
-  render: (props: RenderFuncProps) => JSX.Element;
+  component: (props: RenderFuncProps) => JSX.Element;
 };
 
 function PrivateRoute(props: PrivateRouteProps): JSX.Element {
-  const {exact, path, render} = props;
+  const {exact, path, component: Component} = props;
   const {authorizationStatus} = useTypedSelector((state) => state.filmCatalog);
 
   return (
     <Route
       exact={exact}
       path={path}
-      render={(routeProps) => {
+      component={(routeProps: RenderFuncProps) => {
         if (authorizationStatus === AuthorizationStatus.Auth) {
-          return render(routeProps);
+          return <Component {...routeProps} />;
         }
         return <Redirect to={AppRoute.SignIn} />;
       }}

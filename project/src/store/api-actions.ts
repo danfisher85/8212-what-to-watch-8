@@ -8,7 +8,8 @@ import {
   requireAuthorization,
   requireLogout,
   redirectToRoute,
-  loadUserInfo
+  loadUserInfo,
+  userLoginError
 } from 'store/action';
 import {APIRoute, AppRoute} from 'configs/routes';
 import {ThunkActionResult} from 'types/action';
@@ -23,6 +24,8 @@ import {UserInfo} from 'types/user-info';
 import {toast} from 'react-toastify';
 
 const AUTH_FAIL_MESSAGE = 'Looks like you are not signed :(';
+const AUTH_FAIL_LOGIN_EMAIL = 'Please enter a valid email address';
+const AUTH_FAIL_LOGIN_UNKNOWN = 'Please enter a valid email address';
 
 export const fetchFilmsAction = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
@@ -76,16 +79,24 @@ export const checkAuthAction = (): ThunkActionResult =>
 
 export const loginAction = ({email, password}: AuthData): ThunkActionResult =>
   async (dispatch, _getState, api) => {
-    await api.post(APIRoute.Login, {email, password}).then(({data: serverAuthInfo}) => {
-      const {id, email: userEmail, name, avatarUrl, token} = adaptAuthInfoToClient(serverAuthInfo);
-      const userInfo: UserInfo = {id, email: userEmail, name, avatarUrl};
+    try {
+      await api.post(APIRoute.Login, {email, password}).then(({data: serverAuthInfo}) => {
+        const {id, email: userEmail, name, avatarUrl, token} = adaptAuthInfoToClient(serverAuthInfo);
+        const userInfo: UserInfo = {id, email: userEmail, name, avatarUrl};
 
-      saveToken(token);
+        saveToken(token);
 
-      dispatch(requireAuthorization(AuthorizationStatus.Auth));
-      dispatch(loadUserInfo(userInfo));
-      dispatch(redirectToRoute(AppRoute.Root));
-    });
+        dispatch(requireAuthorization(AuthorizationStatus.Auth));
+        dispatch(loadUserInfo(userInfo));
+        dispatch(redirectToRoute(AppRoute.Root));
+      });
+    } catch (error) {
+      if (error instanceof Error) {
+        dispatch(userLoginError(AUTH_FAIL_LOGIN_EMAIL));
+      } else {
+        toast.error(AUTH_FAIL_LOGIN_UNKNOWN);
+      }
+    }
   };
 
 export const logoutAction = (): ThunkActionResult =>

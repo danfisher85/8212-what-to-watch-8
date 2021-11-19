@@ -59,14 +59,19 @@ export const requireLogout = () => ({
   type: ActionType.RequireLogout,
 } as const);
 
-export const redirectToRoute = (url: AppRoute) => ({
-  type: ActionType.RedirectToRoute,
-  payload: url,
+export const userLoginError = (error: string) => ({
+  type: ActionType.UserLoginError,
+  payload: error,
 } as const);
 
-export const loadUserInfo = (userInfo: UserInfo) => ({
+export const redirectToRoute = (payload: AppRoute) => ({
+  type: ActionType.RedirectToRoute,
+  payload,
+} as const);
+
+export const loadUserInfo = (payload: UserInfo) => ({
   type: ActionType.LoadUserInfo,
-  payload: userInfo,
+  payload,
 } as const);
 
 export const loadPromoFilm = (film: Film) => ({

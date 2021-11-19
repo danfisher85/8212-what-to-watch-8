@@ -17,6 +17,7 @@ const initialState = {
     name: '',
     avatarUrl: '',
   },
+  loginError: '',
 };
 
 const filmCatalogReducer = (state: State = initialState, action: Actions): State => {
@@ -43,6 +44,8 @@ const filmCatalogReducer = (state: State = initialState, action: Actions): State
       return {...initialState};
     case ActionType.LoadUserInfo:
       return {...state, userInfo: action.payload};
+    case ActionType.UserLoginError:
+      return {...state, loginError: action.payload};
     default:
       return state;
   }

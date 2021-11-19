@@ -13,7 +13,9 @@ import {getFilmById} from 'utils/film';
 import {Comments} from 'types/comment';
 import {isCheckedAuth} from 'utils/user';
 import {useTypedSelector} from 'hooks/useTypedSelector';
-import browserHistory from 'store/browser-history';
+import browserHistory from 'browser-history';
+import {ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import {films} from 'fixtures/films';
 
@@ -28,7 +30,6 @@ interface RouteInfo {
 function App(props: AppScreenProps): JSX.Element {
   const {comments} = props;
   const {authorizationStatus, isDataLoaded} = useTypedSelector((state) => state.filmCatalog);
-  const {favoriteFilms} = useTypedSelector((state) => state.favoriteFilms);
 
   if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
     return <LoadingScreen />;
@@ -40,8 +41,11 @@ function App(props: AppScreenProps): JSX.Element {
         <Route exact path={AppRoute.Root}>
           <MainScreen />
         </Route>
-        <Route exact path={AppRoute.SignIn} component={SignInScreen} />
-        <PrivateRoute exact path={AppRoute.MyList} render={() => <MyListScreen films={favoriteFilms} />} />
+        <Route exact path={AppRoute.SignIn}>
+          <ToastContainer />
+          <SignInScreen />
+        </Route>
+        <PrivateRoute exact path={AppRoute.MyList} component={MyListScreen} />
         <Route
           exact
           path={AppRoute.Player}

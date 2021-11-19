@@ -15,7 +15,8 @@ import {
   requireAuthorization,
   requireLogout,
   redirectToRoute,
-  loadUserInfo
+  loadUserInfo,
+  userLoginError
 } from 'store/action';
 
 export enum ActionType {
@@ -33,6 +34,7 @@ export enum ActionType {
   RequireLogout = 'user/requireLogout',
   RedirectToRoute = 'catalog/redirectToRoute',
   LoadUserInfo = 'user/loadUserInfo',
+  UserLoginError = 'user/userLoginError',
 }
 
 export type Actions =
@@ -49,7 +51,8 @@ export type Actions =
   | ReturnType<typeof requireAuthorization>
   | ReturnType<typeof requireLogout>
   | ReturnType<typeof redirectToRoute>
-  | ReturnType<typeof loadUserInfo>;
+  | ReturnType<typeof loadUserInfo>
+  | ReturnType<typeof userLoginError>;
 
 export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>;
 export type ThunkAppDispatch = ThunkDispatch<State, AxiosInstance, Actions>;

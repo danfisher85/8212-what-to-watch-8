@@ -6,12 +6,11 @@ const initialState = {
 };
 
 const promoFilmReducer = (state: PromoFilmState = initialState, action: Actions): PromoFilmState => {
-  switch (action.type) {
-    case ActionType.LoadPromoFilm:
-      return {...state, promoFilm: action.payload};
-    default:
-      return state;
+  if (action.type === ActionType.LoadPromoFilm) {
+    return {...state, promoFilm: action.payload};
   }
+
+  return state;
 };
 
 export {promoFilmReducer};
