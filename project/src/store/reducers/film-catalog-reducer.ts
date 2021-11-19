@@ -11,6 +11,12 @@ const initialState = {
   currentPage: 1,
   authorizationStatus: AuthorizationStatus.Unknown,
   isDataLoaded: false,
+  userInfo: {
+    id: 0,
+    email: '',
+    name: '',
+    avatarUrl: '',
+  },
 };
 
 const filmCatalogReducer = (state: State = initialState, action: Actions): State => {
@@ -21,7 +27,7 @@ const filmCatalogReducer = (state: State = initialState, action: Actions): State
       return {...state, currentGenre: action.payload};
     case ActionType.SetGenres:
       return {...state, genres: action.payload};
-    case ActionType.SetFilmsByGenre:
+    case ActionType.SetFilmsByPage:
       return {...state, filteredFilms: action.payload};
     case ActionType.GetFilmsByGenre:
       return {...state, filteredFilms: action.payload};
@@ -31,8 +37,12 @@ const filmCatalogReducer = (state: State = initialState, action: Actions): State
       return {...state, films: action.payload};
     case ActionType.RequireAuthorization:
       return {...state, authorizationStatus: action.payload};
+    case ActionType.RequireLogout:
+      return {...state, authorizationStatus: AuthorizationStatus.NoAuth};
     case ActionType.ResetFilms:
       return {...initialState};
+    case ActionType.LoadUserInfo:
+      return {...state, userInfo: action.payload};
     default:
       return state;
   }

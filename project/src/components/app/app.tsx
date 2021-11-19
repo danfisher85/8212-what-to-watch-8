@@ -1,6 +1,5 @@
-import {Switch, Route, BrowserRouter, Redirect, RouteComponentProps} from 'react-router-dom';
+import {Switch, Route, Router, Redirect, RouteComponentProps} from 'react-router-dom';
 import {AppRoute} from 'configs/routes';
-import {AuthorizationStatus} from 'configs/auth-status';
 import PrivateRoute from 'components/private-route/private-route';
 import MainScreen from 'components/main-screen/main-screen';
 import SignInScreen from 'components/sign-in-screen/sign-in-screen';
@@ -14,6 +13,7 @@ import {getFilmById} from 'utils/film';
 import {Comments} from 'types/comment';
 import {isCheckedAuth} from 'utils/user';
 import {useTypedSelector} from 'hooks/useTypedSelector';
+import browserHistory from 'store/browser-history';
 
 import {films} from 'fixtures/films';
 
@@ -28,24 +28,20 @@ interface RouteInfo {
 function App(props: AppScreenProps): JSX.Element {
   const {comments} = props;
   const {authorizationStatus, isDataLoaded} = useTypedSelector((state) => state.filmCatalog);
+  const {favoriteFilms} = useTypedSelector((state) => state.favoriteFilms);
 
   if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
     return <LoadingScreen />;
   }
 
   return (
-    <BrowserRouter>
+    <Router history={browserHistory}>
       <Switch>
         <Route exact path={AppRoute.Root}>
           <MainScreen />
         </Route>
         <Route exact path={AppRoute.SignIn} component={SignInScreen} />
-        <PrivateRoute
-          exact
-          path={AppRoute.MyList}
-          render={() => <MyListScreen films={films} />}
-          authorizationStatus={AuthorizationStatus.NoAuth}
-        />
+        <PrivateRoute exact path={AppRoute.MyList} render={() => <MyListScreen films={favoriteFilms} />} />
         <Route
           exact
           path={AppRoute.Player}
@@ -84,7 +80,7 @@ function App(props: AppScreenProps): JSX.Element {
         />
         <Route component={NotFoundScreen} />
       </Switch>
-    </BrowserRouter>
+    </Router>
   );
 }
 
