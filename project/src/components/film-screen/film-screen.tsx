@@ -15,6 +15,7 @@ import {useTypedSelector} from 'hooks/useTypedSelector';
 import NotFoundScreen from 'components/not-found-screen/not-found-screen';
 import {ThunkAppDispatch} from 'types/action';
 import {fetchCurrentFilmAction, fetchSimilarFilmsAction} from 'store/api-actions';
+import {AuthorizationStatus} from 'configs/auth-status';
 
 interface FilmScreenProps {
   comments: Comments;
@@ -23,6 +24,7 @@ interface FilmScreenProps {
 function FilmScreen(props: FilmScreenProps): JSX.Element {
   const {comments} = props;
   const {currentFilm, similarFilms} = useTypedSelector((state) => state.currentFilm);
+  const {authorizationStatus} = useTypedSelector((state) => state.filmCatalog);
   const {id}: {id: string} = useParams();
 
   const dispatch = useDispatch();
@@ -81,9 +83,7 @@ function FilmScreen(props: FilmScreenProps): JSX.Element {
                   </svg>
                   <span>My list</span>
                 </Link>
-                <Link to={pathToAddReview} className="btn film-card__button">
-                  Add review
-                </Link>
+                {authorizationStatus === AuthorizationStatus.Auth && <Link to={pathToAddReview} className="btn film-card__button">Add review</Link>}
               </div>
             </div>
           </div>
