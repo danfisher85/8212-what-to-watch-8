@@ -27,23 +27,21 @@ function UserBlock(): JSX.Element {
         <>
           <li className="user-block__item">
             <div className="user-block__avatar">
-              <img
-                src={userInfo.avatarUrl}
-                alt="User avatar"
-                width="63"
-                height="63"
-                onClick={handleUserAvatarClick}
-              />
+              <img src={userInfo.avatarUrl} alt="User avatar" width="63" height="63" onClick={handleUserAvatarClick} />
             </div>
           </li>
           <li className="user-block__item">
-            <span className="user-block__link" onClick={handleUserLogOutClick}>Sign out</span>
+            <span className="user-block__link" onClick={handleUserLogOutClick}>
+              Sign out
+            </span>
           </li>
         </>
       )}
       {authorizationStatus !== AuthorizationStatus.Auth && (
         <li className="user-block__item">
-          <span className="user-block__link" onClick={handleUserLogInClick}>Sign in</span>
+          <span className="user-block__link" onClick={handleUserLogInClick}>
+            Sign in
+          </span>
         </li>
       )}
     </ul>
