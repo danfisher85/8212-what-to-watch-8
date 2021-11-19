@@ -6,6 +6,7 @@ import {
   setFilmsByPage,
   loadPromoFilm,
   loadCurrentFilm,
+  loadSimilarFilms,
   requireAuthorization,
   requireLogout,
   redirectToRoute,
@@ -23,6 +24,7 @@ import {dropToken, saveToken} from 'services/token';
 import {adaptAuthInfoToClient} from 'services/adapters';
 import {UserInfo} from 'types/user-info';
 import {toast} from 'react-toastify';
+import {Film} from 'types/film';
 
 const AUTH_FAIL_MESSAGE = 'Looks like you are not signed :(';
 const AUTH_FAIL_LOGIN_EMAIL = 'Please enter a valid email address';
@@ -67,6 +69,18 @@ export const fetchCurrentFilmAction = (filmId: number): ThunkActionResult =>
       const {data: serverCurrentFilm} = await api.get(APIRoute.Film(filmId));
       const filmData = adaptFilmToClient(serverCurrentFilm);
       dispatch(loadCurrentFilm(filmData));
+    } catch (error) {
+      // toast.info(AUTH_FAIL_MESSAGE);
+    }
+  };
+
+export const fetchSimilarFilmsAction = (filmId: number): ThunkActionResult =>
+  async (dispatch, _getState, api): Promise<void> => {
+    try {
+      const {data: serverSimilarFilms} = await api.get(APIRoute.SimilarFilms(filmId));
+      const filteredFilmsData = serverSimilarFilms.filter((film: Film) => film.id !== filmId);
+      const filmsData = filteredFilmsData.map(adaptFilmToClient);
+      dispatch(loadSimilarFilms(filmsData));
     } catch (error) {
       // toast.info(AUTH_FAIL_MESSAGE);
     }

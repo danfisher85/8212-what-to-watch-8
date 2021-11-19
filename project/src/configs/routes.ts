@@ -12,6 +12,7 @@ export const APIRoute = {
   Favorite: () => '/favorite',
   Promo: () => '/promo',
   Film: (id:string | number) => `/films/${id}`,
+  SimilarFilms: (id:string | number) => `/films/${id}/similar`,
   Login: () => '/login',
   Logout: () => '/logout',
 } as const;

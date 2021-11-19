@@ -83,3 +83,8 @@ export const loadCurrentFilm = (payload: Film) => ({
   type: ActionType.LoadCurrentFilm,
   payload,
 } as const);
+
+export const loadSimilarFilms = (payload: Films) => ({
+  type: ActionType.LoadSimilarFilms,
+  payload,
+} as const);

@@ -59,7 +59,7 @@ function App(props: AppScreenProps): JSX.Element {
           }}
         />
         <Route exact path={AppRoute.Film}>
-          <FilmScreen films={films} comments={comments} />
+          <FilmScreen comments={comments} />
         </Route>
         <Route
           exact

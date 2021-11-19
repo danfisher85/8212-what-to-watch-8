@@ -9,31 +9,27 @@ import FilmTabs from 'components/film-tabs/film-tabs';
 import FilmTabsOverview from 'components/film-tabs-overview/film-tabs-overview';
 import FilmTabsDetails from 'components/film-tabs-details/film-tabs-details';
 import FilmTabsReviews from 'components/film-tabs-reviews/film-tabs-reviews';
-import {filterFilmsByGenre} from 'utils/film';
 import {AppRoute} from 'configs/routes';
-import {Films} from 'types/film';
 import {Comments} from 'types/comment';
 import {useTypedSelector} from 'hooks/useTypedSelector';
 import NotFoundScreen from 'components/not-found-screen/not-found-screen';
 import {ThunkAppDispatch} from 'types/action';
-import {fetchCurrentFilmAction} from 'store/api-actions';
-
-const SIMILAR_FILMS_COUNT = 4;
+import {fetchCurrentFilmAction, fetchSimilarFilmsAction} from 'store/api-actions';
 
 interface FilmScreenProps {
-  films: Films;
   comments: Comments;
 }
 
 function FilmScreen(props: FilmScreenProps): JSX.Element {
-  const {films, comments} = props;
-  const {currentFilm} = useTypedSelector((state) => state.currentFilm);
+  const {comments} = props;
+  const {currentFilm, similarFilms} = useTypedSelector((state) => state.currentFilm);
   const {id}: {id: string} = useParams();
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     (dispatch as ThunkAppDispatch)(fetchCurrentFilmAction(+id));
+    (dispatch as ThunkAppDispatch)(fetchSimilarFilmsAction(+id));
   }, [dispatch, id]);
 
   if (currentFilm === null) {
@@ -48,8 +44,6 @@ function FilmScreen(props: FilmScreenProps): JSX.Element {
   const pathToAddReview = generatePath(AppRoute.AddReview, {
     id: currentFilm.id,
   });
-
-  const similarFilms = filterFilmsByGenre(films, currentFilm.genre).slice(0, SIMILAR_FILMS_COUNT);
 
   return (
     <>

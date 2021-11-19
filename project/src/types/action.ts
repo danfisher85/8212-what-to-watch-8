@@ -13,6 +13,7 @@ import {
   setFavoriteFilms,
   loadPromoFilm,
   loadCurrentFilm,
+  loadSimilarFilms,
   requireAuthorization,
   requireLogout,
   redirectToRoute,
@@ -32,6 +33,7 @@ export enum ActionType {
   SetFavoriteFilms = 'data/setFavoriteFilms',
   LoadPromoFilm = 'data/loadPromoFilm',
   LoadCurrentFilm = 'data/loadCurrentFilm',
+  LoadSimilarFilms = 'data/loadSimilarFilms',
   RequireAuthorization = 'user/requireAuthorization',
   RequireLogout = 'user/requireLogout',
   RedirectToRoute = 'catalog/redirectToRoute',
@@ -51,6 +53,7 @@ export type Actions =
   | ReturnType<typeof setFavoriteFilms>
   | ReturnType<typeof loadPromoFilm>
   | ReturnType<typeof loadCurrentFilm>
+  | ReturnType<typeof loadSimilarFilms>
   | ReturnType<typeof requireAuthorization>
   | ReturnType<typeof requireLogout>
   | ReturnType<typeof redirectToRoute>
