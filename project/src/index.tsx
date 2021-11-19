@@ -8,7 +8,12 @@ import {composeWithDevTools} from 'redux-devtools-extension';
 import App from 'components/app/app';
 import {comments} from 'fixtures/comments';
 import {requireAuthorization} from 'store/action';
-import {checkAuthAction, fetchFilmsAction, fetchFavoriteFilmsAction, fetchPromoFilmAction} from 'store/api-actions';
+import {
+  checkAuthAction,
+  fetchFilmsAction,
+  fetchFavoriteFilmsAction,
+  fetchPromoFilmAction
+} from 'store/api-actions';
 import {rootReducer} from 'store/root-reducer';
 import {ThunkAppDispatch} from 'types/action';
 import {AuthorizationStatus} from 'configs/auth-status';

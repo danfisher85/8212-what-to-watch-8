@@ -58,18 +58,9 @@ function App(props: AppScreenProps): JSX.Element {
             return <Redirect to={AppRoute.Root} />;
           }}
         />
-        <Route
-          exact
-          path={AppRoute.Film}
-          component={({match}: RouteComponentProps<RouteInfo>) => {
-            const film = getFilmById(+match.params.id, films);
-
-            if (film) {
-              return <FilmScreen films={films} film={film} comments={comments} />;
-            }
-            return <Redirect to={AppRoute.Root} />;
-          }}
-        />
+        <Route exact path={AppRoute.Film}>
+          <FilmScreen films={films} comments={comments} />
+        </Route>
         <Route
           exact
           path={AppRoute.AddReview}

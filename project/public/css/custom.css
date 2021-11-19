@@ -9,6 +9,11 @@
   margin-bottom: 0;
 }
 
+/* Film Review */
+.review {
+  border-bottom-color: rgba(0,0,0,0.2);
+}
+
 /* Loading Screen */
 .loader-screen {
   display: flex;

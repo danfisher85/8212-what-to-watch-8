@@ -5,6 +5,7 @@ import {
   setGenres,
   setFilmsByPage,
   loadPromoFilm,
+  loadCurrentFilm,
   requireAuthorization,
   requireLogout,
   redirectToRoute,
@@ -58,6 +59,17 @@ export const fetchPromoFilmAction = (): ThunkActionResult =>
     const {data} = await api.get(APIRoute.Promo);
     const promoFilmData = adaptFilmToClient(data);
     dispatch(loadPromoFilm(promoFilmData));
+  };
+
+export const fetchCurrentFilmAction = (filmId: number): ThunkActionResult =>
+  async (dispatch, _getState, api): Promise<void> => {
+    try {
+      const {data: serverCurrentFilm} = await api.get(`/films/${filmId}`);
+      const filmData = adaptFilmToClient(serverCurrentFilm);
+      dispatch(loadCurrentFilm(filmData));
+    } catch (error) {
+      // toast.info(AUTH_FAIL_MESSAGE);
+    }
   };
 
 export const checkAuthAction = (): ThunkActionResult =>
