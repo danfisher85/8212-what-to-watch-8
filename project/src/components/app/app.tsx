@@ -10,7 +10,6 @@ import AddReviewScreen from 'components/add-review-screen/add-review-screen';
 import NotFoundScreen from 'components/not-found-screen/not-found-screen';
 import LoadingScreen from 'components/loading-screen/loading-screen';
 import {getFilmById} from 'utils/film';
-import {Comments} from 'types/comment';
 import {isCheckedAuth} from 'utils/user';
 import {useTypedSelector} from 'hooks/useTypedSelector';
 import browserHistory from 'browser-history';
@@ -19,16 +18,11 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import {films} from 'fixtures/films';
 
-interface AppScreenProps {
-  comments: Comments;
-}
-
 interface RouteInfo {
   id: string;
 }
 
-function App(props: AppScreenProps): JSX.Element {
-  const {comments} = props;
+function App(): JSX.Element {
   const {authorizationStatus, isDataLoaded} = useTypedSelector((state) => state.filmCatalog);
 
   if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
@@ -59,7 +53,7 @@ function App(props: AppScreenProps): JSX.Element {
           }}
         />
         <Route exact path={AppRoute.Film}>
-          <FilmScreen comments={comments} />
+          <FilmScreen />
         </Route>
         <Route
           exact

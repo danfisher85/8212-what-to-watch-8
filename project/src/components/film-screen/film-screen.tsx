@@ -10,19 +10,13 @@ import FilmTabsOverview from 'components/film-tabs-overview/film-tabs-overview';
 import FilmTabsDetails from 'components/film-tabs-details/film-tabs-details';
 import FilmTabsReviews from 'components/film-tabs-reviews/film-tabs-reviews';
 import {AppRoute} from 'configs/routes';
-import {Comments} from 'types/comment';
 import {useTypedSelector} from 'hooks/useTypedSelector';
 import NotFoundScreen from 'components/not-found-screen/not-found-screen';
 import {ThunkAppDispatch} from 'types/action';
 import {fetchCurrentFilmAction, fetchSimilarFilmsAction} from 'store/api-actions';
 import {AuthorizationStatus} from 'configs/auth-status';
 
-interface FilmScreenProps {
-  comments: Comments;
-}
-
-function FilmScreen(props: FilmScreenProps): JSX.Element {
-  const {comments} = props;
+function FilmScreen(): JSX.Element {
   const {currentFilm, similarFilms} = useTypedSelector((state) => state.currentFilm);
   const {authorizationStatus} = useTypedSelector((state) => state.filmCatalog);
   const {id}: {id: string} = useParams();
@@ -116,7 +110,7 @@ function FilmScreen(props: FilmScreenProps): JSX.Element {
                   released,
                 }}
               />
-              <FilmTabsReviews title="Reviews" comments={comments} />
+              <FilmTabsReviews title="Reviews" />
             </FilmTabs>
           </div>
         </div>

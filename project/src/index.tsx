@@ -6,7 +6,6 @@ import {createAPI} from 'services/api';
 import {Provider} from 'react-redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import App from 'components/app/app';
-import {comments} from 'fixtures/comments';
 import {requireAuthorization} from 'store/action';
 import {
   checkAuthAction,
@@ -33,7 +32,7 @@ const store = createStore(
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App comments={comments} />
+      <App />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'),

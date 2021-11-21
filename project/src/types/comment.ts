@@ -1,4 +1,4 @@
-export type Comment = {
+export interface Comment {
   id: number;
   user: {
     id: number;

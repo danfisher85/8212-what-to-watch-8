@@ -7,6 +7,7 @@ import {
   loadPromoFilm,
   loadCurrentFilm,
   loadSimilarFilms,
+  loadFilmComments,
   requireAuthorization,
   requireLogout,
   redirectToRoute,
@@ -81,6 +82,16 @@ export const fetchSimilarFilmsAction = (filmId: number): ThunkActionResult =>
       const filteredFilmsData = serverSimilarFilms.filter((film: Film) => film.id !== filmId);
       const filmsData = filteredFilmsData.map(adaptFilmToClient);
       dispatch(loadSimilarFilms(filmsData));
+    } catch (error) {
+      // toast.info(AUTH_FAIL_MESSAGE);
+    }
+  };
+
+export const fetchFilmCommentsAction = (filmId: number): ThunkActionResult =>
+  async (dispatch, _getState, api): Promise<void> => {
+    try {
+      const {data: serverFilmComments} = await api.get(APIRoute.FilmComments(filmId));
+      dispatch(loadFilmComments(serverFilmComments));
     } catch (error) {
       // toast.info(AUTH_FAIL_MESSAGE);
     }

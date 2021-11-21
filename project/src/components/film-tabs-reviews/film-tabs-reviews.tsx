@@ -1,15 +1,27 @@
+import {useEffect} from 'react';
+import {useParams} from 'react-router';
+import {useDispatch} from 'react-redux';
 import FilmComment from 'components/film-comment/film-comment';
 import {divideArrayInHalf} from 'utils/comment';
-import {Comments} from 'types/comment';
+import {useTypedSelector} from 'hooks/useTypedSelector';
+import {ThunkAppDispatch} from 'types/action';
+import {fetchFilmCommentsAction} from 'store/api-actions';
 
 interface FilmTabsReviewsProps {
   title: string;
-  comments: Comments;
 }
 
-function FilmTabsReviews({title, comments}: FilmTabsReviewsProps): JSX.Element {
-  const filmComments = comments?.map((comment) => <FilmComment key={comment.id} comment={comment} />);
-  const [firstHalfComments, secondHalfComments] = divideArrayInHalf(filmComments);
+function FilmTabsReviews({title}: FilmTabsReviewsProps): JSX.Element {
+  const {filmComments} = useTypedSelector((state) => state.currentFilm);
+  const {id}: {id: string} = useParams();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    (dispatch as ThunkAppDispatch)(fetchFilmCommentsAction(+id));
+  }, [dispatch, id]);
+
+  const comments = filmComments?.map((comment) => <FilmComment key={comment.id} comment={comment} />);
+  const [firstHalfComments, secondHalfComments] = divideArrayInHalf(comments);
 
   return (
     <div className="film-card__reviews film-card__row" data-title={title}>
