@@ -6,12 +6,11 @@ const initialState = {
 };
 
 const favoriteFilmsReducer = (state: FavoriteFilmsState = initialState, action: Actions): FavoriteFilmsState => {
-  switch (action.type) {
-    case ActionType.SetFavoriteFilms:
-      return {...state, favoriteFilms: action.payload};
-    default:
-      return state;
+  if (action.type === ActionType.SetFavoriteFilms) {
+    return {...state, favoriteFilms: action.payload};
   }
+
+  return state;
 };
 
 export {favoriteFilmsReducer};

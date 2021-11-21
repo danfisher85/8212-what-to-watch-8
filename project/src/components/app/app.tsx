@@ -10,25 +10,20 @@ import AddReviewScreen from 'components/add-review-screen/add-review-screen';
 import NotFoundScreen from 'components/not-found-screen/not-found-screen';
 import LoadingScreen from 'components/loading-screen/loading-screen';
 import {getFilmById} from 'utils/film';
-import {Comments} from 'types/comment';
 import {isCheckedAuth} from 'utils/user';
 import {useTypedSelector} from 'hooks/useTypedSelector';
-import browserHistory from 'store/browser-history';
+import browserHistory from 'browser-history';
+import {ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import {films} from 'fixtures/films';
-
-interface AppScreenProps {
-  comments: Comments;
-}
 
 interface RouteInfo {
   id: string;
 }
 
-function App(props: AppScreenProps): JSX.Element {
-  const {comments} = props;
+function App(): JSX.Element {
   const {authorizationStatus, isDataLoaded} = useTypedSelector((state) => state.filmCatalog);
-  const {favoriteFilms} = useTypedSelector((state) => state.favoriteFilms);
 
   if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
     return <LoadingScreen />;
@@ -40,8 +35,11 @@ function App(props: AppScreenProps): JSX.Element {
         <Route exact path={AppRoute.Root}>
           <MainScreen />
         </Route>
-        <Route exact path={AppRoute.SignIn} component={SignInScreen} />
-        <PrivateRoute exact path={AppRoute.MyList} render={() => <MyListScreen films={favoriteFilms} />} />
+        <Route exact path={AppRoute.SignIn}>
+          <ToastContainer />
+          <SignInScreen />
+        </Route>
+        <PrivateRoute exact path={AppRoute.MyList} component={MyListScreen} />
         <Route
           exact
           path={AppRoute.Player}
@@ -54,30 +52,13 @@ function App(props: AppScreenProps): JSX.Element {
             return <Redirect to={AppRoute.Root} />;
           }}
         />
-        <Route
-          exact
-          path={AppRoute.Film}
-          component={({match}: RouteComponentProps<RouteInfo>) => {
-            const film = getFilmById(+match.params.id, films);
-
-            if (film) {
-              return <FilmScreen films={films} film={film} comments={comments} />;
-            }
-            return <Redirect to={AppRoute.Root} />;
-          }}
-        />
-        <Route
-          exact
-          path={AppRoute.AddReview}
-          component={({match}: RouteComponentProps<RouteInfo>) => {
-            const film = getFilmById(+match.params.id, films);
-
-            if (film) {
-              return <AddReviewScreen film={film} />;
-            }
-            return <Redirect to={AppRoute.Root} />;
-          }}
-        />
+        <Route exact path={AppRoute.Film}>
+          <FilmScreen />
+        </Route>
+        <Route exact path={AppRoute.AddReview}>
+          <ToastContainer />
+          <AddReviewScreen />
+        </Route>
         <Route component={NotFoundScreen} />
       </Switch>
     </Router>

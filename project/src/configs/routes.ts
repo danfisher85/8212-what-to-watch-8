@@ -11,6 +11,10 @@ export enum APIRoute {
   Films = '/films',
   Favorite = '/favorite',
   Promo = '/promo',
+  Film = '/films/:id',
+  FilmComments = '/comments/:id',
+  SimilarFilms = '/films/:id/similar',
+  PostComment = '/comments/:id',
   Login = '/login',
   Logout = '/logout',
 }

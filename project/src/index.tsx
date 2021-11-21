@@ -6,15 +6,17 @@ import {createAPI} from 'services/api';
 import {Provider} from 'react-redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import App from 'components/app/app';
-import {comments} from 'fixtures/comments';
 import {requireAuthorization} from 'store/action';
-import {checkAuthAction, fetchFilmsAction, fetchFavoriteFilmsAction, fetchPromoFilmAction} from 'store/api-actions';
+import {
+  checkAuthAction,
+  fetchFilmsAction,
+  fetchFavoriteFilmsAction,
+  fetchPromoFilmAction
+} from 'store/api-actions';
 import {rootReducer} from 'store/root-reducer';
 import {ThunkAppDispatch} from 'types/action';
 import {AuthorizationStatus} from 'configs/auth-status';
 import {redirect} from 'store/middlewares/redirect';
-import {ToastContainer} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 const api = createAPI(() => store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth)));
 const store = createStore(
@@ -30,8 +32,7 @@ const store = createStore(
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ToastContainer position="bottom-right" />
-      <App comments={comments} />
+      <App />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'),

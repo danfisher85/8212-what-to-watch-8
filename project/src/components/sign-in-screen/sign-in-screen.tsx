@@ -1,11 +1,15 @@
 import {useRef, FormEvent} from 'react';
+import {Redirect} from 'react-router-dom';
+import {AppRoute} from 'configs/routes';
 import {connect, ConnectedProps} from 'react-redux';
+import clsx from 'clsx';
 import {loginAction} from 'store/api-actions';
 import {ThunkAppDispatch} from 'types/action';
 import {AuthData} from 'types/auth-data';
-
+import {useTypedSelector} from 'hooks/useTypedSelector';
 import Logo from 'components/logo/logo';
 import Footer from 'components/footer/footer';
+import {AuthorizationStatus} from 'configs/auth-status';
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
   onSubmit(authData: AuthData) {
@@ -18,20 +22,30 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 function SignInScreen(props: PropsFromRedux): JSX.Element {
   const {onSubmit} = props;
+  const {authorizationStatus, loginError} = useTypedSelector((state) => state.filmCatalog);
 
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
+    const validatedPassword = /\D\d|\d\D/i;
 
-    if (emailRef.current !== null && passwordRef.current !== null) {
+    if (
+      emailRef.current !== null &&
+      passwordRef.current !== null &&
+      validatedPassword.test(passwordRef.current.value)
+    ) {
       onSubmit({
         email: emailRef.current.value,
         password: passwordRef.current.value,
       });
     }
   };
+
+  if (authorizationStatus === AuthorizationStatus.Auth) {
+    return <Redirect to={AppRoute.Root} />;
+  }
 
   return (
     <div className="user-page">
@@ -43,8 +57,14 @@ function SignInScreen(props: PropsFromRedux): JSX.Element {
 
       <div className="sign-in user-page__content">
         <form action="#" className="sign-in__form" onSubmit={handleSubmit}>
+          {loginError && (
+            <div className="sign-in__message">
+              <p>{loginError}</p>
+            </div>
+          )}
+
           <div className="sign-in__fields">
-            <div className="sign-in__field">
+            <div className={clsx(['sign-in__field', {'sign-in__field--error': loginError}])}>
               <input
                 ref={emailRef}
                 className="sign-in__input"

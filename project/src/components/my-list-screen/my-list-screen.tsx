@@ -1,15 +1,11 @@
-import {Films} from 'types/film';
+import {useTypedSelector} from 'hooks/useTypedSelector';
 import Logo from 'components/logo/logo';
 import Footer from 'components/footer/footer';
 import UserBlock from 'components/user-block/user-block';
 import FilmsList from 'components/films-list/films-list';
 
-type MyListScreenProps = {
-  films: Films;
-};
-
-function MyListScreen(props: MyListScreenProps): JSX.Element {
-  const {films} = props;
+function MyListScreen(): JSX.Element {
+  const {favoriteFilms} = useTypedSelector((state) => state.favoriteFilms);
 
   return (
     <div className="user-page">
@@ -24,7 +20,7 @@ function MyListScreen(props: MyListScreenProps): JSX.Element {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <FilmsList films={films} />
+        <FilmsList films={favoriteFilms} />
       </section>
 
       <Footer />

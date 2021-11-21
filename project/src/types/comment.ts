@@ -1,4 +1,4 @@
-export type Comment = {
+export interface Comment {
   id: number;
   user: {
     id: number;
@@ -10,3 +10,8 @@ export type Comment = {
 }
 
 export type Comments = Comment[];
+
+export interface CommmentPost {
+  rating: number,
+  comment: string,
+}

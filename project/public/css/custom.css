@@ -9,6 +9,24 @@
   margin-bottom: 0;
 }
 
+/* Film Review */
+.review {
+  border-bottom-color: rgba(0,0,0,0.2);
+}
+
+/* Film Review Post */
+.add-review__fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+.add-review__text {
+  background-color: rgba(255,255,255,0.12);
+}
+.add-review__btn {
+  color: rgba(0,0,0,0.5);
+}
+
 /* Loading Screen */
 .loader-screen {
   display: flex;

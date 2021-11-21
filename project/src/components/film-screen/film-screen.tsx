@@ -1,4 +1,6 @@
-import {Link, generatePath} from 'react-router-dom';
+import {useEffect} from 'react';
+import {Link, generatePath, useParams} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
 import Logo from 'components/logo/logo';
 import Footer from 'components/footer/footer';
 import UserBlock from 'components/user-block/user-block';
@@ -7,39 +9,44 @@ import FilmTabs from 'components/film-tabs/film-tabs';
 import FilmTabsOverview from 'components/film-tabs-overview/film-tabs-overview';
 import FilmTabsDetails from 'components/film-tabs-details/film-tabs-details';
 import FilmTabsReviews from 'components/film-tabs-reviews/film-tabs-reviews';
-import {filterFilmsByGenre} from 'utils/film';
 import {AppRoute} from 'configs/routes';
-import {Film, Films} from 'types/film';
-import {Comments} from 'types/comment';
+import {useTypedSelector} from 'hooks/useTypedSelector';
+import NotFoundScreen from 'components/not-found-screen/not-found-screen';
+import {ThunkAppDispatch} from 'types/action';
+import {fetchCurrentFilmAction, fetchSimilarFilmsAction} from 'store/api-actions';
+import {AuthorizationStatus} from 'configs/auth-status';
 
-const SIMILAR_FILMS_COUNT = 4;
+function FilmScreen(): JSX.Element {
+  const {currentFilm, similarFilms} = useTypedSelector((state) => state.currentFilm);
+  const {authorizationStatus} = useTypedSelector((state) => state.filmCatalog);
+  const {id} = useParams<{id: string}>();
 
-interface FilmScreenProps {
-  film: Film;
-  films: Films;
-  comments: Comments;
-}
+  const dispatch = useDispatch();
 
-function FilmScreen(props: FilmScreenProps): JSX.Element {
-  const {film, films, comments} = props;
-  const {director, rating, scoresCount, description, starring, runTime, genre, released} = film;
+  useEffect(() => {
+    (dispatch as ThunkAppDispatch)(fetchCurrentFilmAction(+id));
+    (dispatch as ThunkAppDispatch)(fetchSimilarFilmsAction(+id));
+  }, [dispatch, id]);
+
+  if (currentFilm === null) {
+    return <NotFoundScreen />;
+  }
+  const {director, rating, scoresCount, description, starring, runTime, genre, released, backgroundColor} = currentFilm;
 
   const pathToFilmPlayer = generatePath(AppRoute.Player, {
-    id: film.id,
+    id: currentFilm.id,
   });
 
   const pathToAddReview = generatePath(AppRoute.AddReview, {
-    id: film.id,
+    id: currentFilm.id,
   });
-
-  const similarFilms = filterFilmsByGenre(films, film.genre).slice(0, SIMILAR_FILMS_COUNT);
 
   return (
     <>
-      <section className="film-card film-card--full">
+      <section className="film-card film-card--full" style={{backgroundColor: backgroundColor}}>
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src={film.backgroundImage} alt={film.name} />
+            <img src={currentFilm.backgroundImage} alt={currentFilm.name} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -51,10 +58,10 @@ function FilmScreen(props: FilmScreenProps): JSX.Element {
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">{film.name}</h2>
+              <h2 className="film-card__title">{currentFilm.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{film.genre}</span>
-                <span className="film-card__year">{film.released}</span>
+                <span className="film-card__genre">{currentFilm.genre}</span>
+                <span className="film-card__year">{currentFilm.released}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -70,9 +77,7 @@ function FilmScreen(props: FilmScreenProps): JSX.Element {
                   </svg>
                   <span>My list</span>
                 </Link>
-                <Link to={pathToAddReview} className="btn film-card__button">
-                  Add review
-                </Link>
+                {authorizationStatus === AuthorizationStatus.Auth && <Link to={pathToAddReview} className="btn film-card__button">Add review</Link>}
               </div>
             </div>
           </div>
@@ -81,7 +86,7 @@ function FilmScreen(props: FilmScreenProps): JSX.Element {
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src={film.posterImage} alt={`${film.name} poster`} width="218" height="327" />
+              <img src={currentFilm.posterImage} alt={`${currentFilm.name} poster`} width="218" height="327" />
             </div>
 
             <FilmTabs>
@@ -105,7 +110,7 @@ function FilmScreen(props: FilmScreenProps): JSX.Element {
                   released,
                 }}
               />
-              <FilmTabsReviews title="Reviews" comments={comments} />
+              <FilmTabsReviews title="Reviews" />
             </FilmTabs>
           </div>
         </div>
