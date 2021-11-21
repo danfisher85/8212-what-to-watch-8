@@ -6,4 +6,5 @@ export type FilmState = {
   similarFilms: Films;
   filmComments: Comments;
   isCurrentFilmLoaded: boolean;
+  isCommentPosting: boolean;
 }

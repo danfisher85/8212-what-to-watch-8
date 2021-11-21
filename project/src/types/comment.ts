@@ -10,3 +10,8 @@ export interface Comment {
 }
 
 export type Comments = Comment[];
+
+export interface CommmentPost {
+  rating: number,
+  comment: string,
+}

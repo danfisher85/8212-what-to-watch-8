@@ -6,6 +6,7 @@ const initialState = {
   similarFilms: [],
   filmComments: [],
   isCurrentFilmLoaded: false,
+  isCommentPosting: false,
 };
 
 const currentFilmReducer = (state: FilmState = initialState, action: Actions): FilmState => {
@@ -16,6 +17,8 @@ const currentFilmReducer = (state: FilmState = initialState, action: Actions): F
       return {...state, similarFilms: action.payload};
     case ActionType.LoadFilmComments:
       return {...state, filmComments: action.payload};
+    case ActionType.IsCommentPosting:
+      return {...state, isCommentPosting: action.payload};
     default:
       return state;
   }

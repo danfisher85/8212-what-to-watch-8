@@ -55,18 +55,10 @@ function App(): JSX.Element {
         <Route exact path={AppRoute.Film}>
           <FilmScreen />
         </Route>
-        <Route
-          exact
-          path={AppRoute.AddReview}
-          component={({match}: RouteComponentProps<RouteInfo>) => {
-            const film = getFilmById(+match.params.id, films);
-
-            if (film) {
-              return <AddReviewScreen film={film} />;
-            }
-            return <Redirect to={AppRoute.Root} />;
-          }}
-        />
+        <Route exact path={AppRoute.AddReview}>
+          <ToastContainer />
+          <AddReviewScreen />
+        </Route>
         <Route component={NotFoundScreen} />
       </Switch>
     </Router>

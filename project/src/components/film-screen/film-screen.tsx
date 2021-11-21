@@ -19,7 +19,7 @@ import {AuthorizationStatus} from 'configs/auth-status';
 function FilmScreen(): JSX.Element {
   const {currentFilm, similarFilms} = useTypedSelector((state) => state.currentFilm);
   const {authorizationStatus} = useTypedSelector((state) => state.filmCatalog);
-  const {id}: {id: string} = useParams();
+  const {id} = useParams<{id: string}>();
 
   const dispatch = useDispatch();
 

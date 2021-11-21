@@ -15,11 +15,13 @@ import {
   loadCurrentFilm,
   loadSimilarFilms,
   loadFilmComments,
+  setFilmComment,
   requireAuthorization,
   requireLogout,
   redirectToRoute,
   loadUserInfo,
-  userLoginError
+  userLoginError,
+  isCommentPosting
 } from 'store/action';
 
 export enum ActionType {
@@ -36,11 +38,13 @@ export enum ActionType {
   LoadCurrentFilm = 'data/loadCurrentFilm',
   LoadSimilarFilms = 'data/loadSimilarFilms',
   LoadFilmComments = 'data/loadFilmComments',
+  SetFilmComment = 'data/setFilmComment',
   RequireAuthorization = 'user/requireAuthorization',
   RequireLogout = 'user/requireLogout',
   RedirectToRoute = 'catalog/redirectToRoute',
   LoadUserInfo = 'user/loadUserInfo',
   UserLoginError = 'user/userLoginError',
+  IsCommentPosting = 'comment/isCommentPosting',
 }
 
 export type Actions =
@@ -57,11 +61,13 @@ export type Actions =
   | ReturnType<typeof loadCurrentFilm>
   | ReturnType<typeof loadSimilarFilms>
   | ReturnType<typeof loadFilmComments>
+  | ReturnType<typeof setFilmComment>
   | ReturnType<typeof requireAuthorization>
   | ReturnType<typeof requireLogout>
   | ReturnType<typeof redirectToRoute>
   | ReturnType<typeof loadUserInfo>
-  | ReturnType<typeof userLoginError>;
+  | ReturnType<typeof userLoginError>
+  | ReturnType<typeof isCommentPosting>;
 
 export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>;
 export type ThunkAppDispatch = ThunkDispatch<State, AxiosInstance, Actions>;

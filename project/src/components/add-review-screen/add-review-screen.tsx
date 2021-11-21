@@ -1,23 +1,42 @@
-import {Link} from 'react-router-dom';
+import {Link, Redirect, useParams} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
+import {useEffect} from 'react';
 import Logo from 'components/logo/logo';
 import UserBlock from 'components/user-block/user-block';
 import AddReviewForm from 'components/add-review-form/add-review-form';
-import {Film} from 'types/film';
+import NotFoundScreen from 'components/not-found-screen/not-found-screen';
+import {useTypedSelector} from 'hooks/useTypedSelector';
+import {AuthorizationStatus} from 'configs/auth-status';
+import {AppRoute} from 'configs/routes';
+import {ThunkAppDispatch} from 'types/action';
+import {fetchCurrentFilmAction} from 'store/api-actions';
 
 enum InitialValue {
   Rating = 0,
 }
 const INITIAL_COMMENT = '';
 
-interface AddReviewScreenProps {
-  film: Film;
-}
+function AddReviewScreen(): JSX.Element {
+  const {currentFilm: film} = useTypedSelector((state) => state.currentFilm);
+  const {authorizationStatus} = useTypedSelector((state) => state.filmCatalog);
 
-function AddReviewScreen(props: AddReviewScreenProps): JSX.Element {
-  const {film} = props;
+  const {id} = useParams<{id: string}>();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    (dispatch as ThunkAppDispatch)(fetchCurrentFilmAction(+id));
+  }, [dispatch, id]);
+
+  if (authorizationStatus !== AuthorizationStatus.Auth) {
+    return <Redirect to={AppRoute.SignIn} />;
+  }
+
+  if (film === null) {
+    return <NotFoundScreen />;
+  }
 
   return (
-    <section className="film-card film-card--full">
+    <section className="film-card film-card--full" style={{backgroundColor: film.backgroundColor}}>
       <div className="film-card__header">
         <div className="film-card__bg">
           <img src={film.backgroundImage} alt={film.name} />
@@ -36,9 +55,9 @@ function AddReviewScreen(props: AddReviewScreenProps): JSX.Element {
                 </Link>
               </li>
               <li className="breadcrumbs__item">
-                <a href="temp-link.html" className="breadcrumbs__link">
+                <span className="breadcrumbs__link">
                   Add review
-                </a>
+                </span>
               </li>
             </ul>
           </nav>
@@ -51,12 +70,7 @@ function AddReviewScreen(props: AddReviewScreenProps): JSX.Element {
         </div>
       </div>
 
-      <AddReviewForm
-        initial={{rating: InitialValue.Rating, comment: INITIAL_COMMENT}}
-        handleSubmit={() => {
-          throw new Error('Function "handleSubmit" is not implemented.');
-        }}
-      />
+      <AddReviewForm initial={{rating: InitialValue.Rating, comment: INITIAL_COMMENT}} />
     </section>
   );
 }

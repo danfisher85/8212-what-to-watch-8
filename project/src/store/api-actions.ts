@@ -1,3 +1,4 @@
+import {generatePath} from 'react-router-dom';
 import {
   setDataLoaded,
   setFilms,
@@ -12,7 +13,8 @@ import {
   requireLogout,
   redirectToRoute,
   loadUserInfo,
-  userLoginError
+  userLoginError,
+  isCommentPosting
 } from 'store/action';
 import {APIRoute, AppRoute} from 'configs/routes';
 import {ThunkActionResult} from 'types/action';
@@ -21,19 +23,25 @@ import {AuthorizationStatus} from 'configs/auth-status';
 import {getGenresList} from 'utils/film';
 import {FILM_PER_PAGE} from 'store/film-per-page';
 import {AuthData} from 'types/auth-data';
-import {dropToken, saveToken} from 'services/token';
+import {dropToken, saveToken, Token} from 'services/token';
 import {adaptAuthInfoToClient} from 'services/adapters';
 import {UserInfo} from 'types/user-info';
 import {toast} from 'react-toastify';
 import {Film} from 'types/film';
+import {CommmentPost} from 'types/comment';
 
 const AUTH_FAIL_MESSAGE = 'Looks like you are not signed :(';
 const AUTH_FAIL_LOGIN_EMAIL = 'Please enter a valid email address';
 const AUTH_FAIL_LOGIN_UNKNOWN = 'Please enter a valid email address';
+const COMMENT_POST_SUCCESS = 'Congrats! Your review has been posted!';
+const COMMENT_POST_FAIL = 'Something went wrong. Comment hasn\'t been posted.';
+const COMMENT_POST_PROCESSING = 'Just a sec. Your review is posting now.';
+
+const TOAST_AUTOCLOSE_TIMEOUT = 3000;
 
 export const fetchFilmsAction = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
-    const {data: serverFilms} = await api.get(APIRoute.Films());
+    const {data: serverFilms} = await api.get(APIRoute.Films);
     const filmsData = serverFilms.map(adaptFilmToClient);
     const genresData = getGenresList(filmsData);
     const initialFilmsData = filmsData.slice(0, FILM_PER_PAGE);
@@ -47,7 +55,7 @@ export const fetchFilmsAction = (): ThunkActionResult =>
 export const fetchFavoriteFilmsAction = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     try {
-      const {data: favoriteFilms} = await api.get(APIRoute.Favorite());
+      const {data: favoriteFilms} = await api.get(APIRoute.Favorite);
       const filmsData = favoriteFilms.map(adaptFilmToClient);
 
       dispatch(setFavoriteFilms(filmsData));
@@ -59,38 +67,45 @@ export const fetchFavoriteFilmsAction = (): ThunkActionResult =>
 
 export const fetchPromoFilmAction = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
-    const {data} = await api.get(APIRoute.Promo());
+    const {data} = await api.get(APIRoute.Promo);
     const promoFilmData = adaptFilmToClient(data);
+
     dispatch(loadPromoFilm(promoFilmData));
   };
 
-export const fetchCurrentFilmAction = (filmId: number): ThunkActionResult =>
+export const fetchCurrentFilmAction = (id: number): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     try {
-      const {data: serverCurrentFilm} = await api.get(APIRoute.Film(filmId));
+      const filmPath = generatePath(APIRoute.Film, {id});
+      const {data: serverCurrentFilm} = await api.get(filmPath);
       const filmData = adaptFilmToClient(serverCurrentFilm);
+
       dispatch(loadCurrentFilm(filmData));
     } catch (error) {
       // toast.info(AUTH_FAIL_MESSAGE);
     }
   };
 
-export const fetchSimilarFilmsAction = (filmId: number): ThunkActionResult =>
+export const fetchSimilarFilmsAction = (id: number): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     try {
-      const {data: serverSimilarFilms} = await api.get(APIRoute.SimilarFilms(filmId));
-      const filteredFilmsData = serverSimilarFilms.filter((film: Film) => film.id !== filmId);
+      const filmSimilarPath = generatePath(APIRoute.SimilarFilms, {id});
+      const {data: serverSimilarFilms} = await api.get(filmSimilarPath);
+      const filteredFilmsData = serverSimilarFilms.filter((film: Film) => film.id !== id);
       const filmsData = filteredFilmsData.map(adaptFilmToClient);
+
       dispatch(loadSimilarFilms(filmsData));
     } catch (error) {
       // toast.info(AUTH_FAIL_MESSAGE);
     }
   };
 
-export const fetchFilmCommentsAction = (filmId: number): ThunkActionResult =>
+export const fetchFilmCommentsAction = (id: number): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     try {
-      const {data: serverFilmComments} = await api.get(APIRoute.FilmComments(filmId));
+      const filmPath = generatePath(APIRoute.FilmComments, {id});
+      const {data: serverFilmComments} = await api.get(filmPath);
+
       dispatch(loadFilmComments(serverFilmComments));
     } catch (error) {
       // toast.info(AUTH_FAIL_MESSAGE);
@@ -100,7 +115,7 @@ export const fetchFilmCommentsAction = (filmId: number): ThunkActionResult =>
 export const checkAuthAction = (): ThunkActionResult =>
   async (dispatch, _getState, api) => {
     try {
-      await api.get(APIRoute.Login()).then(({data: serverAuthInfo}) => {
+      await api.get(APIRoute.Login).then(({data: serverAuthInfo}) => {
         const {id, email, name, avatarUrl, token} = adaptAuthInfoToClient(serverAuthInfo);
         const userInfo: UserInfo = {id, email, name, avatarUrl};
 
@@ -117,7 +132,7 @@ export const checkAuthAction = (): ThunkActionResult =>
 export const loginAction = ({email, password}: AuthData): ThunkActionResult =>
   async (dispatch, _getState, api) => {
     try {
-      await api.post(APIRoute.Login(), {email, password}).then(({data: serverAuthInfo}) => {
+      await api.post(APIRoute.Login, {email, password}).then(({data: serverAuthInfo}) => {
         const {id, email: userEmail, name, avatarUrl, token} = adaptAuthInfoToClient(serverAuthInfo);
         const userInfo: UserInfo = {id, email: userEmail, name, avatarUrl};
 
@@ -138,7 +153,33 @@ export const loginAction = ({email, password}: AuthData): ThunkActionResult =>
 
 export const logoutAction = (): ThunkActionResult =>
   async (dispatch, _getState, api) => {
-    api.delete(APIRoute.Logout());
+    api.delete(APIRoute.Logout);
     dropToken();
     dispatch(requireLogout());
+  };
+
+export const postFilmComment = ({rating, comment}: CommmentPost, id: string): ThunkActionResult =>
+  async (dispatch, _getState, api) => {
+    const postCommentPath = generatePath(APIRoute.PostComment, {id});
+    const filmPath = generatePath(AppRoute.Film, {id});
+
+    dispatch(isCommentPosting(true));
+    toast.info(COMMENT_POST_PROCESSING);
+
+    try {
+      await api.post<{token: Token}>(postCommentPath, {rating, comment}).then((response) => {
+        toast.dismiss();
+        toast.success(COMMENT_POST_SUCCESS, {autoClose: TOAST_AUTOCLOSE_TIMEOUT});
+
+        setTimeout(() => {
+          dispatch(redirectToRoute(filmPath));
+        }, TOAST_AUTOCLOSE_TIMEOUT);
+      });
+      dispatch(isCommentPosting(false));
+
+    } catch (error) {
+      toast.dismiss();
+      toast.error(COMMENT_POST_FAIL);
+      dispatch(isCommentPosting(false));
+    }
   };

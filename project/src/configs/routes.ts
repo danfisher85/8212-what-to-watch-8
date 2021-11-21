@@ -7,13 +7,14 @@ export enum AppRoute {
   Player = '/player/:id',
 }
 
-export const APIRoute = {
-  Films: () => '/films',
-  Favorite: () => '/favorite',
-  Promo: () => '/promo',
-  Film: (id:string | number) => `/films/${id}`,
-  FilmComments: (id:string | number) => `/comments/${id}`,
-  SimilarFilms: (id:string | number) => `/films/${id}/similar`,
-  Login: () => '/login',
-  Logout: () => '/logout',
-} as const;
+export enum APIRoute {
+  Films = '/films',
+  Favorite = '/favorite',
+  Promo = '/promo',
+  Film = '/films/:id',
+  FilmComments = '/comments/:id',
+  SimilarFilms = '/films/:id/similar',
+  PostComment = '/comments/:id',
+  Login = '/login',
+  Logout = '/logout',
+}

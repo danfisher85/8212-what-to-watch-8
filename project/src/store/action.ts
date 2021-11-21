@@ -1,7 +1,7 @@
 import {ActionType} from 'types/action';
 import {AuthorizationStatus} from 'configs/auth-status';
 import {Film, Films, GenreName} from 'types/film';
-import {Comments} from 'types/comment';
+import {Comment, Comments} from 'types/comment';
 import {filterFilmsByGenre} from 'utils/film';
 import {FILM_PER_PAGE} from 'store/film-per-page';
 import {AppRoute} from 'configs/routes';
@@ -65,7 +65,7 @@ export const userLoginError = (error: string) => ({
   payload: error,
 } as const);
 
-export const redirectToRoute = (payload: AppRoute) => ({
+export const redirectToRoute = (payload: AppRoute | string) => ({
   type: ActionType.RedirectToRoute,
   payload,
 } as const);
@@ -92,5 +92,15 @@ export const loadSimilarFilms = (payload: Films) => ({
 
 export const loadFilmComments = (payload: Comments) => ({
   type: ActionType.LoadFilmComments,
+  payload,
+} as const);
+
+export const setFilmComment = (payload: Comment) => ({
+  type: ActionType.SetFilmComment,
+  payload,
+} as const);
+
+export const isCommentPosting = (payload: boolean) => ({
+  type: ActionType.IsCommentPosting,
   payload,
 } as const);
