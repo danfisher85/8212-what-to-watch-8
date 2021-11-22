@@ -43,8 +43,6 @@ function AddReviewForm(props: AddReviewFormProps): JSX.Element {
     (evt: FormEvent<HTMLFormElement>) => {
       evt.preventDefault();
       handleSubmit(id, {rating, comment});
-      setRating(0);
-      setComment('');
     },
     [comment, rating, id, handleSubmit],
   );
