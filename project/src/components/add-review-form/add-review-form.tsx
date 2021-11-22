@@ -4,6 +4,7 @@ import {useState, ChangeEvent, FormEvent, Fragment, useCallback} from 'react';
 import {useTypedSelector} from 'hooks/useTypedSelector';
 import {checkCommentStatus} from 'utils/comment';
 import {postFilmComment} from 'store/api-actions';
+import {getIsCommentPosting} from 'store/current-film/selectors';
 
 const COMMENT_PLACEHOLDER = 'Enter Your Review...';
 const COMMENT_MINLENGTH = 50;
@@ -17,7 +18,7 @@ interface AddReviewFormProps {
 
 function AddReviewForm(props: AddReviewFormProps): JSX.Element {
   const {initial = {rating: 0, comment: ''}, placeholder = COMMENT_PLACEHOLDER} = props;
-  const {isCommentPosting} = useTypedSelector((state) => state.CURRENT);
+  const isCommentPosting = useTypedSelector(getIsCommentPosting);
   const {id} = useParams<{id: string}>();
 
   const dispatch = useDispatch();

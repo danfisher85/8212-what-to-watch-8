@@ -8,11 +8,18 @@ import {GenreName} from 'types/film';
 import {useTypedSelector} from 'hooks/useTypedSelector';
 import {changeGenre, getFilmsByGenre, setLoadMoreFilms} from 'store/action';
 import {filterFilmsByGenre} from 'utils/film';
+import {getFilms, getFilteredFilms, getCurrentPage} from 'store/catalog-films/selectors';
+import {getCurrentGenre, getGenres} from 'store/genres/selectors';
+import {getPromoFilm} from 'store/promo-film/selectors';
 
 function MainScreen(): JSX.Element {
-  const {films, filteredFilms, currentPage} = useTypedSelector((state) => state.CATALOG);
-  const {genres, currentGenre} = useTypedSelector((state) => state.GENRES);
-  const {promoFilm} = useTypedSelector((state) => state.PROMO);
+  const films = useTypedSelector(getFilms);
+  const filteredFilms = useTypedSelector(getFilteredFilms);
+  const currentPage = useTypedSelector(getCurrentPage);
+  const genres = useTypedSelector(getGenres);
+  const currentGenre = useTypedSelector(getCurrentGenre);
+  const promoFilm = useTypedSelector(getPromoFilm);
+
   const dispatch = useDispatch();
 
   const allFilteredFilms = filterFilmsByGenre(films, currentGenre); // most likely a temp solution, but it works 🤷‍♂️

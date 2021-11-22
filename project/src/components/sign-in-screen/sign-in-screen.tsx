@@ -10,6 +10,7 @@ import {useTypedSelector} from 'hooks/useTypedSelector';
 import Logo from 'components/logo/logo';
 import Footer from 'components/footer/footer';
 import {AuthorizationStatus} from 'configs/auth-status';
+import {getAuthorizationStatus, getLoginError} from 'store/user-authorization/selectors';
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
   onSubmit(authData: AuthData) {
@@ -22,7 +23,8 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 function SignInScreen(props: PropsFromRedux): JSX.Element {
   const {onSubmit} = props;
-  const {authorizationStatus, loginError} = useTypedSelector((state) => state.USER);
+  const authorizationStatus = useTypedSelector(getAuthorizationStatus);
+  const loginError = useTypedSelector(getLoginError);
 
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);

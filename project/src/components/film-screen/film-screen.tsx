@@ -15,10 +15,14 @@ import {ThunkAppDispatch} from 'types/action';
 import {fetchCurrentFilmAction, fetchSimilarFilmsAction} from 'store/api-actions';
 import {AuthorizationStatus} from 'configs/auth-status';
 import LoadingScreen from 'components/loading-screen/loading-screen';
+import {getAuthorizationStatus} from 'store/user-authorization/selectors';
+import {getCurrentFilm, getSimilarFilms} from 'store/current-film/selectors';
 
 function FilmScreen(): JSX.Element {
-  const {currentFilm, similarFilms} = useTypedSelector((state) => state.CURRENT);
-  const {authorizationStatus} = useTypedSelector((state) => state.USER);
+  const currentFilm = useTypedSelector(getCurrentFilm);
+  const similarFilms = useTypedSelector(getSimilarFilms);
+  const authorizationStatus = useTypedSelector(getAuthorizationStatus);
+
   const {id} = useParams<{id: string}>();
 
   const dispatch = useDispatch();

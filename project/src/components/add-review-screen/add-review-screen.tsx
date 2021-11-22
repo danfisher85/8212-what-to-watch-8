@@ -1,4 +1,4 @@
-import {Link, Redirect, useParams} from 'react-router-dom';
+import {Link, Redirect, useParams, generatePath} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {useEffect} from 'react';
 import Logo from 'components/logo/logo';
@@ -10,6 +10,8 @@ import {AuthorizationStatus} from 'configs/auth-status';
 import {AppRoute} from 'configs/routes';
 import {ThunkAppDispatch} from 'types/action';
 import {fetchCurrentFilmAction} from 'store/api-actions';
+import {getCurrentFilm} from 'store/current-film/selectors';
+import {getAuthorizationStatus} from 'store/user-authorization/selectors';
 
 enum InitialValue {
   Rating = 0,
@@ -17,8 +19,8 @@ enum InitialValue {
 const INITIAL_COMMENT = '';
 
 function AddReviewScreen(): JSX.Element {
-  const {currentFilm: film} = useTypedSelector((state) => state.CURRENT);
-  const {authorizationStatus} = useTypedSelector((state) => state.USER);
+  const currentFilm = useTypedSelector(getCurrentFilm);
+  const authorizationStatus = useTypedSelector(getAuthorizationStatus);
 
   const {id} = useParams<{id: string}>();
   const dispatch = useDispatch();
@@ -31,15 +33,19 @@ function AddReviewScreen(): JSX.Element {
     return <Redirect to={AppRoute.SignIn} />;
   }
 
-  if (film === null) {
+  if (currentFilm === null) {
     return <LoadingScreen />;
   }
 
+  const pathToFilm = generatePath(AppRoute.Film, {
+    id: currentFilm.id,
+  });
+
   return (
-    <section className="film-card film-card--full" style={{backgroundColor: film.backgroundColor}}>
+    <section className="film-card film-card--full" style={{backgroundColor: currentFilm.backgroundColor}}>
       <div className="film-card__header">
         <div className="film-card__bg">
-          <img src={film.backgroundImage} alt={film.name} />
+          <img src={currentFilm.backgroundImage} alt={currentFilm.name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -50,8 +56,8 @@ function AddReviewScreen(): JSX.Element {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <Link to={`/films/${film.id}`} className="breadcrumbs__link">
-                  {film.name}
+                <Link to={pathToFilm} className="breadcrumbs__link">
+                  {currentFilm.name}
                 </Link>
               </li>
               <li className="breadcrumbs__item">
@@ -66,7 +72,7 @@ function AddReviewScreen(): JSX.Element {
         </header>
 
         <div className="film-card__poster film-card__poster--small">
-          <img src={film.posterImage} alt={`${film.name} poster`} width="218" height="327" />
+          <img src={currentFilm.posterImage} alt={`${currentFilm.name} poster`} width="218" height="327" />
         </div>
       </div>
 

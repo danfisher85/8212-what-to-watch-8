@@ -6,13 +6,14 @@ import {divideArrayInHalf} from 'utils/comment';
 import {useTypedSelector} from 'hooks/useTypedSelector';
 import {ThunkAppDispatch} from 'types/action';
 import {fetchFilmCommentsAction} from 'store/api-actions';
+import {getFilmComments} from 'store/current-film/selectors';
 
 interface FilmTabsReviewsProps {
   title: string;
 }
 
 function FilmTabsReviews({title}: FilmTabsReviewsProps): JSX.Element {
-  const {filmComments} = useTypedSelector((state) => state.CURRENT);
+  const filmComments = useTypedSelector(getFilmComments);
   const {id} = useParams<{id: string}>();
   const dispatch = useDispatch();
 

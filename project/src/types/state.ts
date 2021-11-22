@@ -2,6 +2,7 @@ import {AuthorizationStatus} from 'configs/auth-status';
 import {Film, Films, GenreName} from 'types/film';
 import {UserInfo} from 'types/user-info';
 import {Comments} from 'types/comment';
+import {UserInfoError} from 'types/user-info';
 import {RootState} from 'store/root-reducer';
 
 export type CatalogState = {
@@ -14,7 +15,7 @@ export type CatalogState = {
 export type UserAuthorization = {
   authorizationStatus: AuthorizationStatus;
   userInfo: UserInfo;
-  loginError: string;
+  loginError: UserInfoError;
 };
 
 export type Genres = {

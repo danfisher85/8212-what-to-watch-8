@@ -3,9 +3,10 @@ import Logo from 'components/logo/logo';
 import Footer from 'components/footer/footer';
 import UserBlock from 'components/user-block/user-block';
 import FilmsList from 'components/films-list/films-list';
+import {getFavoriteFilms} from 'store/favorite-films/selectors';
 
 function MyListScreen(): JSX.Element {
-  const {favoriteFilms} = useTypedSelector((state) => state.FAVORITE);
+  const favoriteFilms = useTypedSelector(getFavoriteFilms);
 
   return (
     <div className="user-page">
