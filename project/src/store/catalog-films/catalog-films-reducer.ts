@@ -1,5 +1,5 @@
 import {Actions, ActionType} from 'types/action';
-import {State} from 'types/state';
+import {CatalogState} from 'types/state';
 
 const initialState = {
   filteredFilms: [],
@@ -8,7 +8,7 @@ const initialState = {
   isDataLoaded: false,
 };
 
-const catalogFilmsReducer = (state: State = initialState, action: Actions): State => {
+const catalogFilmsReducer = (state: CatalogState = initialState, action: Actions): CatalogState => {
   switch (action.type) {
     case ActionType.SetDataLoaded:
       return {...state, isDataLoaded: action.payload};

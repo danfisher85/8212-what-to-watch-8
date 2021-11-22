@@ -1,7 +1,7 @@
 import {ActionType} from 'types/action';
 import {AuthorizationStatus} from 'configs/auth-status';
 import {Film, Films, GenreName} from 'types/film';
-import {Comment, Comments} from 'types/comment';
+import {Comments} from 'types/comment';
 import {filterFilmsByGenre} from 'utils/film';
 import {FILM_PER_PAGE} from 'store/film-per-page';
 import {AppRoute} from 'configs/routes';
@@ -96,11 +96,6 @@ export const loadSimilarFilms = (payload: Films) => ({
 
 export const loadFilmComments = (payload: Comments) => ({
   type: ActionType.LoadFilmComments,
-  payload,
-} as const);
-
-export const setFilmComment = (payload: Comment) => ({
-  type: ActionType.SetFilmComment,
   payload,
 } as const);
 
