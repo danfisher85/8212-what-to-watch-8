@@ -17,8 +17,8 @@ enum InitialValue {
 const INITIAL_COMMENT = '';
 
 function AddReviewScreen(): JSX.Element {
-  const {currentFilm: film} = useTypedSelector((state) => state.currentFilm);
-  const {authorizationStatus} = useTypedSelector((state) => state.filmCatalog);
+  const {currentFilm: film} = useTypedSelector((state) => state.CURRENT);
+  const {authorizationStatus} = useTypedSelector((state) => state.USER);
 
   const {id} = useParams<{id: string}>();
   const dispatch = useDispatch();

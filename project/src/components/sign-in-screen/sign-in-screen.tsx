@@ -22,7 +22,7 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 function SignInScreen(props: PropsFromRedux): JSX.Element {
   const {onSubmit} = props;
-  const {authorizationStatus, loginError} = useTypedSelector((state) => state.filmCatalog);
+  const {authorizationStatus, loginError} = useTypedSelector((state) => state.USER);
 
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);

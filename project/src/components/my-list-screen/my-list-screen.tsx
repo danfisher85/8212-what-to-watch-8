@@ -5,7 +5,7 @@ import UserBlock from 'components/user-block/user-block';
 import FilmsList from 'components/films-list/films-list';
 
 function MyListScreen(): JSX.Element {
-  const {favoriteFilms} = useTypedSelector((state) => state.favoriteFilms);
+  const {favoriteFilms} = useTypedSelector((state) => state.FAVORITE);
 
   return (
     <div className="user-page">

@@ -10,8 +10,9 @@ import {changeGenre, getFilmsByGenre, setLoadMoreFilms} from 'store/action';
 import {filterFilmsByGenre} from 'utils/film';
 
 function MainScreen(): JSX.Element {
-  const {genres, films, filteredFilms, currentGenre, currentPage} = useTypedSelector((state) => state.filmCatalog);
-  const {promoFilm} = useTypedSelector((state) => state.promoFilm);
+  const {films, filteredFilms, currentPage} = useTypedSelector((state) => state.CATALOG);
+  const {genres, currentGenre} = useTypedSelector((state) => state.GENRES);
+  const {promoFilm} = useTypedSelector((state) => state.PROMO);
   const dispatch = useDispatch();
 
   const allFilteredFilms = filterFilmsByGenre(films, currentGenre); // most likely a temp solution, but it works 🤷‍♂️

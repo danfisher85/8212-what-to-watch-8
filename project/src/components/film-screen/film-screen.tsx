@@ -17,8 +17,8 @@ import {AuthorizationStatus} from 'configs/auth-status';
 import LoadingScreen from 'components/loading-screen/loading-screen';
 
 function FilmScreen(): JSX.Element {
-  const {currentFilm, similarFilms} = useTypedSelector((state) => state.currentFilm);
-  const {authorizationStatus} = useTypedSelector((state) => state.filmCatalog);
+  const {currentFilm, similarFilms} = useTypedSelector((state) => state.CURRENT);
+  const {authorizationStatus} = useTypedSelector((state) => state.USER);
   const {id} = useParams<{id: string}>();
 
   const dispatch = useDispatch();

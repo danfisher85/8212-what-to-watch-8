@@ -1,5 +1,5 @@
 import {Actions, ActionType} from 'types/action';
-import {PromoFilmState} from 'types/promo-film-state';
+import {PromoFilmState} from 'types/state';
 
 const initialState = {
   promoFilm: null,

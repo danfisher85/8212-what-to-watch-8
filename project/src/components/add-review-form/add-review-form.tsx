@@ -17,7 +17,7 @@ interface AddReviewFormProps {
 
 function AddReviewForm(props: AddReviewFormProps): JSX.Element {
   const {initial = {rating: 0, comment: ''}, placeholder = COMMENT_PLACEHOLDER} = props;
-  const {isCommentPosting} = useTypedSelector((state) => state.currentFilm);
+  const {isCommentPosting} = useTypedSelector((state) => state.CURRENT);
   const {id} = useParams<{id: string}>();
 
   const dispatch = useDispatch();

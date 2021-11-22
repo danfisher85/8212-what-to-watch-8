@@ -23,7 +23,8 @@ interface RouteInfo {
 }
 
 function App(): JSX.Element {
-  const {authorizationStatus, isDataLoaded} = useTypedSelector((state) => state.filmCatalog);
+  const {isDataLoaded} = useTypedSelector((state) => state.CATALOG);
+  const {authorizationStatus} = useTypedSelector((state) => state.USER);
 
   if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
     return <LoadingScreen />;

@@ -12,7 +12,7 @@ interface FilmTabsReviewsProps {
 }
 
 function FilmTabsReviews({title}: FilmTabsReviewsProps): JSX.Element {
-  const {filmComments} = useTypedSelector((state) => state.currentFilm);
+  const {filmComments} = useTypedSelector((state) => state.CURRENT);
   const {id} = useParams<{id: string}>();
   const dispatch = useDispatch();
 

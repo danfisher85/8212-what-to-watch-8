@@ -15,7 +15,7 @@ type PrivateRouteProps = RouteProps & {
 
 function PrivateRoute(props: PrivateRouteProps): JSX.Element {
   const {exact, path, component: Component} = props;
-  const {authorizationStatus} = useTypedSelector((state) => state.filmCatalog);
+  const {authorizationStatus} = useTypedSelector((state) => state.USER);
 
   return (
     <Route

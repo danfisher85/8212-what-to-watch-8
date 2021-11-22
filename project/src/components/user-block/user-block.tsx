@@ -6,7 +6,7 @@ import {AuthorizationStatus} from 'configs/auth-status';
 import {logoutAction} from 'store/api-actions';
 
 function UserBlock(): JSX.Element {
-  const {authorizationStatus, userInfo} = useTypedSelector((state) => state.filmCatalog);
+  const {authorizationStatus, userInfo} = useTypedSelector((state) => state.USER);
 
   const dispatch = useDispatch();
   const history = useHistory();
