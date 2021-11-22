@@ -21,4 +21,6 @@ export interface UserInfo {
   avatarUrl: string,
 }
 
+export type UserInfoError = string;
+
 

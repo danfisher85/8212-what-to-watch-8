@@ -19,6 +19,7 @@ import {
   requireAuthorization,
   requireLogout,
   redirectToRoute,
+  redirectTo404,
   loadUserInfo,
   userLoginError,
   isCommentPosting
@@ -42,6 +43,7 @@ export enum ActionType {
   RequireAuthorization = 'user/requireAuthorization',
   RequireLogout = 'user/requireLogout',
   RedirectToRoute = 'catalog/redirectToRoute',
+  RedirectTo404 = 'catalog/redirectTo404',
   LoadUserInfo = 'user/loadUserInfo',
   UserLoginError = 'user/userLoginError',
   IsCommentPosting = 'comment/isCommentPosting',
@@ -65,6 +67,7 @@ export type Actions =
   | ReturnType<typeof requireAuthorization>
   | ReturnType<typeof requireLogout>
   | ReturnType<typeof redirectToRoute>
+  | ReturnType<typeof redirectTo404>
   | ReturnType<typeof loadUserInfo>
   | ReturnType<typeof userLoginError>
   | ReturnType<typeof isCommentPosting>;

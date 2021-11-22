@@ -5,7 +5,7 @@ import {Comment, Comments} from 'types/comment';
 import {filterFilmsByGenre} from 'utils/film';
 import {FILM_PER_PAGE} from 'store/film-per-page';
 import {AppRoute} from 'configs/routes';
-import {UserInfo} from 'types/user-info';
+import {UserInfo, UserInfoError} from 'types/user-info';
 
 export const setDataLoaded = (payload: boolean) => ({
   type: ActionType.SetDataLoaded,
@@ -60,9 +60,9 @@ export const requireLogout = () => ({
   type: ActionType.RequireLogout,
 } as const);
 
-export const userLoginError = (error: string) => ({
+export const userLoginError = (payload: UserInfoError) => ({
   type: ActionType.UserLoginError,
-  payload: error,
+  payload,
 } as const);
 
 export const redirectToRoute = (payload: AppRoute | string) => ({
@@ -70,14 +70,18 @@ export const redirectToRoute = (payload: AppRoute | string) => ({
   payload,
 } as const);
 
+export const redirectTo404 = () => ({
+  type: ActionType.RedirectTo404,
+} as const);
+
 export const loadUserInfo = (payload: UserInfo) => ({
   type: ActionType.LoadUserInfo,
   payload,
 } as const);
 
-export const loadPromoFilm = (film: Film) => ({
+export const loadPromoFilm = (payload: Film) => ({
   type: ActionType.LoadPromoFilm,
-  payload: film,
+  payload,
 } as const);
 
 export const loadCurrentFilm = (payload: Film) => ({

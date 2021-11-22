@@ -4,7 +4,7 @@ import {useEffect} from 'react';
 import Logo from 'components/logo/logo';
 import UserBlock from 'components/user-block/user-block';
 import AddReviewForm from 'components/add-review-form/add-review-form';
-import NotFoundScreen from 'components/not-found-screen/not-found-screen';
+import LoadingScreen from 'components/loading-screen/loading-screen';
 import {useTypedSelector} from 'hooks/useTypedSelector';
 import {AuthorizationStatus} from 'configs/auth-status';
 import {AppRoute} from 'configs/routes';
@@ -32,7 +32,7 @@ function AddReviewScreen(): JSX.Element {
   }
 
   if (film === null) {
-    return <NotFoundScreen />;
+    return <LoadingScreen />;
   }
 
   return (

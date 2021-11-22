@@ -27,6 +27,8 @@ function AddReviewForm(props: AddReviewFormProps): JSX.Element {
   const [comment, setComment] = useState<string>(initial.comment);
   const [isCommentActive, setIsCommentActive] = useState<boolean>(false);
 
+  const isSubmitButtonDisabled = !isCommentActive || !isCurrentRatingActive || isCommentPosting;
+
   const handleCommentChange = useCallback((evt: ChangeEvent<HTMLTextAreaElement>) => {
     const commentValue = evt.target.value;
     setIsCommentActive(checkCommentStatus(commentValue, COMMENT_MINLENGTH, COMMENT_MAXLENGTH));
@@ -41,7 +43,7 @@ function AddReviewForm(props: AddReviewFormProps): JSX.Element {
   const handleSubmitChange = useCallback(
     (evt: FormEvent<HTMLFormElement>) => {
       evt.preventDefault();
-      dispatch(postFilmComment({rating, comment}, id));
+      dispatch(postFilmComment(id, {rating, comment}));
       setRating(0);
       setComment('');
     },
@@ -89,7 +91,7 @@ function AddReviewForm(props: AddReviewFormProps): JSX.Element {
               disabled={isCommentPosting}
             />
             <div className="add-review__submit">
-              <button className="add-review__btn" type="submit" disabled={!isCommentActive || !isCurrentRatingActive || isCommentPosting}>
+              <button className="add-review__btn" type="submit" disabled={isSubmitButtonDisabled}>
                 Post
               </button>
             </div>
