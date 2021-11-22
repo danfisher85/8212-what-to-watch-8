@@ -110,15 +110,15 @@ export const fetchFilmCommentsAction = (id: number): ThunkActionResult =>
 export const checkAuthAction = (): ThunkActionResult =>
   async (dispatch, _getState, api) => {
     try {
-      await api.get(APIRoute.Login).then(({data: serverAuthInfo}) => {
-        const {id, email, name, avatarUrl, token} = adaptAuthInfoToClient(serverAuthInfo);
-        const userInfo: UserInfo = {id, email, name, avatarUrl};
+      const response = await api.get(APIRoute.Login);
+      const {data: serverAuthInfo} = response;
+      const {id, email, name, avatarUrl, token} = adaptAuthInfoToClient(serverAuthInfo);
+      const userInfo: UserInfo = {id, email, name, avatarUrl};
 
-        saveToken(token);
+      saveToken(token);
 
-        dispatch(requireAuthorization(AuthorizationStatus.Auth));
-        dispatch(loadUserInfo(userInfo));
-      });
+      dispatch(requireAuthorization(AuthorizationStatus.Auth));
+      dispatch(loadUserInfo(userInfo));
     } catch (error) {
       toast.error(AuthMessage.FAIL_SIGNED);
     }
@@ -127,16 +127,16 @@ export const checkAuthAction = (): ThunkActionResult =>
 export const loginAction = ({email, password}: AuthData): ThunkActionResult =>
   async (dispatch, _getState, api) => {
     try {
-      await api.post(APIRoute.Login, {email, password}).then(({data: serverAuthInfo}) => {
-        const {id, email: userEmail, name, avatarUrl, token} = adaptAuthInfoToClient(serverAuthInfo);
-        const userInfo: UserInfo = {id, email: userEmail, name, avatarUrl};
+      const response = await api.post(APIRoute.Login, {email, password});
+      const {data: serverAuthInfo} = response;
+      const {id, email: userEmail, name, avatarUrl, token} = adaptAuthInfoToClient(serverAuthInfo);
+      const userInfo: UserInfo = {id, email: userEmail, name, avatarUrl};
 
-        saveToken(token);
+      saveToken(token);
 
-        dispatch(requireAuthorization(AuthorizationStatus.Auth));
-        dispatch(loadUserInfo(userInfo));
-        dispatch(redirectToRoute(AppRoute.Root));
-      });
+      dispatch(requireAuthorization(AuthorizationStatus.Auth));
+      dispatch(loadUserInfo(userInfo));
+      dispatch(redirectToRoute(AppRoute.Root));
     } catch (error) {
       if (error instanceof Error) {
         dispatch(userLoginError(AuthMessage.FAIL_EMAIL));
@@ -162,14 +162,14 @@ export const postFilmComment = (id: string, payload: CommmentPost): ThunkActionR
     toast.info(CommentMessage.POST_PROCESSING);
 
     try {
-      await api.post<{token: Token}>(postCommentPath, payload).then((response) => {
-        toast.dismiss();
-        toast.success(CommentMessage.POST_SUCCESS, {autoClose: TOAST_AUTOCLOSE_TIMEOUT});
+      await api.post<{token: Token}>(postCommentPath, payload);
 
-        setTimeout(() => {
-          dispatch(redirectToRoute(filmPath));
-        }, TOAST_AUTOCLOSE_TIMEOUT);
-      });
+      toast.dismiss();
+      toast.success(CommentMessage.POST_SUCCESS, {autoClose: TOAST_AUTOCLOSE_TIMEOUT});
+
+      setTimeout(() => {
+        dispatch(redirectToRoute(filmPath));
+      }, TOAST_AUTOCLOSE_TIMEOUT);
       dispatch(isCommentPosting(false));
 
     } catch (error) {
