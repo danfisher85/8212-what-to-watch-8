@@ -12,6 +12,8 @@ import {ThunkAppDispatch} from 'types/action';
 import {fetchCurrentFilmAction} from 'store/api-actions';
 import {getCurrentFilm} from 'store/current-film/selectors';
 import {getAuthorizationStatus} from 'store/user-authorization/selectors';
+import {postFilmComment} from 'store/api-actions';
+import {CommmentPost} from 'types/comment';
 
 enum InitialValue {
   Rating = 0,
@@ -41,6 +43,10 @@ function AddReviewScreen(): JSX.Element {
     id: currentFilm.id,
   });
 
+  const handleSubmit = (filmId: string, {rating, comment}: CommmentPost) => {
+    dispatch(postFilmComment(filmId, {comment, rating}));
+  };
+
   return (
     <section className="film-card film-card--full" style={{backgroundColor: currentFilm.backgroundColor}}>
       <div className="film-card__header">
@@ -61,9 +67,7 @@ function AddReviewScreen(): JSX.Element {
                 </Link>
               </li>
               <li className="breadcrumbs__item">
-                <span className="breadcrumbs__link">
-                  Add review
-                </span>
+                <span className="breadcrumbs__link">Add review</span>
               </li>
             </ul>
           </nav>
@@ -76,7 +80,7 @@ function AddReviewScreen(): JSX.Element {
         </div>
       </div>
 
-      <AddReviewForm initial={{rating: InitialValue.Rating, comment: INITIAL_COMMENT}} />
+      <AddReviewForm initial={{rating: InitialValue.Rating, comment: INITIAL_COMMENT}} handleSubmit={handleSubmit} />
     </section>
   );
 }

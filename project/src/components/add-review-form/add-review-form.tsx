@@ -1,10 +1,9 @@
 import {useParams} from 'react-router-dom';
-import {useDispatch} from 'react-redux';
 import {useState, ChangeEvent, FormEvent, Fragment, useCallback} from 'react';
 import {useTypedSelector} from 'hooks/useTypedSelector';
 import {checkCommentStatus} from 'utils/comment';
-import {postFilmComment} from 'store/api-actions';
 import {getIsCommentPosting} from 'store/current-film/selectors';
+import {CommmentPost} from 'types/comment';
 
 const COMMENT_PLACEHOLDER = 'Enter Your Review...';
 const COMMENT_MINLENGTH = 50;
@@ -13,15 +12,14 @@ const ratings = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
 
 interface AddReviewFormProps {
   initial?: {rating: number; comment: string};
+  handleSubmit: (id: string, {comment, rating}: CommmentPost) => void;
   placeholder?: string;
 }
 
 function AddReviewForm(props: AddReviewFormProps): JSX.Element {
-  const {initial = {rating: 0, comment: ''}, placeholder = COMMENT_PLACEHOLDER} = props;
+  const {initial = {rating: 0, comment: ''}, handleSubmit, placeholder = COMMENT_PLACEHOLDER} = props;
   const isCommentPosting = useTypedSelector(getIsCommentPosting);
   const {id} = useParams<{id: string}>();
-
-  const dispatch = useDispatch();
 
   const [rating, setRating] = useState<number>(initial.rating);
   const [isCurrentRatingActive, setIsCurrentRatingActive] = useState<boolean>(false);
@@ -44,11 +42,11 @@ function AddReviewForm(props: AddReviewFormProps): JSX.Element {
   const handleSubmitChange = useCallback(
     (evt: FormEvent<HTMLFormElement>) => {
       evt.preventDefault();
-      dispatch(postFilmComment(id, {rating, comment}));
+      handleSubmit(id, {rating, comment});
       setRating(0);
       setComment('');
     },
-    [comment, rating, dispatch, id],
+    [comment, rating, id, handleSubmit],
   );
 
   return (
