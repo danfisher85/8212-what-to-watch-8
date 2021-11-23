@@ -13,6 +13,8 @@ import {getFilmById} from 'utils/film';
 import {isCheckedAuth} from 'utils/user';
 import {useTypedSelector} from 'hooks/useTypedSelector';
 import browserHistory from 'browser-history';
+import {getIsDataLoaded} from 'store/catalog-films/selectors';
+import {getAuthorizationStatus} from 'store/user-authorization/selectors';
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -23,7 +25,8 @@ interface RouteInfo {
 }
 
 function App(): JSX.Element {
-  const {authorizationStatus, isDataLoaded} = useTypedSelector((state) => state.filmCatalog);
+  const isDataLoaded = useTypedSelector(getIsDataLoaded);
+  const authorizationStatus = useTypedSelector(getAuthorizationStatus);
 
   if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
     return <LoadingScreen />;

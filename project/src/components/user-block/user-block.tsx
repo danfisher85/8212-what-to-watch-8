@@ -4,9 +4,11 @@ import {AppRoute, APIRoute} from 'configs/routes';
 import {useTypedSelector} from 'hooks/useTypedSelector';
 import {AuthorizationStatus} from 'configs/auth-status';
 import {logoutAction} from 'store/api-actions';
+import {getAuthorizationStatus, getUserInfo} from 'store/user-authorization/selectors';
 
 function UserBlock(): JSX.Element {
-  const {authorizationStatus, userInfo} = useTypedSelector((state) => state.filmCatalog);
+  const authorizationStatus = useTypedSelector(getAuthorizationStatus);
+  const userInfo = useTypedSelector(getUserInfo);
 
   const dispatch = useDispatch();
   const history = useHistory();

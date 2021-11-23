@@ -25,7 +25,7 @@ function FilmsList(props: FilmsListProps): JSX.Element {
   }
 
   return (
-    <div className="catalog__films-list" data-film-id={activeFilm?.id}>
+    <div className="catalog__films-list">
       {films?.map((film) => (
         <FilmCard key={film.id} film={film} handleMouseEnter={handleMouseEnter} handleMouseLeave={handleMouseLeave}>
           {activeFilm?.id === film.id ? (

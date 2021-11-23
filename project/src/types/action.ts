@@ -15,36 +15,36 @@ import {
   loadCurrentFilm,
   loadSimilarFilms,
   loadFilmComments,
-  setFilmComment,
   requireAuthorization,
   requireLogout,
   redirectToRoute,
+  redirectTo404,
   loadUserInfo,
   userLoginError,
   isCommentPosting
 } from 'store/action';
 
 export enum ActionType {
-  SetDataLoaded = 'data/setDataLoaded',
-  ChangeGenre = 'catalog/changeGenre',
-  SetGenres = 'data/setGenres',
-  SetFilmsByPage = 'data/setFilmsByPage',
+  SetDataLoaded = 'catalog/setDataLoaded',
+  SetFilmsByPage = 'catalog/setFilmsByPage',
   GetFilmsByGenre = 'catalog/getFilmsByGenre',
   SetLoadMoreFilms = 'catalog/setLoadMoreFilms',
   ResetFilms = 'catalog/resetFilms',
-  SetFilms = 'data/setFilms',
-  SetFavoriteFilms = 'data/setFavoriteFilms',
-  LoadPromoFilm = 'data/loadPromoFilm',
-  LoadCurrentFilm = 'data/loadCurrentFilm',
-  LoadSimilarFilms = 'data/loadSimilarFilms',
-  LoadFilmComments = 'data/loadFilmComments',
-  SetFilmComment = 'data/setFilmComment',
-  RequireAuthorization = 'user/requireAuthorization',
-  RequireLogout = 'user/requireLogout',
-  RedirectToRoute = 'catalog/redirectToRoute',
-  LoadUserInfo = 'user/loadUserInfo',
+  SetFilms = 'catalog/setFilms',
+  SetGenres = 'genre/setGenres',
+  ChangeGenre = 'genre/changeGenre',
+  LoadPromoFilm = 'promo/loadPromoFilm',
+  SetFavoriteFilms = 'favorite/setFavoriteFilms',
+  LoadFilmComments = 'film/loadFilmComments',
+  LoadSimilarFilms = 'film/loadSimilarFilms',
+  LoadCurrentFilm = 'film/loadCurrentFilm',
+  IsCommentPosting = 'film/isCommentPosting',
   UserLoginError = 'user/userLoginError',
-  IsCommentPosting = 'comment/isCommentPosting',
+  LoadUserInfo = 'user/loadUserInfo',
+  RequireLogout = 'user/requireLogout',
+  RequireAuthorization = 'user/requireAuthorization',
+  RedirectToRoute = 'route/redirectToRoute',
+  RedirectTo404 = 'route/redirectTo404',
 }
 
 export type Actions =
@@ -61,10 +61,10 @@ export type Actions =
   | ReturnType<typeof loadCurrentFilm>
   | ReturnType<typeof loadSimilarFilms>
   | ReturnType<typeof loadFilmComments>
-  | ReturnType<typeof setFilmComment>
   | ReturnType<typeof requireAuthorization>
   | ReturnType<typeof requireLogout>
   | ReturnType<typeof redirectToRoute>
+  | ReturnType<typeof redirectTo404>
   | ReturnType<typeof loadUserInfo>
   | ReturnType<typeof userLoginError>
   | ReturnType<typeof isCommentPosting>;

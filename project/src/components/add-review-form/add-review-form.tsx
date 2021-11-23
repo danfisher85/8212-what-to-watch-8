@@ -1,9 +1,9 @@
 import {useParams} from 'react-router-dom';
-import {useDispatch} from 'react-redux';
 import {useState, ChangeEvent, FormEvent, Fragment, useCallback} from 'react';
 import {useTypedSelector} from 'hooks/useTypedSelector';
 import {checkCommentStatus} from 'utils/comment';
-import {postFilmComment} from 'store/api-actions';
+import {getIsCommentPosting} from 'store/current-film/selectors';
+import {CommmentPost} from 'types/comment';
 
 const COMMENT_PLACEHOLDER = 'Enter Your Review...';
 const COMMENT_MINLENGTH = 50;
@@ -12,20 +12,21 @@ const ratings = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
 
 interface AddReviewFormProps {
   initial?: {rating: number; comment: string};
+  handleSubmit: (id: string, {comment, rating}: CommmentPost) => void;
   placeholder?: string;
 }
 
 function AddReviewForm(props: AddReviewFormProps): JSX.Element {
-  const {initial = {rating: 0, comment: ''}, placeholder = COMMENT_PLACEHOLDER} = props;
-  const {isCommentPosting} = useTypedSelector((state) => state.currentFilm);
+  const {initial = {rating: 0, comment: ''}, handleSubmit, placeholder = COMMENT_PLACEHOLDER} = props;
+  const isCommentPosting = useTypedSelector(getIsCommentPosting);
   const {id} = useParams<{id: string}>();
-
-  const dispatch = useDispatch();
 
   const [rating, setRating] = useState<number>(initial.rating);
   const [isCurrentRatingActive, setIsCurrentRatingActive] = useState<boolean>(false);
   const [comment, setComment] = useState<string>(initial.comment);
   const [isCommentActive, setIsCommentActive] = useState<boolean>(false);
+
+  const isSubmitButtonDisabled = !isCommentActive || !isCurrentRatingActive || isCommentPosting;
 
   const handleCommentChange = useCallback((evt: ChangeEvent<HTMLTextAreaElement>) => {
     const commentValue = evt.target.value;
@@ -41,11 +42,9 @@ function AddReviewForm(props: AddReviewFormProps): JSX.Element {
   const handleSubmitChange = useCallback(
     (evt: FormEvent<HTMLFormElement>) => {
       evt.preventDefault();
-      dispatch(postFilmComment({rating, comment}, id));
-      setRating(0);
-      setComment('');
+      handleSubmit(id, {rating, comment});
     },
-    [comment, rating, dispatch, id],
+    [comment, rating, id, handleSubmit],
   );
 
   return (
@@ -89,7 +88,7 @@ function AddReviewForm(props: AddReviewFormProps): JSX.Element {
               disabled={isCommentPosting}
             />
             <div className="add-review__submit">
-              <button className="add-review__btn" type="submit" disabled={!isCommentActive || !isCurrentRatingActive || isCommentPosting}>
+              <button className="add-review__btn" type="submit" disabled={isSubmitButtonDisabled}>
                 Post
               </button>
             </div>

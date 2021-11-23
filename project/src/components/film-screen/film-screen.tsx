@@ -11,14 +11,18 @@ import FilmTabsDetails from 'components/film-tabs-details/film-tabs-details';
 import FilmTabsReviews from 'components/film-tabs-reviews/film-tabs-reviews';
 import {AppRoute} from 'configs/routes';
 import {useTypedSelector} from 'hooks/useTypedSelector';
-import NotFoundScreen from 'components/not-found-screen/not-found-screen';
 import {ThunkAppDispatch} from 'types/action';
 import {fetchCurrentFilmAction, fetchSimilarFilmsAction} from 'store/api-actions';
 import {AuthorizationStatus} from 'configs/auth-status';
+import LoadingScreen from 'components/loading-screen/loading-screen';
+import {getAuthorizationStatus} from 'store/user-authorization/selectors';
+import {getCurrentFilm, getSimilarFilms} from 'store/current-film/selectors';
 
 function FilmScreen(): JSX.Element {
-  const {currentFilm, similarFilms} = useTypedSelector((state) => state.currentFilm);
-  const {authorizationStatus} = useTypedSelector((state) => state.filmCatalog);
+  const currentFilm = useTypedSelector(getCurrentFilm);
+  const similarFilms = useTypedSelector(getSimilarFilms);
+  const authorizationStatus = useTypedSelector(getAuthorizationStatus);
+
   const {id} = useParams<{id: string}>();
 
   const dispatch = useDispatch();
@@ -29,7 +33,7 @@ function FilmScreen(): JSX.Element {
   }, [dispatch, id]);
 
   if (currentFilm === null) {
-    return <NotFoundScreen />;
+    return <LoadingScreen />;
   }
   const {director, rating, scoresCount, description, starring, runTime, genre, released, backgroundColor} = currentFilm;
 

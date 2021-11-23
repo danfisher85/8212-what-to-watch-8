@@ -1,31 +1,28 @@
 import {useRef, FormEvent} from 'react';
 import {Redirect} from 'react-router-dom';
 import {AppRoute} from 'configs/routes';
-import {connect, ConnectedProps} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import clsx from 'clsx';
 import {loginAction} from 'store/api-actions';
-import {ThunkAppDispatch} from 'types/action';
 import {AuthData} from 'types/auth-data';
 import {useTypedSelector} from 'hooks/useTypedSelector';
 import Logo from 'components/logo/logo';
 import Footer from 'components/footer/footer';
 import {AuthorizationStatus} from 'configs/auth-status';
+import {getAuthorizationStatus, getLoginError} from 'store/user-authorization/selectors';
 
-const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
-  onSubmit(authData: AuthData) {
-    dispatch(loginAction(authData));
-  },
-});
-
-const connector = connect(null, mapDispatchToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-function SignInScreen(props: PropsFromRedux): JSX.Element {
-  const {onSubmit} = props;
-  const {authorizationStatus, loginError} = useTypedSelector((state) => state.filmCatalog);
+function SignInScreen(): JSX.Element {
+  const authorizationStatus = useTypedSelector(getAuthorizationStatus);
+  const loginError = useTypedSelector(getLoginError);
 
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
+
+  const dispatch = useDispatch();
+
+  const onSubmit = (authData: AuthData) => {
+    dispatch(loginAction(authData));
+  };
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -104,5 +101,4 @@ function SignInScreen(props: PropsFromRedux): JSX.Element {
   );
 }
 
-export {SignInScreen};
-export default connector(SignInScreen);
+export default SignInScreen;

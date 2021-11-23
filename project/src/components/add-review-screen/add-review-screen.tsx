@@ -1,15 +1,19 @@
-import {Link, Redirect, useParams} from 'react-router-dom';
+import {Link, Redirect, useParams, generatePath} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {useEffect} from 'react';
 import Logo from 'components/logo/logo';
 import UserBlock from 'components/user-block/user-block';
 import AddReviewForm from 'components/add-review-form/add-review-form';
-import NotFoundScreen from 'components/not-found-screen/not-found-screen';
+import LoadingScreen from 'components/loading-screen/loading-screen';
 import {useTypedSelector} from 'hooks/useTypedSelector';
 import {AuthorizationStatus} from 'configs/auth-status';
 import {AppRoute} from 'configs/routes';
 import {ThunkAppDispatch} from 'types/action';
 import {fetchCurrentFilmAction} from 'store/api-actions';
+import {getCurrentFilm} from 'store/current-film/selectors';
+import {getAuthorizationStatus} from 'store/user-authorization/selectors';
+import {postFilmComment} from 'store/api-actions';
+import {CommmentPost} from 'types/comment';
 
 enum InitialValue {
   Rating = 0,
@@ -17,8 +21,8 @@ enum InitialValue {
 const INITIAL_COMMENT = '';
 
 function AddReviewScreen(): JSX.Element {
-  const {currentFilm: film} = useTypedSelector((state) => state.currentFilm);
-  const {authorizationStatus} = useTypedSelector((state) => state.filmCatalog);
+  const currentFilm = useTypedSelector(getCurrentFilm);
+  const authorizationStatus = useTypedSelector(getAuthorizationStatus);
 
   const {id} = useParams<{id: string}>();
   const dispatch = useDispatch();
@@ -31,15 +35,23 @@ function AddReviewScreen(): JSX.Element {
     return <Redirect to={AppRoute.SignIn} />;
   }
 
-  if (film === null) {
-    return <NotFoundScreen />;
+  if (currentFilm === null) {
+    return <LoadingScreen />;
   }
 
+  const pathToFilm = generatePath(AppRoute.Film, {
+    id: currentFilm.id,
+  });
+
+  const handleSubmit = (filmId: string, {rating, comment}: CommmentPost) => {
+    dispatch(postFilmComment(filmId, {comment, rating}));
+  };
+
   return (
-    <section className="film-card film-card--full" style={{backgroundColor: film.backgroundColor}}>
+    <section className="film-card film-card--full" style={{backgroundColor: currentFilm.backgroundColor}}>
       <div className="film-card__header">
         <div className="film-card__bg">
-          <img src={film.backgroundImage} alt={film.name} />
+          <img src={currentFilm.backgroundImage} alt={currentFilm.name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -50,14 +62,12 @@ function AddReviewScreen(): JSX.Element {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <Link to={`/films/${film.id}`} className="breadcrumbs__link">
-                  {film.name}
+                <Link to={pathToFilm} className="breadcrumbs__link">
+                  {currentFilm.name}
                 </Link>
               </li>
               <li className="breadcrumbs__item">
-                <span className="breadcrumbs__link">
-                  Add review
-                </span>
+                <span className="breadcrumbs__link">Add review</span>
               </li>
             </ul>
           </nav>
@@ -66,11 +76,11 @@ function AddReviewScreen(): JSX.Element {
         </header>
 
         <div className="film-card__poster film-card__poster--small">
-          <img src={film.posterImage} alt={`${film.name} poster`} width="218" height="327" />
+          <img src={currentFilm.posterImage} alt={`${currentFilm.name} poster`} width="218" height="327" />
         </div>
       </div>
 
-      <AddReviewForm initial={{rating: InitialValue.Rating, comment: INITIAL_COMMENT}} />
+      <AddReviewForm initial={{rating: InitialValue.Rating, comment: INITIAL_COMMENT}} handleSubmit={handleSubmit} />
     </section>
   );
 }

@@ -4,6 +4,7 @@ import {AppRoute} from 'configs/routes';
 import {AuthorizationStatus} from 'configs/auth-status';
 import {useTypedSelector} from 'hooks/useTypedSelector';
 import {History} from 'history';
+import {getAuthorizationStatus} from 'store/user-authorization/selectors';
 
 type RenderFuncProps = {
   history: History<unknown>;
@@ -15,7 +16,7 @@ type PrivateRouteProps = RouteProps & {
 
 function PrivateRoute(props: PrivateRouteProps): JSX.Element {
   const {exact, path, component: Component} = props;
-  const {authorizationStatus} = useTypedSelector((state) => state.filmCatalog);
+  const authorizationStatus = useTypedSelector(getAuthorizationStatus);
 
   return (
     <Route

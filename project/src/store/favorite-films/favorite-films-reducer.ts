@@ -1,5 +1,5 @@
 import {Actions, ActionType} from 'types/action';
-import {FavoriteFilmsState} from 'types/favorite-films-state';
+import {FavoriteFilmsState} from 'types/state';
 
 const initialState = {
   favoriteFilms: [],
