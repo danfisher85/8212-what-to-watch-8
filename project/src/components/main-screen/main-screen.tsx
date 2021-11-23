@@ -22,7 +22,7 @@ function MainScreen(): JSX.Element {
 
   const dispatch = useDispatch();
 
-  const allFilteredFilms = filterFilmsByGenre(films, currentGenre); // most likely a temp solution, but it works 🤷‍♂️
+  const allFilteredFilms = filterFilmsByGenre(films, currentGenre);
   const isMoreButtonVisible = allFilteredFilms.length > filteredFilms.length;
 
   const handleGenreClick = (genre: GenreName) => {
