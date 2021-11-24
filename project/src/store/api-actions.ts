@@ -189,9 +189,8 @@ export const postFavoriteFilm = (id: number, isFavorite: boolean): ThunkActionRe
 
     try {
       await api.post<{token: Token}>(postFavorite);
-      // dispatch(setIsPromoFavoriteLoading(false));
+      dispatch(setIsPromoFavoriteLoading(false));
     } catch (error) {
-      toast.error('Can\'t put to Favorite');
-      // dispatch(setIsPromoFavoriteLoading(false));
+      dispatch(setIsPromoFavoriteLoading(false));
     }
   };

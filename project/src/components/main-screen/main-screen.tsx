@@ -10,7 +10,7 @@ import {changeGenre, getFilmsByGenre, setLoadMoreFilms} from 'store/action';
 import {filterFilmsByGenre} from 'utils/film';
 import {getFilms, getFilteredFilms, getCurrentPage} from 'store/catalog-films/selectors';
 import {getCurrentGenre, getGenres} from 'store/genres/selectors';
-import {getPromoFilm} from 'store/promo-film/selectors';
+import {getPromoFilm, getIsPromoFavoriteLoading} from 'store/promo-film/selectors';
 import {postFavoriteFilm} from 'store/api-actions';
 
 function MainScreen(): JSX.Element {
@@ -20,6 +20,7 @@ function MainScreen(): JSX.Element {
   const genres = useTypedSelector(getGenres);
   const currentGenre = useTypedSelector(getCurrentGenre);
   const promoFilm = useTypedSelector(getPromoFilm);
+  const isPromoFavoriteLoading = useTypedSelector(getIsPromoFavoriteLoading);
 
   const dispatch = useDispatch();
 
@@ -47,6 +48,7 @@ function MainScreen(): JSX.Element {
         <PromoFilmCard
           promoFilm={promoFilm}
           handleFavoriteChange={handleFavoriteChange}
+          isPromoFavoriteLoading={isPromoFavoriteLoading}
           isFavorite={promoFilm?.isFavorite}
         />
       )}

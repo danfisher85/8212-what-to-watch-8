@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import {Link, generatePath} from 'react-router-dom';
 import {useHistory} from 'react-router-dom';
 import Logo from 'components/logo/logo';
@@ -14,10 +15,16 @@ import {useTypedSelector} from 'hooks/useTypedSelector';
 interface PromoFilmCardProps {
   promoFilm: Film;
   isFavorite: boolean;
+  isPromoFavoriteLoading: boolean;
   handleFavoriteChange: (filmId: number, status: boolean) => void;
 }
 
-function PromoFilmCard({promoFilm, isFavorite, handleFavoriteChange}: PromoFilmCardProps): JSX.Element {
+function PromoFilmCard({
+  promoFilm,
+  isFavorite,
+  isPromoFavoriteLoading,
+  handleFavoriteChange,
+}: PromoFilmCardProps): JSX.Element {
   const {id: filmId} = promoFilm;
   const authorizationStatus = useTypedSelector(getAuthorizationStatus);
 
@@ -65,7 +72,11 @@ function PromoFilmCard({promoFilm, isFavorite, handleFavoriteChange}: PromoFilmC
               <Link to={pathToFilmPlayer} className="btn btn--play film-card__button">
                 <IconPlay />
               </Link>
-              <button type="button" className="btn btn--list film-card__button" onClick={handleFavoriteClick}>
+              <button
+                type="button"
+                className={clsx(['btn btn--list film-card__button', {'btn--loading': isPromoFavoriteLoading}])}
+                onClick={handleFavoriteClick}
+              >
                 {isFavorite ? <IconInList /> : <IconAdd />}
               </button>
             </div>
