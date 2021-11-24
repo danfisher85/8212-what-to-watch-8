@@ -1,8 +1,8 @@
 import {Route, Redirect} from 'react-router-dom';
 import {RouteProps} from 'react-router-dom';
+import {useSelector} from 'react-redux';
 import {AppRoute} from 'configs/routes';
 import {AuthorizationStatus} from 'configs/auth-status';
-import {useTypedSelector} from 'hooks/useTypedSelector';
 import {History} from 'history';
 import {getAuthorizationStatus} from 'store/user-authorization/selectors';
 
@@ -16,7 +16,7 @@ type PrivateRouteProps = RouteProps & {
 
 function PrivateRoute(props: PrivateRouteProps): JSX.Element {
   const {exact, path, component: Component} = props;
-  const authorizationStatus = useTypedSelector(getAuthorizationStatus);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
 
   return (
     <Route

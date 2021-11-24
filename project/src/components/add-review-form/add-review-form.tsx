@@ -1,6 +1,6 @@
 import {useParams} from 'react-router-dom';
+import {useSelector} from 'react-redux';
 import {useState, ChangeEvent, FormEvent, Fragment, useCallback} from 'react';
-import {useTypedSelector} from 'hooks/useTypedSelector';
 import {checkCommentStatus} from 'utils/comment';
 import {getIsCommentPosting} from 'store/current-film/selectors';
 import {CommmentPost} from 'types/comment';
@@ -18,7 +18,7 @@ interface AddReviewFormProps {
 
 function AddReviewForm(props: AddReviewFormProps): JSX.Element {
   const {initial = {rating: 0, comment: ''}, handleSubmit, placeholder = COMMENT_PLACEHOLDER} = props;
-  const isCommentPosting = useTypedSelector(getIsCommentPosting);
+  const isCommentPosting = useSelector(getIsCommentPosting);
   const {id} = useParams<{id: string}>();
 
   const [rating, setRating] = useState<number>(initial.rating);

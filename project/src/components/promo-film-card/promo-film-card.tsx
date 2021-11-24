@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import {Link, generatePath} from 'react-router-dom';
 import {useHistory} from 'react-router-dom';
+import {useSelector} from 'react-redux';
 import Logo from 'components/logo/logo';
 import UserBlock from 'components/user-block/user-block';
 import {AppRoute} from 'configs/routes';
@@ -10,7 +11,6 @@ import IconAdd from 'components/icon-add/icon-add';
 import IconInList from 'components/icon-inlist/icon-inlist';
 import {AuthorizationStatus} from 'configs/auth-status';
 import {getAuthorizationStatus} from 'store/user-authorization/selectors';
-import {useTypedSelector} from 'hooks/useTypedSelector';
 
 interface PromoFilmCardProps {
   promoFilm: Film;
@@ -26,7 +26,7 @@ function PromoFilmCard({
   handleFavoriteChange,
 }: PromoFilmCardProps): JSX.Element {
   const {id: filmId} = promoFilm;
-  const authorizationStatus = useTypedSelector(getAuthorizationStatus);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
 
   const history = useHistory();
 

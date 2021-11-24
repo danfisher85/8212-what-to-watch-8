@@ -1,9 +1,8 @@
 import {useEffect} from 'react';
 import {useParams} from 'react-router';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import FilmComment from 'components/film-comment/film-comment';
 import {divideArrayInHalf} from 'utils/comment';
-import {useTypedSelector} from 'hooks/useTypedSelector';
 import {ThunkAppDispatch} from 'types/action';
 import {fetchFilmCommentsAction} from 'store/api-actions';
 import {getFilmComments} from 'store/current-film/selectors';
@@ -13,7 +12,7 @@ interface FilmTabsReviewsProps {
 }
 
 function FilmTabsReviews({title}: FilmTabsReviewsProps): JSX.Element {
-  const filmComments = useTypedSelector(getFilmComments);
+  const filmComments = useSelector(getFilmComments);
   const {id} = useParams<{id: string}>();
   const dispatch = useDispatch();
 

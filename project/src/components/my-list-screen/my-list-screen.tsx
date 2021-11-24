@@ -1,6 +1,5 @@
 import {useEffect} from 'react';
-import {useDispatch} from 'react-redux';
-import {useTypedSelector} from 'hooks/useTypedSelector';
+import {useDispatch, useSelector} from 'react-redux';
 import Logo from 'components/logo/logo';
 import Footer from 'components/footer/footer';
 import UserBlock from 'components/user-block/user-block';
@@ -9,7 +8,7 @@ import {getFavoriteFilms} from 'store/favorite-films/selectors';
 import {fetchFavoriteFilmsAction} from 'store/api-actions';
 
 function MyListScreen(): JSX.Element {
-  const favoriteFilms = useTypedSelector(getFavoriteFilms);
+  const favoriteFilms = useSelector(getFavoriteFilms);
 
   const dispatch = useDispatch();
 

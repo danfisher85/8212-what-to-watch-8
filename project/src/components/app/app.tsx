@@ -1,3 +1,4 @@
+import {useSelector} from 'react-redux';
 import {Switch, Route, Router} from 'react-router-dom';
 import {AppRoute} from 'configs/routes';
 import PrivateRoute from 'components/private-route/private-route';
@@ -10,7 +11,6 @@ import AddReviewScreen from 'components/add-review-screen/add-review-screen';
 import NotFoundScreen from 'components/not-found-screen/not-found-screen';
 import LoadingScreen from 'components/loading-screen/loading-screen';
 import {isCheckedAuth} from 'utils/user';
-import {useTypedSelector} from 'hooks/useTypedSelector';
 import browserHistory from 'browser-history';
 import {getIsDataLoaded} from 'store/catalog-films/selectors';
 import {getAuthorizationStatus} from 'store/user-authorization/selectors';
@@ -18,8 +18,8 @@ import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App(): JSX.Element {
-  const isDataLoaded = useTypedSelector(getIsDataLoaded);
-  const authorizationStatus = useTypedSelector(getAuthorizationStatus);
+  const isDataLoaded = useSelector(getIsDataLoaded);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
 
   if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
     return <LoadingScreen />;

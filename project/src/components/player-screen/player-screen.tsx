@@ -1,8 +1,7 @@
 import {useEffect, useRef, useState} from 'react';
 import {useHistory, useParams} from 'react-router-dom';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {fetchCurrentFilmAction} from 'store/api-actions';
-import {useTypedSelector} from 'hooks/useTypedSelector';
 import {getCurrentFilm} from 'store/current-film/selectors';
 import LoadingScreen from 'components/loading-screen/loading-screen';
 import {formatElapsedTime} from 'utils/video';
@@ -14,7 +13,7 @@ const PERCENTAGE_MAX = 100;
 const LOADING_PLACEHOLDER = 'Loading...';
 
 function PlayerScreen(): JSX.Element {
-  const film = useTypedSelector(getCurrentFilm);
+  const film = useSelector(getCurrentFilm);
   const {id: filmId} = useParams<{id: string}>();
 
   const videoRef = useRef<HTMLVideoElement>(null);

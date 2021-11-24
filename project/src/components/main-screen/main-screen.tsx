@@ -1,12 +1,11 @@
 import {useEffect} from 'react';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import Footer from 'components/footer/footer';
 import PromoFilmCard from 'components/promo-film-card/promo-film-card';
 import FilmsList from 'components/films-list/films-list';
 import GenresList from 'components/genres-list/genres-list';
 import FilmMoreButton from 'components/film-more-button/film-more-button';
 import {GenreName} from 'types/film';
-import {useTypedSelector} from 'hooks/useTypedSelector';
 import {changeGenre, getFilmsByGenre, setLoadMoreFilms} from 'store/action';
 import {filterFilmsByGenre} from 'utils/film';
 import {getFilms, getFilteredFilms, getCurrentPage} from 'store/catalog-films/selectors';
@@ -15,13 +14,13 @@ import {getPromoFilm, getIsPromoFavoriteLoading} from 'store/promo-film/selector
 import {postPromoFavoriteFilm, fetchPromoFilmAction} from 'store/api-actions';
 
 function MainScreen(): JSX.Element {
-  const films = useTypedSelector(getFilms);
-  const filteredFilms = useTypedSelector(getFilteredFilms);
-  const currentPage = useTypedSelector(getCurrentPage);
-  const genres = useTypedSelector(getGenres);
-  const currentGenre = useTypedSelector(getCurrentGenre);
-  const promoFilm = useTypedSelector(getPromoFilm);
-  const isPromoFavoriteLoading = useTypedSelector(getIsPromoFavoriteLoading);
+  const films = useSelector(getFilms);
+  const filteredFilms = useSelector(getFilteredFilms);
+  const currentPage = useSelector(getCurrentPage);
+  const genres = useSelector(getGenres);
+  const currentGenre = useSelector(getCurrentGenre);
+  const promoFilm = useSelector(getPromoFilm);
+  const isPromoFavoriteLoading = useSelector(getIsPromoFavoriteLoading);
 
   const dispatch = useDispatch();
 

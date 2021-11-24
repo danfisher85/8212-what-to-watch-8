@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import {useEffect} from 'react';
 import {Link, generatePath, useParams} from 'react-router-dom';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import Logo from 'components/logo/logo';
 import Footer from 'components/footer/footer';
 import UserBlock from 'components/user-block/user-block';
@@ -11,7 +11,6 @@ import FilmTabsOverview from 'components/film-tabs-overview/film-tabs-overview';
 import FilmTabsDetails from 'components/film-tabs-details/film-tabs-details';
 import FilmTabsReviews from 'components/film-tabs-reviews/film-tabs-reviews';
 import {AppRoute} from 'configs/routes';
-import {useTypedSelector} from 'hooks/useTypedSelector';
 import {fetchCurrentFilmAction, fetchSimilarFilmsAction} from 'store/api-actions';
 import {AuthorizationStatus} from 'configs/auth-status';
 import LoadingScreen from 'components/loading-screen/loading-screen';
@@ -23,10 +22,10 @@ import IconInList from 'components/icon-inlist/icon-inlist';
 import {postFavoriteFilm} from 'store/api-actions';
 
 function FilmScreen(): JSX.Element {
-  const currentFilm = useTypedSelector(getCurrentFilm);
-  const isFavoriteLoading = useTypedSelector(getIsFavoriteLoading);
-  const similarFilms = useTypedSelector(getSimilarFilms);
-  const authorizationStatus = useTypedSelector(getAuthorizationStatus);
+  const currentFilm = useSelector(getCurrentFilm);
+  const isFavoriteLoading = useSelector(getIsFavoriteLoading);
+  const similarFilms = useSelector(getSimilarFilms);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
 
   const {id: filmId} = useParams<{id: string}>();
 
