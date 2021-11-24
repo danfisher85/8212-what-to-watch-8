@@ -1,3 +1,4 @@
+import {useEffect} from 'react';
 import {useDispatch} from 'react-redux';
 import Footer from 'components/footer/footer';
 import PromoFilmCard from 'components/promo-film-card/promo-film-card';
@@ -11,7 +12,7 @@ import {filterFilmsByGenre} from 'utils/film';
 import {getFilms, getFilteredFilms, getCurrentPage} from 'store/catalog-films/selectors';
 import {getCurrentGenre, getGenres} from 'store/genres/selectors';
 import {getPromoFilm, getIsPromoFavoriteLoading} from 'store/promo-film/selectors';
-import {postFavoriteFilm} from 'store/api-actions';
+import {postFavoriteFilm, fetchPromoFilmAction} from 'store/api-actions';
 
 function MainScreen(): JSX.Element {
   const films = useTypedSelector(getFilms);
@@ -26,6 +27,10 @@ function MainScreen(): JSX.Element {
 
   const allFilteredFilms = filterFilmsByGenre(films, currentGenre);
   const isMoreButtonVisible = allFilteredFilms.length > filteredFilms.length;
+
+  useEffect(() => {
+    dispatch(fetchPromoFilmAction());
+  });
 
   const handleGenreClick = (genre: GenreName) => {
     dispatch(setLoadMoreFilms(0));
