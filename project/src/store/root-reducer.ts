@@ -6,22 +6,22 @@ import {currentFilmReducer} from 'store/current-film/current-film-reducer';
 import {userAuthorizationReducer} from 'store/user-authorization/user-authorization-reducer';
 import {genresReducer} from 'store/genres/genres-reducer';
 
-export enum NameSpace {
-  catalog = 'CATALOG',
-  promo = 'PROMO',
-  favorite = 'FAVORITE',
-  current = 'CURRENT',
-  user = 'USER',
-  genres = 'GENRES',
+export enum StoreNameSpace {
+  CATALOG = 'CATALOG',
+  PROMO = 'PROMO',
+  FAVORITE = 'FAVORITE',
+  CURRENT = 'CURRENT',
+  USER = 'USER',
+  GENRES = 'GENRES',
 }
 
 export const rootReducer = combineReducers({
-  [NameSpace.catalog]: catalogFilmsReducer,
-  [NameSpace.promo]: promoFilmReducer,
-  [NameSpace.favorite]: favoriteFilmsReducer,
-  [NameSpace.current]: currentFilmReducer,
-  [NameSpace.user]: userAuthorizationReducer,
-  [NameSpace.genres]: genresReducer,
+  [StoreNameSpace.CATALOG]: catalogFilmsReducer,
+  [StoreNameSpace.PROMO]: promoFilmReducer,
+  [StoreNameSpace.FAVORITE]: favoriteFilmsReducer,
+  [StoreNameSpace.CURRENT]: currentFilmReducer,
+  [StoreNameSpace.USER]: userAuthorizationReducer,
+  [StoreNameSpace.GENRES]: genresReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
