@@ -11,7 +11,6 @@ import FilmTabsDetails from 'components/film-tabs-details/film-tabs-details';
 import FilmTabsReviews from 'components/film-tabs-reviews/film-tabs-reviews';
 import {AppRoute} from 'configs/routes';
 import {useTypedSelector} from 'hooks/useTypedSelector';
-import {ThunkAppDispatch} from 'types/action';
 import {fetchCurrentFilmAction, fetchSimilarFilmsAction} from 'store/api-actions';
 import {AuthorizationStatus} from 'configs/auth-status';
 import LoadingScreen from 'components/loading-screen/loading-screen';
@@ -32,8 +31,8 @@ function FilmScreen(): JSX.Element {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    (dispatch as ThunkAppDispatch)(fetchCurrentFilmAction(+filmId));
-    (dispatch as ThunkAppDispatch)(fetchSimilarFilmsAction(+filmId));
+    dispatch(fetchCurrentFilmAction(+filmId));
+    dispatch(fetchSimilarFilmsAction(+filmId));
   }, [dispatch, filmId]);
 
   if (currentFilm === null) {
