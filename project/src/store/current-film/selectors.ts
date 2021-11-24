@@ -7,3 +7,4 @@ export const getCurrentFilm = (state: State): Film | null => state[NameSpace.cur
 export const getSimilarFilms = (state: State): Films => state[NameSpace.current].similarFilms;
 export const getFilmComments = (state: State): Comments => state[NameSpace.current].filmComments;
 export const getIsCommentPosting = (state: State): boolean => state[NameSpace.current].isCommentPosting;
+export const getIsFavoriteLoading = (state: State): boolean => state[NameSpace.current].isFavoriteLoading;

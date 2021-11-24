@@ -11,6 +11,7 @@ export enum AppRoute {
 export enum APIRoute {
   Films = '/films',
   Favorite = '/favorite',
+  PostFavorite = '/favorite/:id/:status',
   Promo = '/promo',
   Film = '/films/:id',
   FilmComments = '/comments/:id',

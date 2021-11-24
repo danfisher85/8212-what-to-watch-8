@@ -3,17 +3,26 @@ import Logo from 'components/logo/logo';
 import UserBlock from 'components/user-block/user-block';
 import {AppRoute} from 'configs/routes';
 import {Film} from 'types/film';
+import IconPlay from 'components/icon-play/icon-play';
+import IconAdd from 'components/icon-add/icon-add';
+import IconInList from 'components/icon-inlist/icon-inlist';
 
 interface PromoFilmCardProps {
   promoFilm: Film;
+  isFavorite: boolean;
+  handleFavoriteChange: (filmId: number, status: boolean) => void;
 }
 
-function PromoFilmCard(props: PromoFilmCardProps): JSX.Element {
-  const {promoFilm} = props;
+function PromoFilmCard({promoFilm, isFavorite, handleFavoriteChange}: PromoFilmCardProps): JSX.Element {
+  const {id: filmId} = promoFilm;
 
   const pathToFilmPlayer = generatePath(AppRoute.Player, {
     id: promoFilm.id,
   });
+
+  const handleFavoriteClick = () => {
+    handleFavoriteChange(filmId, isFavorite);
+  };
 
   return (
     <section className="film-card">
@@ -43,17 +52,11 @@ function PromoFilmCard(props: PromoFilmCardProps): JSX.Element {
 
             <div className="film-card__buttons">
               <Link to={pathToFilmPlayer} className="btn btn--play film-card__button">
-                <svg viewBox="0 0 19 19" width="19" height="19">
-                  <use href="#play-s"></use>
-                </svg>
-                <span>Play</span>
+                <IconPlay />
               </Link>
-              <Link to={AppRoute.MyList} className="btn btn--list film-card__button">
-                <svg viewBox="0 0 19 20" width="19" height="20">
-                  <use href="#add"></use>
-                </svg>
-                <span>My list</span>
-              </Link>
+              <button type="button" className="btn btn--list film-card__button" onClick={handleFavoriteClick}>
+                {isFavorite ? <IconInList /> : <IconAdd />}
+              </button>
             </div>
           </div>
         </div>

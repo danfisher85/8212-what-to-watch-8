@@ -29,6 +29,7 @@ export type FilmState = {
   filmComments: Comments;
   isCurrentFilmLoaded: boolean;
   isCommentPosting: boolean;
+  isFavoriteLoading: boolean;
 };
 
 export type FavoriteFilmsState = {
@@ -37,6 +38,7 @@ export type FavoriteFilmsState = {
 
 export type PromoFilmState = {
   promoFilm: Film | null;
+  isPromoFavoriteLoading: boolean;
 };
 
 export type State = RootState;

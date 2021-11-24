@@ -1,10 +1,6 @@
 import {Film, Films, GenreName} from 'types/film';
 import {ALL_GENRES_ITEM} from 'store/current-genre';
 
-export const getFilmById = (filmId: string | number, films: Films): Film | undefined => (
-  films.find((film) => film.id === filmId)
-);
-
 export const filterFilmsByGenre = (films: Films, genre: GenreName): Films => {
   if (ALL_GENRES_ITEM === genre) {
     return films;

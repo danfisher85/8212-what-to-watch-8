@@ -11,6 +11,7 @@ import {filterFilmsByGenre} from 'utils/film';
 import {getFilms, getFilteredFilms, getCurrentPage} from 'store/catalog-films/selectors';
 import {getCurrentGenre, getGenres} from 'store/genres/selectors';
 import {getPromoFilm} from 'store/promo-film/selectors';
+import {postFavoriteFilm} from 'store/api-actions';
 
 function MainScreen(): JSX.Element {
   const films = useTypedSelector(getFilms);
@@ -22,7 +23,7 @@ function MainScreen(): JSX.Element {
 
   const dispatch = useDispatch();
 
-  const allFilteredFilms = filterFilmsByGenre(films, currentGenre); // most likely a temp solution, but it works 🤷‍♂️
+  const allFilteredFilms = filterFilmsByGenre(films, currentGenre);
   const isMoreButtonVisible = allFilteredFilms.length > filteredFilms.length;
 
   const handleGenreClick = (genre: GenreName) => {
@@ -36,9 +37,19 @@ function MainScreen(): JSX.Element {
     dispatch(getFilmsByGenre(films, currentGenre, currentPage + 1));
   };
 
+  const handleFavoriteChange = (filmId: number, status: boolean) => {
+    dispatch(postFavoriteFilm(filmId, status));
+  };
+
   return (
     <>
-      {typeof promoFilm === 'object' && promoFilm && <PromoFilmCard promoFilm={promoFilm} />}
+      {typeof promoFilm === 'object' && promoFilm && (
+        <PromoFilmCard
+          promoFilm={promoFilm}
+          handleFavoriteChange={handleFavoriteChange}
+          isFavorite={promoFilm?.isFavorite}
+        />
+      )}
 
       <div className="page-content">
         <section className="catalog">
