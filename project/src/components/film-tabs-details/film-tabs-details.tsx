@@ -1,12 +1,12 @@
 import {getFormattedRunTime} from 'utils/date';
 import {Film} from 'types/film';
 
-type FilmProps = Pick<Film, 'director' | 'starring' | 'runTime' | 'genre' | 'released'>;
+type FilmProps = Pick<Film, 'director' | 'actors' | 'runTime' | 'genre' | 'released'>;
 type FilmTabsDetailsProps = FilmProps & {
   title: string;
 };
 
-function FilmTabsDetails({title, director, starring, runTime, genre, released}: FilmTabsDetailsProps): JSX.Element {
+function FilmTabsDetails({title, director, actors, runTime, genre, released}: FilmTabsDetailsProps): JSX.Element {
   return (
     <div className="film-card__text film-card__row" data-title={title}>
       <div className="film-card__text-col">
@@ -17,7 +17,7 @@ function FilmTabsDetails({title, director, starring, runTime, genre, released}: 
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Starring</strong>
           <span className="film-card__details-value">
-            {starring?.map((actor) => (
+            {actors?.map((actor) => (
               <p key={actor}>{actor}</p>
             ))}
           </span>

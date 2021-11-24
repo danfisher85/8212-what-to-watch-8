@@ -1,7 +1,7 @@
 import {Film} from 'types/film';
 import {setFilmRatingText} from 'utils/film';
 
-type FilmProps = Pick<Film, 'rating' | 'scoresCount' | 'description' | 'director' | 'starring'>;
+type FilmProps = Pick<Film, 'rating' | 'scoresCount' | 'description' | 'director' | 'actors'>;
 type FilmTabsOverviewProps = FilmProps & {
   title: string;
 };
@@ -14,7 +14,7 @@ function FilmTabsOverview({
   scoresCount,
   description,
   director,
-  starring,
+  actors,
 }: FilmTabsOverviewProps): JSX.Element {
   return (
     <>
@@ -34,9 +34,7 @@ function FilmTabsOverview({
         </p>
 
         <p className="film-card__starring">
-          <strong>
-            {starring?.length && `Starring: ${starring.slice(0, PRIMARY_CAST_NUMBER).join(', ')} and other`}
-          </strong>
+          <strong>{actors?.length && `Starring: ${actors.slice(0, PRIMARY_CAST_NUMBER).join(', ')} and other`}</strong>
         </p>
       </div>
     </>

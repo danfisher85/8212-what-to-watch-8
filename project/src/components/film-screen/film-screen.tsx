@@ -43,7 +43,7 @@ function FilmScreen(): JSX.Element {
   if (currentFilm === null) {
     return <LoadingScreen />;
   }
-  const {director, rating, scoresCount, description, starring, runTime, genre, released, backgroundColor, isFavorite} =
+  const {director, rating, scoresCount, description, actors, runTime, genre, released, backgroundColor, isFavorite} =
     currentFilm;
 
   const pathToFilmPlayer = generatePath(AppRoute.Player, {
@@ -122,14 +122,14 @@ function FilmScreen(): JSX.Element {
                   scoresCount,
                   description,
                   director,
-                  starring,
+                  actors,
                 }}
               />
               <FilmTabsDetails
                 {...{
                   title: 'Details',
                   director,
-                  starring,
+                  actors,
                   runTime,
                   genre,
                   released,
