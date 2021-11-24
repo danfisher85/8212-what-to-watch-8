@@ -2,7 +2,9 @@ import {generatePath} from 'react-router-dom';
 import {
   setDataLoaded,
   setFilms,
-  setFavoriteFilms,
+  // setIsFavoriteLoading,
+  setIsPromoFavoriteLoading,
+  loadFavoriteFilms,
   setGenres,
   setFilmsByPage,
   loadPromoFilm,
@@ -53,7 +55,7 @@ export const fetchFavoriteFilmsAction = (): ThunkActionResult =>
       const {data: favoriteFilms} = await api.get(APIRoute.Favorite);
       const filmsData = favoriteFilms.map(adaptFilmToClient);
 
-      dispatch(setFavoriteFilms(filmsData));
+      dispatch(loadFavoriteFilms(filmsData));
       dispatch(setDataLoaded(true));
     } catch (error) {
       // toast.info(AuthMessage.FAIL_SIGNED);
@@ -176,5 +178,20 @@ export const postFilmComment = (id: string, payload: CommmentPost): ThunkActionR
       toast.dismiss();
       toast.error(CommentMessage.POST_FAIL);
       dispatch(isCommentPosting(false));
+    }
+  };
+
+export const postFavoriteFilm = (id: number, isFavorite: boolean): ThunkActionResult =>
+  async (dispatch, _getState, api) => {
+    const status = isFavorite ? 0 : 1;
+    const postFavorite = generatePath(APIRoute.PostFavorite, {id, status});
+    dispatch(setIsPromoFavoriteLoading(true));
+
+    try {
+      await api.post<{token: Token}>(postFavorite);
+      // dispatch(setIsPromoFavoriteLoading(false));
+    } catch (error) {
+      toast.error('Can\'t put to Favorite');
+      // dispatch(setIsPromoFavoriteLoading(false));
     }
   };

@@ -46,8 +46,18 @@ export const setFilms = (payload: Films) => ({
   payload,
 } as const);
 
-export const setFavoriteFilms = (payload: Films) => ({
-  type: ActionType.SetFavoriteFilms,
+export const loadFavoriteFilms = (payload: Films) => ({
+  type: ActionType.LoadFavoriteFilms,
+  payload,
+} as const);
+
+export const isFavoriteLoading = (payload: boolean) => ({
+  type: ActionType.IsFavoriteLoading,
+  payload,
+} as const);
+
+export const setIsPromoFavoriteLoading = (payload: boolean) => ({
+  type: ActionType.SetIsPromoFavoriteLoading,
   payload,
 } as const);
 

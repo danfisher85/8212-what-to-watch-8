@@ -17,33 +17,38 @@ import {AuthorizationStatus} from 'configs/auth-status';
 import LoadingScreen from 'components/loading-screen/loading-screen';
 import {getAuthorizationStatus} from 'store/user-authorization/selectors';
 import {getCurrentFilm, getSimilarFilms} from 'store/current-film/selectors';
+import IconPlay from 'components/icon-play/icon-play';
+import IconAdd from 'components/icon-add/icon-add';
+import IconInList from 'components/icon-inlist/icon-inlist';
+import {postFavoriteFilm} from 'store/api-actions';
 
 function FilmScreen(): JSX.Element {
   const currentFilm = useTypedSelector(getCurrentFilm);
   const similarFilms = useTypedSelector(getSimilarFilms);
   const authorizationStatus = useTypedSelector(getAuthorizationStatus);
 
-  const {id} = useParams<{id: string}>();
+  const {id: filmId} = useParams<{id: string}>();
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    (dispatch as ThunkAppDispatch)(fetchCurrentFilmAction(+id));
-    (dispatch as ThunkAppDispatch)(fetchSimilarFilmsAction(+id));
-  }, [dispatch, id]);
+    (dispatch as ThunkAppDispatch)(fetchCurrentFilmAction(+filmId));
+    (dispatch as ThunkAppDispatch)(fetchSimilarFilmsAction(+filmId));
+  }, [dispatch, filmId]);
 
   if (currentFilm === null) {
     return <LoadingScreen />;
   }
-  const {director, rating, scoresCount, description, starring, runTime, genre, released, backgroundColor} = currentFilm;
+  const {director, rating, scoresCount, description, starring, runTime, genre, released, backgroundColor, isFavorite} =
+    currentFilm;
 
   const pathToFilmPlayer = generatePath(AppRoute.Player, {
     id: currentFilm.id,
   });
 
-  const pathToAddReview = generatePath(AppRoute.AddReview, {
-    id: currentFilm.id,
-  });
+  const handleFavoriteClick = () => {
+    dispatch(postFavoriteFilm(+filmId, isFavorite));
+  };
 
   return (
     <>
@@ -70,18 +75,16 @@ function FilmScreen(): JSX.Element {
 
               <div className="film-card__buttons">
                 <Link to={pathToFilmPlayer} className="btn btn--play film-card__button">
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use href="#play-s"></use>
-                  </svg>
-                  <span>Play</span>
+                  <IconPlay />
                 </Link>
                 <Link to={AppRoute.MyList} className="btn btn--list film-card__button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use href="#add"></use>
-                  </svg>
-                  <span>My list</span>
+                  <IconAdd />
                 </Link>
-                {authorizationStatus === AuthorizationStatus.Auth && <Link to={pathToAddReview} className="btn film-card__button">Add review</Link>}
+                {authorizationStatus === AuthorizationStatus.Auth && (
+                  <button type="button" className="btn film-card__button" onClick={handleFavoriteClick}>
+                    {isFavorite ? <IconInList /> : <IconAdd />}
+                  </button>
+                )}
               </div>
             </div>
           </div>
