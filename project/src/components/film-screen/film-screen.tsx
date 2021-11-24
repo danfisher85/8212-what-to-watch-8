@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import {useEffect} from 'react';
 import {Link, generatePath, useParams} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
@@ -15,7 +16,7 @@ import {fetchCurrentFilmAction, fetchSimilarFilmsAction} from 'store/api-actions
 import {AuthorizationStatus} from 'configs/auth-status';
 import LoadingScreen from 'components/loading-screen/loading-screen';
 import {getAuthorizationStatus} from 'store/user-authorization/selectors';
-import {getCurrentFilm, getSimilarFilms} from 'store/current-film/selectors';
+import {getCurrentFilm, getIsFavoriteLoading, getSimilarFilms} from 'store/current-film/selectors';
 import IconPlay from 'components/icon-play/icon-play';
 import IconAdd from 'components/icon-add/icon-add';
 import IconInList from 'components/icon-inlist/icon-inlist';
@@ -23,6 +24,7 @@ import {postFavoriteFilm} from 'store/api-actions';
 
 function FilmScreen(): JSX.Element {
   const currentFilm = useTypedSelector(getCurrentFilm);
+  const isFavoriteLoading = useTypedSelector(getIsFavoriteLoading);
   const similarFilms = useTypedSelector(getSimilarFilms);
   const authorizationStatus = useTypedSelector(getAuthorizationStatus);
 
@@ -80,7 +82,11 @@ function FilmScreen(): JSX.Element {
                 <Link to={pathToFilmPlayer} className="btn btn--play film-card__button">
                   <IconPlay />
                 </Link>
-                <button type="button" className="btn btn--list film-card__button" onClick={handleFavoriteClick}>
+                <button
+                  type="button"
+                  className={clsx(['btn btn--list film-card__button', {'btn--loading': isFavoriteLoading}])}
+                  onClick={handleFavoriteClick}
+                >
                   {isFavorite ? <IconInList /> : <IconAdd />}
                 </button>
                 {authorizationStatus === AuthorizationStatus.Auth && (

@@ -181,20 +181,6 @@ export const postFilmComment = (id: string, payload: CommmentPost): ThunkActionR
     }
   };
 
-export const postPromoFavoriteFilm = (id: number, isFavorite: boolean): ThunkActionResult =>
-  async (dispatch, _getState, api) => {
-    const status = isFavorite ? 0 : 1;
-    const postFavoritePath = generatePath(APIRoute.PostFavorite, {id, status});
-    dispatch(setIsPromoFavoriteLoading(true));
-
-    try {
-      await api.post<{token: Token}>(postFavoritePath);
-      dispatch(setIsPromoFavoriteLoading(false));
-    } catch (error) {
-      dispatch(setIsPromoFavoriteLoading(false));
-    }
-  };
-
 export const postFavoriteFilm = (id: number, isFavorite: boolean): ThunkActionResult =>
   async (dispatch, _getState, api) => {
     const status = isFavorite ? 0 : 1;
@@ -206,5 +192,19 @@ export const postFavoriteFilm = (id: number, isFavorite: boolean): ThunkActionRe
       dispatch(setIsFavoriteLoading(false));
     } catch (error) {
       dispatch(setIsFavoriteLoading(false));
+    }
+  };
+
+export const postPromoFavoriteFilm = (id: number, isFavorite: boolean): ThunkActionResult =>
+  async (dispatch, _getState, api) => {
+    const status = isFavorite ? 0 : 1;
+    const postFavoritePath = generatePath(APIRoute.PostFavorite, {id, status});
+    dispatch(setIsPromoFavoriteLoading(true));
+
+    try {
+      await api.post<{token: Token}>(postFavoritePath);
+      dispatch(setIsPromoFavoriteLoading(false));
+    } catch (error) {
+      dispatch(setIsPromoFavoriteLoading(false));
     }
   };
