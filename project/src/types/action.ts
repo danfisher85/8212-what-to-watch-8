@@ -10,7 +10,7 @@ import {
   setLoadMoreFilms,
   resetFilms,
   setFilms,
-  isFavoriteLoading,
+  setIsFavoriteLoading,
   setIsPromoFavoriteLoading,
   loadFavoriteFilms,
   loadPromoFilm,
@@ -37,7 +37,7 @@ export enum ActionType {
   ChangeGenre = 'genre/changeGenre',
   LoadPromoFilm = 'promo/loadPromoFilm',
   SetIsPromoFavoriteLoading = 'promo/setIsPromoFavoriteLoading',
-  IsFavoriteLoading = 'favorite/isFavoriteLoading',
+  SetIsFavoriteLoading = 'favorite/setIsFavoriteLoading',
   LoadFavoriteFilms = 'favorite/LoadFavoriteFilms',
   LoadFilmComments = 'film/loadFilmComments',
   LoadSimilarFilms = 'film/loadSimilarFilms',
@@ -60,7 +60,7 @@ export type Actions =
   | ReturnType<typeof setLoadMoreFilms>
   | ReturnType<typeof resetFilms>
   | ReturnType<typeof setFilms>
-  | ReturnType<typeof isFavoriteLoading>
+  | ReturnType<typeof setIsFavoriteLoading>
   | ReturnType<typeof setIsPromoFavoriteLoading>
   | ReturnType<typeof loadFavoriteFilms>
   | ReturnType<typeof loadPromoFilm>

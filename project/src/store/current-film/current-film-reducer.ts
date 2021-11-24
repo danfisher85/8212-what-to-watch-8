@@ -20,7 +20,7 @@ const currentFilmReducer = (state: FilmState = initialState, action: Actions): F
       return {...state, filmComments: action.payload};
     case ActionType.IsCommentPosting:
       return {...state, isCommentPosting: action.payload};
-    case ActionType.IsFavoriteLoading:
+    case ActionType.SetIsFavoriteLoading:
       return {...state, isFavoriteLoading: action.payload};
     default:
       return state;

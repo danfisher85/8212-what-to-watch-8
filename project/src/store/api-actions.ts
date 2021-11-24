@@ -2,7 +2,7 @@ import {generatePath} from 'react-router-dom';
 import {
   setDataLoaded,
   setFilms,
-  // setIsFavoriteLoading,
+  setIsFavoriteLoading,
   setIsPromoFavoriteLoading,
   loadFavoriteFilms,
   setGenres,
@@ -181,7 +181,7 @@ export const postFilmComment = (id: string, payload: CommmentPost): ThunkActionR
     }
   };
 
-export const postFavoriteFilm = (id: number, isFavorite: boolean): ThunkActionResult =>
+export const postPromoFavoriteFilm = (id: number, isFavorite: boolean): ThunkActionResult =>
   async (dispatch, _getState, api) => {
     const status = isFavorite ? 0 : 1;
     const postFavoritePath = generatePath(APIRoute.PostFavorite, {id, status});
@@ -192,5 +192,19 @@ export const postFavoriteFilm = (id: number, isFavorite: boolean): ThunkActionRe
       dispatch(setIsPromoFavoriteLoading(false));
     } catch (error) {
       dispatch(setIsPromoFavoriteLoading(false));
+    }
+  };
+
+export const postFavoriteFilm = (id: number, isFavorite: boolean): ThunkActionResult =>
+  async (dispatch, _getState, api) => {
+    const status = isFavorite ? 0 : 1;
+    const postFavoritePath = generatePath(APIRoute.PostFavorite, {id, status});
+    dispatch(setIsFavoriteLoading(true));
+
+    try {
+      await api.post<{token: Token}>(postFavoritePath);
+      dispatch(setIsFavoriteLoading(false));
+    } catch (error) {
+      dispatch(setIsFavoriteLoading(false));
     }
   };

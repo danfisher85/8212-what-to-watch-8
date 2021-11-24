@@ -12,7 +12,7 @@ import {filterFilmsByGenre} from 'utils/film';
 import {getFilms, getFilteredFilms, getCurrentPage} from 'store/catalog-films/selectors';
 import {getCurrentGenre, getGenres} from 'store/genres/selectors';
 import {getPromoFilm, getIsPromoFavoriteLoading} from 'store/promo-film/selectors';
-import {postFavoriteFilm, fetchPromoFilmAction} from 'store/api-actions';
+import {postPromoFavoriteFilm, fetchPromoFilmAction} from 'store/api-actions';
 
 function MainScreen(): JSX.Element {
   const films = useTypedSelector(getFilms);
@@ -44,7 +44,7 @@ function MainScreen(): JSX.Element {
   };
 
   const handleFavoriteChange = (filmId: number, status: boolean) => {
-    dispatch(postFavoriteFilm(filmId, status));
+    dispatch(postPromoFavoriteFilm(filmId, status));
   };
 
   return (
