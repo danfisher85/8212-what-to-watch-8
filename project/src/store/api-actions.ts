@@ -184,11 +184,11 @@ export const postFilmComment = (id: string, payload: CommmentPost): ThunkActionR
 export const postFavoriteFilm = (id: number, isFavorite: boolean): ThunkActionResult =>
   async (dispatch, _getState, api) => {
     const status = isFavorite ? 0 : 1;
-    const postFavorite = generatePath(APIRoute.PostFavorite, {id, status});
+    const postFavoritePath = generatePath(APIRoute.PostFavorite, {id, status});
     dispatch(setIsPromoFavoriteLoading(true));
 
     try {
-      await api.post<{token: Token}>(postFavorite);
+      await api.post<{token: Token}>(postFavoritePath);
       dispatch(setIsPromoFavoriteLoading(false));
     } catch (error) {
       dispatch(setIsPromoFavoriteLoading(false));
