@@ -1,4 +1,5 @@
 import {Link, generatePath} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import Logo from 'components/logo/logo';
 import UserBlock from 'components/user-block/user-block';
 import {AppRoute} from 'configs/routes';
@@ -6,6 +7,9 @@ import {Film} from 'types/film';
 import IconPlay from 'components/icon-play/icon-play';
 import IconAdd from 'components/icon-add/icon-add';
 import IconInList from 'components/icon-inlist/icon-inlist';
+import {AuthorizationStatus} from 'configs/auth-status';
+import {getAuthorizationStatus} from 'store/user-authorization/selectors';
+import {useTypedSelector} from 'hooks/useTypedSelector';
 
 interface PromoFilmCardProps {
   promoFilm: Film;
@@ -15,13 +19,20 @@ interface PromoFilmCardProps {
 
 function PromoFilmCard({promoFilm, isFavorite, handleFavoriteChange}: PromoFilmCardProps): JSX.Element {
   const {id: filmId} = promoFilm;
+  const authorizationStatus = useTypedSelector(getAuthorizationStatus);
+
+  const history = useHistory();
 
   const pathToFilmPlayer = generatePath(AppRoute.Player, {
     id: promoFilm.id,
   });
 
   const handleFavoriteClick = () => {
-    handleFavoriteChange(filmId, isFavorite);
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      handleFavoriteChange(filmId, isFavorite);
+    } else {
+      history.push(AppRoute.MyList);
+    }
   };
 
   return (

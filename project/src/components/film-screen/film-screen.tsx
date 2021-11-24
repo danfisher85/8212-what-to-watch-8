@@ -46,6 +46,10 @@ function FilmScreen(): JSX.Element {
     id: currentFilm.id,
   });
 
+  const pathToAddReview = generatePath(AppRoute.AddReview, {
+    id: currentFilm.id,
+  });
+
   const handleFavoriteClick = () => {
     dispatch(postFavoriteFilm(+filmId, isFavorite));
   };
@@ -77,13 +81,13 @@ function FilmScreen(): JSX.Element {
                 <Link to={pathToFilmPlayer} className="btn btn--play film-card__button">
                   <IconPlay />
                 </Link>
-                <Link to={AppRoute.MyList} className="btn btn--list film-card__button">
-                  <IconAdd />
-                </Link>
+                <button type="button" className="btn btn--list film-card__button" onClick={handleFavoriteClick}>
+                  {isFavorite ? <IconInList /> : <IconAdd />}
+                </button>
                 {authorizationStatus === AuthorizationStatus.Auth && (
-                  <button type="button" className="btn film-card__button" onClick={handleFavoriteClick}>
-                    {isFavorite ? <IconInList /> : <IconAdd />}
-                  </button>
+                  <Link to={pathToAddReview} className="btn film-card__button">
+                    Add review
+                  </Link>
                 )}
               </div>
             </div>
