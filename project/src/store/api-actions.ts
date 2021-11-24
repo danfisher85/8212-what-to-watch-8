@@ -56,7 +56,6 @@ export const fetchFavoriteFilmsAction = (): ThunkActionResult =>
       const filmsData = favoriteFilms.map(adaptFilmToClient);
 
       dispatch(loadFavoriteFilms(filmsData));
-      dispatch(setDataLoaded(true));
     } catch (error) {
       // toast.info(AuthMessage.FAIL_SIGNED);
     }
@@ -70,10 +69,12 @@ export const fetchPromoFilmAction = (): ThunkActionResult =>
     dispatch(loadPromoFilm(promoFilmData));
   };
 
-export const fetchCurrentFilmAction = (id: number): ThunkActionResult =>
+export const fetchCurrentFilmAction = (id: number | string): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     try {
-      const filmPath = generatePath(APIRoute.Film, {id});
+      const filmPath = generatePath(APIRoute.Film, {
+        id: Number(id),
+      });
       const {data: serverCurrentFilm} = await api.get(filmPath);
       const filmData = adaptFilmToClient(serverCurrentFilm);
 
@@ -83,10 +84,12 @@ export const fetchCurrentFilmAction = (id: number): ThunkActionResult =>
     }
   };
 
-export const fetchSimilarFilmsAction = (id: number): ThunkActionResult =>
+export const fetchSimilarFilmsAction = (id: number | string): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     try {
-      const filmSimilarPath = generatePath(APIRoute.SimilarFilms, {id});
+      const filmSimilarPath = generatePath(APIRoute.SimilarFilms, {
+        id: Number(id),
+      });
       const {data: serverSimilarFilms} = await api.get(filmSimilarPath);
       const filteredFilmsData = serverSimilarFilms.filter((film: Film) => film.id !== id);
       const filmsData = filteredFilmsData.map(adaptFilmToClient);
@@ -97,10 +100,12 @@ export const fetchSimilarFilmsAction = (id: number): ThunkActionResult =>
     }
   };
 
-export const fetchFilmCommentsAction = (id: number): ThunkActionResult =>
+export const fetchFilmCommentsAction = (id: number | string): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     try {
-      const filmPath = generatePath(APIRoute.FilmComments, {id});
+      const filmPath = generatePath(APIRoute.FilmComments, {
+        id: Number(id),
+      });
       const {data: serverFilmComments} = await api.get(filmPath);
 
       dispatch(loadFilmComments(serverFilmComments));
@@ -181,10 +186,13 @@ export const postFilmComment = (id: string, payload: CommmentPost): ThunkActionR
     }
   };
 
-export const postFavoriteFilm = (id: number, isFavorite: boolean): ThunkActionResult =>
+export const postFavoriteFilm = (id: number | string, isFavorite: boolean): ThunkActionResult =>
   async (dispatch, _getState, api) => {
-    const status = isFavorite ? 0 : 1;
-    const postFavoritePath = generatePath(APIRoute.PostFavorite, {id, status});
+    const status = Number(!isFavorite);
+    const postFavoritePath = generatePath(APIRoute.PostFavorite, {
+      id: Number(id),
+      status,
+    });
     dispatch(setIsFavoriteLoading(true));
 
     try {
@@ -197,7 +205,7 @@ export const postFavoriteFilm = (id: number, isFavorite: boolean): ThunkActionRe
 
 export const postPromoFavoriteFilm = (id: number, isFavorite: boolean): ThunkActionResult =>
   async (dispatch, _getState, api) => {
-    const status = isFavorite ? 0 : 1;
+    const status = Number(!isFavorite);
     const postFavoritePath = generatePath(APIRoute.PostFavorite, {id, status});
     dispatch(setIsPromoFavoriteLoading(true));
 

@@ -17,7 +17,7 @@ function FilmTabsReviews({title}: FilmTabsReviewsProps): JSX.Element {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    (dispatch as ThunkAppDispatch)(fetchFilmCommentsAction(+id));
+    (dispatch as ThunkAppDispatch)(fetchFilmCommentsAction(id));
   }, [dispatch, id]);
 
   const comments = filmComments?.map((comment) => <FilmComment key={comment.id} comment={comment} />);

@@ -38,7 +38,7 @@ function PromoFilmCard({
     if (authorizationStatus === AuthorizationStatus.Auth) {
       handleFavoriteChange(filmId, isFavorite);
     } else {
-      history.push(AppRoute.MyList);
+      history.push(AppRoute.SignIn);
     }
   };
 

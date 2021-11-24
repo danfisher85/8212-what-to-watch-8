@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import {useEffect} from 'react';
-import {Link, generatePath, useParams} from 'react-router-dom';
+import {Link, generatePath, useParams, useHistory} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import Logo from 'components/logo/logo';
 import Footer from 'components/footer/footer';
@@ -30,10 +30,14 @@ function FilmScreen(): JSX.Element {
   const {id: filmId} = useParams<{id: string}>();
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
-    dispatch(fetchCurrentFilmAction(+filmId));
-    dispatch(fetchSimilarFilmsAction(+filmId));
+    dispatch(fetchCurrentFilmAction(filmId));
+  }, [dispatch, filmId, isFavoriteLoading]);
+
+  useEffect(() => {
+    dispatch(fetchSimilarFilmsAction(filmId));
   }, [dispatch, filmId]);
 
   if (currentFilm === null) {
@@ -50,8 +54,14 @@ function FilmScreen(): JSX.Element {
     id: currentFilm.id,
   });
 
+  const isAuthorized = authorizationStatus === AuthorizationStatus.Auth;
+
   const handleFavoriteClick = () => {
-    dispatch(postFavoriteFilm(+filmId, isFavorite));
+    if (isAuthorized) {
+      dispatch(postFavoriteFilm(filmId, isFavorite));
+    } else {
+      history.push(AppRoute.SignIn);
+    }
   };
 
   return (
@@ -88,7 +98,7 @@ function FilmScreen(): JSX.Element {
                 >
                   {isFavorite ? <IconInList /> : <IconAdd />}
                 </button>
-                {authorizationStatus === AuthorizationStatus.Auth && (
+                {isAuthorized && (
                   <Link to={pathToAddReview} className="btn film-card__button">
                     Add review
                   </Link>

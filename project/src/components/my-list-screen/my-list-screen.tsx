@@ -14,7 +14,7 @@ function MyListScreen(): JSX.Element {
 
   useEffect(() => {
     dispatch(fetchFavoriteFilmsAction());
-  });
+  }, [dispatch]);
 
   return (
     <div className="user-page">

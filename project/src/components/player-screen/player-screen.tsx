@@ -48,7 +48,7 @@ function PlayerScreen(): JSX.Element {
       return;
     }
 
-    dispatch(fetchCurrentFilmAction(+filmId));
+    dispatch(fetchCurrentFilmAction(filmId));
   }, [filmId, film?.id, dispatch]);
 
   useEffect(() => {

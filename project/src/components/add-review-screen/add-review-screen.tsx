@@ -27,7 +27,7 @@ function AddReviewScreen(): JSX.Element {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    (dispatch as ThunkAppDispatch)(fetchCurrentFilmAction(+id));
+    (dispatch as ThunkAppDispatch)(fetchCurrentFilmAction(id));
   }, [dispatch, id]);
 
   if (authorizationStatus !== AuthorizationStatus.Auth) {

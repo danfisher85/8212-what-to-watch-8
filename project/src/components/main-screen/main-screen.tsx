@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import {useEffect, useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import Footer from 'components/footer/footer';
 import PromoFilmCard from 'components/promo-film-card/promo-film-card';
@@ -29,7 +29,7 @@ function MainScreen(): JSX.Element {
 
   useEffect(() => {
     dispatch(fetchPromoFilmAction());
-  });
+  }, [dispatch, isPromoFavoriteLoading]);
 
   const handleGenreClick = (genre: GenreName) => {
     dispatch(setLoadMoreFilms(0));
@@ -42,9 +42,12 @@ function MainScreen(): JSX.Element {
     dispatch(getFilmsByGenre(films, currentGenre, currentPage + 1));
   };
 
-  const handleFavoriteChange = (filmId: number, status: boolean) => {
-    dispatch(postPromoFavoriteFilm(filmId, status));
-  };
+  const handleFavoriteChange = useCallback(
+    (filmId: number, status: boolean) => {
+      dispatch(postPromoFavoriteFilm(filmId, status));
+    },
+    [dispatch],
+  );
 
   return (
     <>
