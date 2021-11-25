@@ -11,7 +11,7 @@
 
 /* Film Review */
 .review {
-  border-bottom-color: rgba(0,0,0,0.2);
+  border-bottom-color: rgba(0, 0, 0, 0.2);
 }
 
 /* Film Review Post */
@@ -21,10 +21,16 @@
   margin: 0;
 }
 .add-review__text {
-  background-color: rgba(255,255,255,0.12);
+  background-color: rgba(255, 255, 255, 0.12);
 }
 .add-review__btn {
-  color: rgba(0,0,0,0.5);
+  color: rgba(0, 0, 0, 0.5);
+}
+
+/* Button Loading */
+.btn--loading {
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 /* Loading Screen */

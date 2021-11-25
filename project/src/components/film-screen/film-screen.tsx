@@ -1,6 +1,7 @@
+import clsx from 'clsx';
 import {useEffect} from 'react';
-import {Link, generatePath, useParams} from 'react-router-dom';
-import {useDispatch} from 'react-redux';
+import {Link, generatePath, useParams, useHistory} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
 import Logo from 'components/logo/logo';
 import Footer from 'components/footer/footer';
 import UserBlock from 'components/user-block/user-block';
@@ -10,32 +11,40 @@ import FilmTabsOverview from 'components/film-tabs-overview/film-tabs-overview';
 import FilmTabsDetails from 'components/film-tabs-details/film-tabs-details';
 import FilmTabsReviews from 'components/film-tabs-reviews/film-tabs-reviews';
 import {AppRoute} from 'configs/routes';
-import {useTypedSelector} from 'hooks/useTypedSelector';
-import {ThunkAppDispatch} from 'types/action';
 import {fetchCurrentFilmAction, fetchSimilarFilmsAction} from 'store/api-actions';
 import {AuthorizationStatus} from 'configs/auth-status';
 import LoadingScreen from 'components/loading-screen/loading-screen';
 import {getAuthorizationStatus} from 'store/user-authorization/selectors';
-import {getCurrentFilm, getSimilarFilms} from 'store/current-film/selectors';
+import {getCurrentFilm, getIsFavoriteLoading, getSimilarFilms} from 'store/current-film/selectors';
+import IconPlay from 'components/icon-play/icon-play';
+import IconAdd from 'components/icon-add/icon-add';
+import IconInList from 'components/icon-inlist/icon-inlist';
+import {postFavoriteFilm} from 'store/api-actions';
 
 function FilmScreen(): JSX.Element {
-  const currentFilm = useTypedSelector(getCurrentFilm);
-  const similarFilms = useTypedSelector(getSimilarFilms);
-  const authorizationStatus = useTypedSelector(getAuthorizationStatus);
+  const currentFilm = useSelector(getCurrentFilm);
+  const isFavoriteLoading = useSelector(getIsFavoriteLoading);
+  const similarFilms = useSelector(getSimilarFilms);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
 
-  const {id} = useParams<{id: string}>();
+  const {id: filmId} = useParams<{id: string}>();
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
-    (dispatch as ThunkAppDispatch)(fetchCurrentFilmAction(+id));
-    (dispatch as ThunkAppDispatch)(fetchSimilarFilmsAction(+id));
-  }, [dispatch, id]);
+    dispatch(fetchCurrentFilmAction(filmId));
+  }, [dispatch, filmId, isFavoriteLoading]);
+
+  useEffect(() => {
+    dispatch(fetchSimilarFilmsAction(filmId));
+  }, [dispatch, filmId]);
 
   if (currentFilm === null) {
     return <LoadingScreen />;
   }
-  const {director, rating, scoresCount, description, starring, runTime, genre, released, backgroundColor} = currentFilm;
+  const {director, rating, scoresCount, description, actors, runTime, genre, released, backgroundColor, isFavorite} =
+    currentFilm;
 
   const pathToFilmPlayer = generatePath(AppRoute.Player, {
     id: currentFilm.id,
@@ -44,6 +53,16 @@ function FilmScreen(): JSX.Element {
   const pathToAddReview = generatePath(AppRoute.AddReview, {
     id: currentFilm.id,
   });
+
+  const isAuthorized = authorizationStatus === AuthorizationStatus.Auth;
+
+  const handleFavoriteClick = () => {
+    if (isAuthorized) {
+      dispatch(postFavoriteFilm(filmId, isFavorite));
+    } else {
+      history.push(AppRoute.SignIn);
+    }
+  };
 
   return (
     <>
@@ -70,18 +89,20 @@ function FilmScreen(): JSX.Element {
 
               <div className="film-card__buttons">
                 <Link to={pathToFilmPlayer} className="btn btn--play film-card__button">
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use href="#play-s"></use>
-                  </svg>
-                  <span>Play</span>
+                  <IconPlay />
                 </Link>
-                <Link to={AppRoute.MyList} className="btn btn--list film-card__button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use href="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                </Link>
-                {authorizationStatus === AuthorizationStatus.Auth && <Link to={pathToAddReview} className="btn film-card__button">Add review</Link>}
+                <button
+                  type="button"
+                  className={clsx(['btn btn--list film-card__button', {'btn--loading': isFavoriteLoading}])}
+                  onClick={handleFavoriteClick}
+                >
+                  {isFavorite ? <IconInList /> : <IconAdd />}
+                </button>
+                {isAuthorized && (
+                  <Link to={pathToAddReview} className="btn film-card__button">
+                    Add review
+                  </Link>
+                )}
               </div>
             </div>
           </div>
@@ -101,14 +122,14 @@ function FilmScreen(): JSX.Element {
                   scoresCount,
                   description,
                   director,
-                  starring,
+                  actors,
                 }}
               />
               <FilmTabsDetails
                 {...{
                   title: 'Details',
                   director,
-                  starring,
+                  actors,
                   runTime,
                   genre,
                   released,

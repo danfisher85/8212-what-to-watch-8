@@ -1,11 +1,10 @@
 import {Link, Redirect, useParams, generatePath} from 'react-router-dom';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {useEffect} from 'react';
 import Logo from 'components/logo/logo';
 import UserBlock from 'components/user-block/user-block';
 import AddReviewForm from 'components/add-review-form/add-review-form';
 import LoadingScreen from 'components/loading-screen/loading-screen';
-import {useTypedSelector} from 'hooks/useTypedSelector';
 import {AuthorizationStatus} from 'configs/auth-status';
 import {AppRoute} from 'configs/routes';
 import {ThunkAppDispatch} from 'types/action';
@@ -21,14 +20,14 @@ enum InitialValue {
 const INITIAL_COMMENT = '';
 
 function AddReviewScreen(): JSX.Element {
-  const currentFilm = useTypedSelector(getCurrentFilm);
-  const authorizationStatus = useTypedSelector(getAuthorizationStatus);
+  const currentFilm = useSelector(getCurrentFilm);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
 
   const {id} = useParams<{id: string}>();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    (dispatch as ThunkAppDispatch)(fetchCurrentFilmAction(+id));
+    (dispatch as ThunkAppDispatch)(fetchCurrentFilmAction(id));
   }, [dispatch, id]);
 
   if (authorizationStatus !== AuthorizationStatus.Auth) {

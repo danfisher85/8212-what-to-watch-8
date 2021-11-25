@@ -1,19 +1,18 @@
 import {useRef, FormEvent} from 'react';
 import {Redirect} from 'react-router-dom';
 import {AppRoute} from 'configs/routes';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import clsx from 'clsx';
 import {loginAction} from 'store/api-actions';
 import {AuthData} from 'types/auth-data';
-import {useTypedSelector} from 'hooks/useTypedSelector';
 import Logo from 'components/logo/logo';
 import Footer from 'components/footer/footer';
 import {AuthorizationStatus} from 'configs/auth-status';
 import {getAuthorizationStatus, getLoginError} from 'store/user-authorization/selectors';
 
 function SignInScreen(): JSX.Element {
-  const authorizationStatus = useTypedSelector(getAuthorizationStatus);
-  const loginError = useTypedSelector(getLoginError);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+  const loginError = useSelector(getLoginError);
 
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);

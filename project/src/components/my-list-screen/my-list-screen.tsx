@@ -1,12 +1,20 @@
-import {useTypedSelector} from 'hooks/useTypedSelector';
+import {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import Logo from 'components/logo/logo';
 import Footer from 'components/footer/footer';
 import UserBlock from 'components/user-block/user-block';
 import FilmsList from 'components/films-list/films-list';
 import {getFavoriteFilms} from 'store/favorite-films/selectors';
+import {fetchFavoriteFilmsAction} from 'store/api-actions';
 
 function MyListScreen(): JSX.Element {
-  const favoriteFilms = useTypedSelector(getFavoriteFilms);
+  const favoriteFilms = useSelector(getFavoriteFilms);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchFavoriteFilmsAction());
+  }, [dispatch]);
 
   return (
     <div className="user-page">

@@ -7,12 +7,7 @@ import {Provider} from 'react-redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import App from 'components/app/app';
 import {requireAuthorization} from 'store/action';
-import {
-  checkAuthAction,
-  fetchFilmsAction,
-  fetchFavoriteFilmsAction,
-  fetchPromoFilmAction
-} from 'store/api-actions';
+import {checkAuthAction, fetchFilmsAction} from 'store/api-actions';
 import {rootReducer} from 'store/root-reducer';
 import {ThunkAppDispatch} from 'types/action';
 import {AuthorizationStatus} from 'configs/auth-status';
@@ -24,10 +19,8 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api)), applyMiddleware(redirect)),
 );
 
-(store.dispatch as ThunkAppDispatch)(fetchPromoFilmAction());
 (store.dispatch as ThunkAppDispatch)(checkAuthAction());
 (store.dispatch as ThunkAppDispatch)(fetchFilmsAction());
-(store.dispatch as ThunkAppDispatch)(fetchFavoriteFilmsAction());
 
 ReactDOM.render(
   <React.StrictMode>

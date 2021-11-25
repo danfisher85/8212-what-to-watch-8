@@ -14,7 +14,7 @@ export const adaptFilmToClient = (serverFilm: ServerFilm): Film => ({
   rating: serverFilm['rating'],
   scoresCount: serverFilm['scores_count'],
   director: serverFilm['director'],
-  starring: serverFilm['starring'],
+  actors: serverFilm['starring'],
   runTime: serverFilm['run_time'],
   genre: serverFilm['genre'],
   released: serverFilm['released'],

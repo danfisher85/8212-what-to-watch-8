@@ -3,14 +3,18 @@ import {PromoFilmState} from 'types/state';
 
 const initialState = {
   promoFilm: null,
+  isPromoFavoriteLoading: false,
 };
 
 const promoFilmReducer = (state: PromoFilmState = initialState, action: Actions): PromoFilmState => {
-  if (action.type === ActionType.LoadPromoFilm) {
-    return {...state, promoFilm: action.payload};
+  switch (action.type) {
+    case ActionType.LoadPromoFilm:
+      return {...state, promoFilm: action.payload};
+    case ActionType.SetIsPromoFavoriteLoading:
+      return {...state, isPromoFavoriteLoading: action.payload};
+    default:
+      return state;
   }
-
-  return state;
 };
 
 export {promoFilmReducer};
