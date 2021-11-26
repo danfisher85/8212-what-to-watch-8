@@ -33,6 +33,7 @@ import {Film} from 'types/film';
 import {CommmentPost} from 'types/comment';
 import {CommentMessage} from 'types/comment-message';
 import {AuthMessage} from 'types/auth-message';
+import {DataMessage} from 'types/data-message';
 
 const TOAST_AUTOCLOSE_TIMEOUT = 3000;
 
@@ -57,7 +58,7 @@ export const fetchFavoriteFilmsAction = (): ThunkActionResult =>
 
       dispatch(loadFavoriteFilms(filmsData));
     } catch (error) {
-      // toast.info(AuthMessage.FAIL_SIGNED);
+      toast.error(DataMessage.FavoriteFilmsFailed);
     }
   };
 
@@ -96,7 +97,7 @@ export const fetchSimilarFilmsAction = (id: number | string): ThunkActionResult 
 
       dispatch(loadSimilarFilms(filmsData));
     } catch (error) {
-      // toast.info(AuthMessage.FAIL_SIGNED);
+      toast.error(DataMessage.SimilarFilmsFailed);
     }
   };
 
@@ -110,7 +111,7 @@ export const fetchFilmCommentsAction = (id: number | string): ThunkActionResult 
 
       dispatch(loadFilmComments(serverFilmComments));
     } catch (error) {
-      // toast.info(AuthMessage.FAIL_SIGNED);
+      toast.error(DataMessage.FilmCommentsFailed);
     }
   };
 
@@ -127,7 +128,7 @@ export const checkAuthAction = (): ThunkActionResult =>
       dispatch(requireAuthorization(AuthorizationStatus.Auth));
       dispatch(loadUserInfo(userInfo));
     } catch (error) {
-      toast.error(AuthMessage.FAIL_SIGNED);
+      toast.error(AuthMessage.FailSigned);
     }
   };
 
@@ -146,9 +147,9 @@ export const loginAction = ({email, password}: AuthData): ThunkActionResult =>
       dispatch(redirectToRoute(AppRoute.Root));
     } catch (error) {
       if (error instanceof Error) {
-        dispatch(userLoginError(AuthMessage.FAIL_EMAIL));
+        dispatch(userLoginError(AuthMessage.FailEmail));
       } else {
-        toast.error(AuthMessage.FAIL_UNKNOWN);
+        toast.error(AuthMessage.FailUnknown);
       }
     }
   };
@@ -166,13 +167,13 @@ export const postFilmComment = (id: string, payload: CommmentPost): ThunkActionR
     const filmPath = generatePath(AppRoute.Film, {id});
 
     dispatch(isCommentPosting(true));
-    toast.info(CommentMessage.POST_PROCESSING);
+    toast.info(CommentMessage.PostProcess);
 
     try {
       await api.post<{token: Token}>(postCommentPath, payload);
 
       toast.dismiss();
-      toast.success(CommentMessage.POST_SUCCESS, {autoClose: TOAST_AUTOCLOSE_TIMEOUT});
+      toast.success(CommentMessage.PostSuccess, {autoClose: TOAST_AUTOCLOSE_TIMEOUT});
 
       setTimeout(() => {
         dispatch(redirectToRoute(filmPath));
@@ -181,7 +182,7 @@ export const postFilmComment = (id: string, payload: CommmentPost): ThunkActionR
 
     } catch (error) {
       toast.dismiss();
-      toast.error(CommentMessage.POST_FAIL);
+      toast.error(CommentMessage.PostFail);
       dispatch(isCommentPosting(false));
     }
   };
