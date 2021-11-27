@@ -4,7 +4,7 @@ function IconInList(): JSX.Element {
       <svg viewBox="0 0 18 14" width="18" height="14">
         <use href="#in-list"></use>
       </svg>
-      <span>My list</span>
+      <span>Added To My list</span>
     </>
   );
 }

@@ -4,7 +4,7 @@ function IconAdd(): JSX.Element {
       <svg viewBox="0 0 19 20" width="19" height="20">
         <use href="#add"></use>
       </svg>
-      <span>My list</span>
+      <span>Add To My list</span>
     </>
   );
 }
