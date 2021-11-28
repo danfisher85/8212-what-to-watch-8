@@ -66,7 +66,11 @@ function FilmScreen(): JSX.Element {
 
   return (
     <>
-      <section className="film-card film-card--full" style={{backgroundColor: backgroundColor}}>
+      <section
+        className="film-card film-card--full"
+        style={{backgroundColor: backgroundColor}}
+        data-testid="Single Film"
+      >
         <div className="film-card__hero">
           <div className="film-card__bg">
             <img src={currentFilm.backgroundImage} alt={currentFilm.name} />

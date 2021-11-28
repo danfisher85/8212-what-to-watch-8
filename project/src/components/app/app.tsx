@@ -1,5 +1,5 @@
 import {useSelector} from 'react-redux';
-import {Switch, Route, Router} from 'react-router-dom';
+import {Switch, Route} from 'react-router-dom';
 import {AppRoute} from 'configs/routes';
 import PrivateRoute from 'components/private-route/private-route';
 import MainScreen from 'components/main-screen/main-screen';
@@ -11,7 +11,6 @@ import AddReviewScreen from 'components/add-review-screen/add-review-screen';
 import NotFoundScreen from 'components/not-found-screen/not-found-screen';
 import LoadingScreen from 'components/loading-screen/loading-screen';
 import {isCheckedAuth} from 'utils/user';
-import browserHistory from 'browser-history';
 import {getIsDataLoaded} from 'store/catalog-films/selectors';
 import {getAuthorizationStatus} from 'store/user-authorization/selectors';
 import {ToastContainer} from 'react-toastify';
@@ -26,23 +25,21 @@ function App(): JSX.Element {
   }
 
   return (
-    <Router history={browserHistory}>
-      <Switch>
-        <Route exact path={AppRoute.Root} component={MainScreen} />
-        <Route exact path={AppRoute.SignIn}>
-          <ToastContainer />
-          <SignInScreen />
-        </Route>
-        <PrivateRoute exact path={AppRoute.MyList} component={MyListScreen} />
-        <Route exact path={AppRoute.Player} component={PlayerScreen} />
-        <Route exact path={AppRoute.Film} component={FilmScreen} />
-        <Route exact path={AppRoute.AddReview}>
-          <ToastContainer />
-          <AddReviewScreen />
-        </Route>
-        <Route component={NotFoundScreen} />
-      </Switch>
-    </Router>
+    <Switch>
+      <Route exact path={AppRoute.Root} component={MainScreen} />
+      <Route exact path={AppRoute.SignIn}>
+        <ToastContainer />
+        <SignInScreen />
+      </Route>
+      <PrivateRoute exact path={AppRoute.MyList} component={MyListScreen} />
+      <Route exact path={AppRoute.Player} component={PlayerScreen} />
+      <Route exact path={AppRoute.Film} component={FilmScreen} />
+      <Route exact path={AppRoute.AddReview}>
+        <ToastContainer />
+        <AddReviewScreen />
+      </Route>
+      <Route component={NotFoundScreen} />
+    </Switch>
   );
 }
 
