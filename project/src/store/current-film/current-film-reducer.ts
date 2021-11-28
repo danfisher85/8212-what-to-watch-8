@@ -1,7 +1,7 @@
 import {Actions, ActionType} from 'types/action';
 import {FilmState} from 'types/state';
 
-const initialState = {
+export const initialState = {
   currentFilm: null,
   similarFilms: [],
   filmComments: [],

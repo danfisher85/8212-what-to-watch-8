@@ -1,7 +1,7 @@
 import {Actions, ActionType} from 'types/action';
 import {CatalogState} from 'types/state';
 
-const initialState = {
+export const initialState = {
   filteredFilms: [],
   films: [],
   currentPage: 1,

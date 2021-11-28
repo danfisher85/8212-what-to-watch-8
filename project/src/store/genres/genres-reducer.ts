@@ -2,7 +2,7 @@ import {Actions, ActionType} from 'types/action';
 import {Genres} from 'types/state';
 import {ALL_GENRES_ITEM} from 'store/current-genre';
 
-const initialState: Genres = {
+export const initialState: Genres = {
   currentGenre: ALL_GENRES_ITEM,
   genres: [],
 };

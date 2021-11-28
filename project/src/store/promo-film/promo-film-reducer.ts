@@ -1,7 +1,7 @@
 import {Actions, ActionType} from 'types/action';
 import {PromoFilmState} from 'types/state';
 
-const initialState = {
+export const initialState = {
   promoFilm: null,
   isPromoFavoriteLoading: false,
 };
