@@ -3,8 +3,9 @@ import {setDataLoaded, setFilmsByPage, getFilmsByGenre, setLoadMoreFilms, setFil
 import {filterFilmsByGenre} from 'utils/film';
 import {FILM_PER_PAGE} from 'store/film-per-page';
 
-import {films} from 'fixtures/film';
+import {createFakeFilms} from 'fixtures/film';
 
+const fakeFilms = createFakeFilms();
 const CURRENT_GENRE = 'Comedy';
 const CURRENT_PAGE = 2;
 
@@ -19,26 +20,26 @@ describe('Reducer: catalogFilmsReducer', () => {
   });
 
   it('should set all films', () => {
-    expect(catalogFilmsReducer(initialState, setFilms(films)))
+    expect(catalogFilmsReducer(initialState, setFilms(fakeFilms)))
       .toEqual({
         ...initialState,
-        films: films,
+        films: fakeFilms,
       });
   });
 
   it('should set initial films', () => {
-    expect(catalogFilmsReducer(initialState, setFilmsByPage(films)))
+    expect(catalogFilmsReducer(initialState, setFilmsByPage(fakeFilms)))
       .toEqual({
         ...initialState,
-        filteredFilms: films,
+        filteredFilms: fakeFilms,
       });
   });
 
   it('should get films by genre', () => {
-    expect(catalogFilmsReducer(initialState, getFilmsByGenre(films, CURRENT_GENRE, CURRENT_PAGE)))
+    expect(catalogFilmsReducer(initialState, getFilmsByGenre(fakeFilms, CURRENT_GENRE, CURRENT_PAGE)))
       .toEqual({
         ...initialState,
-        filteredFilms: filterFilmsByGenre(films, CURRENT_GENRE).slice(0, CURRENT_PAGE * FILM_PER_PAGE),
+        filteredFilms: filterFilmsByGenre(fakeFilms, CURRENT_GENRE).slice(0, CURRENT_PAGE * FILM_PER_PAGE),
       });
   });
 

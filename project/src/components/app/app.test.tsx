@@ -8,8 +8,11 @@ import {AuthorizationStatus} from 'configs/auth-status';
 import {AppRoute} from 'configs/routes';
 import App from 'components/app/app';
 
-import {promoFilm, films} from 'fixtures/film';
+import {createFakeFilm, createFakeFilms} from 'fixtures/film';
 import {comments} from 'fixtures/comment';
+
+const fakeFilm = createFakeFilm();
+const fakeFilms = createFakeFilms();
 
 const TEST_FILM_ID = 4;
 
@@ -17,21 +20,21 @@ const mockStore = configureMockStore();
 
 const storeAuthorized = mockStore({
   CATALOG: {
-    filteredFilms: films,
-    films: films,
+    filteredFilms: fakeFilms,
+    films: fakeFilms,
     currentPage: 1,
     isDataLoaded: true,
   },
   PROMO: {
-    promoFilm: promoFilm,
+    promoFilm: fakeFilm,
     isPromoFavoriteLoading: false,
   },
   FAVORITE: {
-    favoriteFilms: films,
+    favoriteFilms: fakeFilms,
   },
   CURRENT: {
-    currentFilm: promoFilm,
-    similarFilms: films,
+    currentFilm: fakeFilm,
+    similarFilms: fakeFilms,
     filmComments: comments,
     isCurrentFilmLoaded: true,
     isCommentPosting: false,
@@ -55,21 +58,21 @@ const storeAuthorized = mockStore({
 
 const storeNotAuthorized = mockStore({
   CATALOG: {
-    filteredFilms: films,
-    films: films,
+    filteredFilms: fakeFilms,
+    films: fakeFilms,
     currentPage: 1,
     isDataLoaded: true,
   },
   PROMO: {
-    promoFilm: promoFilm,
+    promoFilm: fakeFilm,
     isPromoFavoriteLoading: false,
   },
   FAVORITE: {
-    favoriteFilms: films,
+    favoriteFilms: fakeFilms,
   },
   CURRENT: {
-    currentFilm: promoFilm,
-    similarFilms: films,
+    currentFilm: fakeFilm,
+    similarFilms: fakeFilms,
     filmComments: comments,
     isCurrentFilmLoaded: true,
     isCommentPosting: false,

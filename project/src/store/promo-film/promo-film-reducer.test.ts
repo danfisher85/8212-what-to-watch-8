@@ -1,9 +1,9 @@
 import {promoFilmReducer} from 'store/promo-film/promo-film-reducer';
 import {loadPromoFilm, setIsPromoFavoriteLoading} from 'store/action';
 import {initialState} from 'store/promo-film/promo-film-reducer';
-import {promoFilm} from 'fixtures/film';
+import {createFakeFilm} from 'fixtures/film';
 
-const promoFilmFixture = promoFilm;
+const promoFilmFixture = createFakeFilm();
 
 describe('Reducer: promoFilmReducer', () => {
 
