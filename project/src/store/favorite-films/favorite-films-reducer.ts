@@ -1,7 +1,7 @@
 import {Actions, ActionType} from 'types/action';
 import {FavoriteFilmsState} from 'types/state';
 
-const initialState = {
+export const initialState = {
   favoriteFilms: [],
 };
 

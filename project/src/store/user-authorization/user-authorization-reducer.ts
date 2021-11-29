@@ -2,7 +2,7 @@ import {Actions, ActionType} from 'types/action';
 import {UserAuthorization} from 'types/state';
 import {AuthorizationStatus} from 'configs/auth-status';
 
-const initialState: UserAuthorization = {
+export const initialState: UserAuthorization = {
   authorizationStatus: AuthorizationStatus.Unknown,
   userInfo: {
     id: 0,
