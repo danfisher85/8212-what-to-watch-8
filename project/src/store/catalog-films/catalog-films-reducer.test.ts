@@ -5,7 +5,6 @@ import {FILM_PER_PAGE} from 'store/film-per-page';
 
 import {createFakeFilms} from 'fixtures/film';
 
-const fakeFilms = createFakeFilms();
 const CURRENT_GENRE = 'Comedy';
 const CURRENT_PAGE = 2;
 
@@ -20,6 +19,8 @@ describe('Reducer: catalogFilmsReducer', () => {
   });
 
   it('should set all films', () => {
+    const fakeFilms = createFakeFilms();
+
     expect(catalogFilmsReducer(initialState, setFilms(fakeFilms)))
       .toEqual({
         ...initialState,
@@ -28,6 +29,8 @@ describe('Reducer: catalogFilmsReducer', () => {
   });
 
   it('should set initial films', () => {
+    const fakeFilms = createFakeFilms();
+
     expect(catalogFilmsReducer(initialState, setFilmsByPage(fakeFilms)))
       .toEqual({
         ...initialState,
@@ -36,6 +39,8 @@ describe('Reducer: catalogFilmsReducer', () => {
   });
 
   it('should get films by genre', () => {
+    const fakeFilms = createFakeFilms();
+
     expect(catalogFilmsReducer(initialState, getFilmsByGenre(fakeFilms, CURRENT_GENRE, CURRENT_PAGE)))
       .toEqual({
         ...initialState,

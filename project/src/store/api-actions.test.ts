@@ -45,8 +45,13 @@ describe('Async actions', () => {
     ThunkDispatch<State, typeof api, Action>
   >(middlewares);
 
+  let store: ReturnType<typeof mockStore>;
+
+  beforeEach(() => {
+    store = mockStore();
+  });
+
   it('should fetch films data and sets films initial', async () => {
-    const store = mockStore();
     mockAPI
       .onGet(APIRoute.Films)
       .reply(200, fakeServerFilms);
@@ -62,7 +67,6 @@ describe('Async actions', () => {
   });
 
   it('should fetch favorite films', async () => {
-    const store = mockStore();
     mockAPI
       .onGet(APIRoute.Favorite)
       .reply(200, fakeServerFilms);
@@ -75,7 +79,6 @@ describe('Async actions', () => {
   });
 
   it('should fetch promo film', async () => {
-    const store = mockStore();
     mockAPI
       .onGet(APIRoute.Promo)
       .reply(200, fakeServerFilm);
@@ -88,7 +91,6 @@ describe('Async actions', () => {
   });
 
   it('should fetch current film', async () => {
-    const store = mockStore();
     mockAPI
       .onGet(`/films/${fakeFilmId}`)
       .reply(200, fakeServerFilm);
@@ -101,7 +103,6 @@ describe('Async actions', () => {
   });
 
   it('should fetch similar films', async () => {
-    const store = mockStore();
     mockAPI
       .onGet(`/films/${fakeFilmId}/similar`)
       .reply(200, fakeServerFilms);
@@ -114,7 +115,6 @@ describe('Async actions', () => {
   });
 
   it('should fetch film comments', async () => {
-    const store = mockStore();
     mockAPI
       .onGet(`/comments/${fakeFilmId}`)
       .reply(200, comments);

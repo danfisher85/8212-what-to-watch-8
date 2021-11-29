@@ -17,7 +17,8 @@ const GENRES: Array<GenreName> = [
 describe('Reducer: genresReducer', () => {
 
   it('should change genre', () => {
-    expect(genresReducer(initialState, changeGenre(CURRENT_GENRE)))
+    const currentGenre = changeGenre(CURRENT_GENRE);
+    expect(genresReducer(initialState, currentGenre))
       .toEqual({
         ...initialState,
         currentGenre: CURRENT_GENRE,
@@ -25,7 +26,8 @@ describe('Reducer: genresReducer', () => {
   });
 
   it('should set film genres', () => {
-    expect(genresReducer(initialState, setGenres(GENRES)))
+    const genreData = setGenres(GENRES);
+    expect(genresReducer(initialState, genreData))
       .toEqual({
         ...initialState,
         genres: GENRES,
